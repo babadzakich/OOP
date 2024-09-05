@@ -51,18 +51,18 @@ class MainTest {
 
     @Test
     void checkSortedArray() {
-        int[] expected = new int[] {1,2,3,4,5,6};
+        int[] expected = new int[] {1, 2, 3, 4, 5, 6};
 
-        int[] actual = Main.heapsort(new int[] {1,2,3,4,5,6});
+        int[] actual = Main.heapsort(new int[] {1, 2, 3, 4, 5, 6});
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void checkReverseSortedArray() {
-        int[] expected = new int[] {1,2,3,4,5,6};
+        int[] expected = new int[] {1, 2, 3, 4, 5, 6};
 
-        int[] actual = Main.heapsort(new int[] {6,5,4,3,2,1});
+        int[] actual = Main.heapsort(new int[] {6, 5, 4, 3, 2, 1});
 
         assertArrayEquals(expected, actual);
     }
