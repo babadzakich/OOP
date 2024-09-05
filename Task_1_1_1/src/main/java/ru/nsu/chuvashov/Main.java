@@ -1,13 +1,18 @@
 package ru.nsu.chuvashov;
 
-
 import java.io.Console;
 import java.util.Arrays;
 
+/**
+ * Реализация пирамидальной сортировки
+ * Класс Main с методами heapsort, heapify
+ *
+ * @author Чувашов Артём
+ */
 public class Main {
 
     /**
-     * Мы смотрим на предпоследний уровень дерева(у всех элементов i > n/2-1 - i * 2 + 1 > n (не может быть потомкав)
+     * Мы смотрим на предпоследний уровень дерева(у всех элементов i более n/2-1 - i * 2 + 1 более n (не может быть потомком)
      * Потом начинаем сортировать с помощью heapify
      *
      * @param arr сортирующийся массив
@@ -32,7 +37,7 @@ public class Main {
     }
 
     /**
-     * мы смотрим на вершину и на её потомков, если максимум из потомков юольше вершины, то свапаем из, и делаеи так,
+     * Мы смотрим на вершину и на её потомков, если максимум из потомков больше вершины, то свапаем из, и делаем так,
      * пока вершина не станет листом или пока максимум её детей не станет меньше вершины
      *
      * @param arr - сортирующийся массив
@@ -62,21 +67,25 @@ public class Main {
 
     }
 
+    /**
+     * Функция для запуска скомпилированного приложения
+     * @param args - базовый параметр
+     */
     public static void main(String[] args) {
-        Console consl = System.console();
-        String[] conslInp;
+        Console console = System.console();
+        String[] consulIn;
 
-        if (consl == null){
-            conslInp = new String[]{"0"};
+        if (console == null){
+            consulIn = new String[]{"0"};
         }
         else{
-            conslInp = System.console().readLine().split(" ");
+            consulIn = System.console().readLine().split(" ");
         }
 
-        int[] inArr = new int[conslInp.length];
+        int[] inArr = new int[consulIn.length];
 
-        for (int i = 0; i < conslInp.length; i++) {
-            inArr[i] = Integer.parseInt(conslInp[i]);
+        for (int i = 0; i < consulIn.length; i++) {
+            inArr[i] = Integer.parseInt(consulIn[i]);
         }
 
         int[] res = Main.heapsort(inArr);
