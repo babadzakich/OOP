@@ -80,8 +80,7 @@ public class Main {
 
         if (console == null) {
             consulIn = new String[] {"0"};
-        }
-        else{
+        } else {
             consulIn = System.console().readLine().split(" ");
         }
 
