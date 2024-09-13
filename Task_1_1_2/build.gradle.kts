@@ -1,8 +1,9 @@
 plugins {
     id("java")
+    id("jacoco")
 }
 
-group = "org.example"
+group = "ru.nsu.chuvashov"
 version = "1.0-SNAPSHOT"
 
 repositories {
