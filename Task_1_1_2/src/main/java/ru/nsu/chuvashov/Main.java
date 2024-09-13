@@ -144,7 +144,7 @@ class Game {
             input = working_input();
             if (input == 0) { break; }
             Deck.draw_cards(player);
-            System.out.println("Вы открыли карту " + player.getLast());
+            System.out.println("Вы открыли карту " + player.get(player.size() - 1));
             int res = calculate_points(player);
             get_round_info(closed_card);
             if (res != 0) {
@@ -166,11 +166,11 @@ class Game {
         closed_card = false;
         System.out.println("Ход диллера");
         System.out.println("-------");
-        System.out.println("Диллер открывает закрытую карту " + dealer.getLast());
+        System.out.println("Диллер открывает закрытую карту " + dealer.get(dealer.size() - 1));
         get_round_info(closed_card);
-        while (dealer.getFirst().summary < 17) {
+        while (dealer.get(0).summary < 17) {
             Deck.draw_cards(dealer);
-            System.out.println("Диллер открыл карту " + dealer.getLast());
+            System.out.println("Диллер открыл карту " + dealer.get(dealer.size() - 1));
             get_round_info(closed_card);
         }
         return calculate_points(dealer);
@@ -204,10 +204,10 @@ class Game {
     private static int calculate_points(ArrayList<Card> player) {
         int sum = Deck.get_points(player);
         while (sum > 21) {
-            if (!player.getFirst().aces.isEmpty()) {
-                player.get(player.getFirst().aces.getFirst()).value = 1;
-                player.getFirst().aces.removeFirst();
-                player.getFirst().summary -= 10;
+            if (!player.get(0).aces.isEmpty()) {
+                player.get(player.get(0).aces.get(0)).value = 1;
+                player.get(0).aces.removeFirst();
+                player.get(0).summary -= 10;
                 sum = Deck.get_points((player));
             } else {
                 return -1;
@@ -230,7 +230,7 @@ class Game {
     private static void get_round_info(boolean closed_card) {
         System.out.println("Карты игрока: " + player.toString() + " => " + Deck.get_points(player));
         if (closed_card) {
-            System.out.println("Карты Дилера: " + "[" + dealer.getFirst().toString() + ", <закрытая карта>]\n");
+            System.out.println("Карты Дилера: " + "[" + dealer.get(0).toString() + ", <закрытая карта>]\n");
         } else {
             System.out.println("Карты Дилера: " + dealer.toString() + " => " + Deck.get_points(dealer) + "\n");
         }
@@ -274,10 +274,10 @@ class Deck {
      */
     public static void draw_cards(ArrayList<Card> player) {
         player.add(deck.get(deck_card_index++));
-        if (player.getLast().value == 11) {
-            player.getFirst().aces.add(player.size()-1);
+        if (player.get(player.size() - 1).value == 11) {
+            player.get(0).aces.add(player.size() - 1);
         }
-        player.getFirst().summary += player.getLast().value;
+        player.get(0).summary += player.get(player.size() - 1).value;
     }
 
     /**
@@ -288,14 +288,14 @@ class Deck {
      */
     public static void create_small_deck(ArrayList<Card> player) {
         player.add(deck.get(deck_card_index++));
-        if (player.getLast().value == 11) {
-            player.getFirst().aces.add(player.size()-1);
+        if (player.get(player.size() - 1).value == 11) {
+            player.get(0).aces.add(player.size()-1);
         }
         player.add(deck.get(deck_card_index++));
-        if (player.getLast().value == 11) {
-            player.getFirst().aces.add(player.size()-1);
+        if (player.get(player.size() - 1).value == 11) {
+            player.get(0).aces.add(player.size()-1);
         }
-        player.getFirst().summary += player.getLast().value;
+        player.get(0).summary += player.get(player.size() - 1).value;
     }
 
     /**
@@ -303,7 +303,7 @@ class Deck {
      * @return points of a player.
      */
     public static int get_points(ArrayList<Card> player) {
-        return player.getFirst().summary;
+        return player.get(0).summary;
     }
 }
 
