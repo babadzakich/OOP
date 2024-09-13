@@ -17,7 +17,7 @@ public class Main {
      *
      * @param args empty.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Game game = new Game();
         game.BlackJack();
     }
@@ -27,14 +27,17 @@ public class Main {
  * Class for main logic behind the game.
  */
 class Game {
-    private static int round, player_score, dealer_score;
+    private static int round;
+    private static int player_score;
+    private static int dealer_score;
     private static boolean closed_card;
-    static ArrayList<Card> player = new ArrayList<>(), dealer = new ArrayList<>();
+    static ArrayList<Card> player = new ArrayList<>();
+    static ArrayList<Card> dealer = new ArrayList<>();
 
     /**
      * Starter of game.
      */
-    public void BlackJack() {
+    public void blackJack() {
         System.out.println("Добро пожаловать в Блэкджек!");
         round = 1;
         player_score = dealer_score = 0;
@@ -46,44 +49,44 @@ class Game {
      * Round logic with start, player move, dealer move and resolve.
      */
     private static void round() {
-        int result_of_game;
+        int resultOfGame;
         while (abs(player_score - dealer_score) < 3) {
-            result_of_game = round_start();
-            if (result_of_game > 0) {
+            resultOfGame = round_start();
+            if (resultOfGame > 0) {
                 System.out.println("Победили Русские!!!!!!\n");
                 player_score++;
                 end_round();
                 continue;
             }
-            result_of_game = player_move();
-            if (result_of_game > 0) {
+            resultOfGame = player_move();
+            if (resultOfGame > 0) {
                 System.out.println("Игрок набрал Блэкджек!\n");
                 player_score++;
                 end_round();
                 continue;
-            } else if (result_of_game < 0) {
+            } else if (resultOfGame < 0) {
                 System.out.println("Перебор, Дилер победил\n");
                 dealer_score++;
                 end_round();
                 continue;
             }
-            result_of_game = dealer_move();
-            if (result_of_game < 0) {
+            resultOfGame = dealer_move();
+            if (resultOfGame < 0) {
                 System.out.println("Перебор, победил игрок\n");
                 player_score++;
                 end_round();
-            } else if (result_of_game > 0) {
+            } else if (resultOfGame > 0) {
                 System.out.println("Диллер собрал Блэкджек, он победил!\n");
-                dealer_score ++;
+                dealer_score++;
                 end_round();
             } else {
                 if (Deck.get_points(player) < Deck.get_points(dealer)) {
                     System.out.println("Диллер набрал больше, он победил!\n");
-                    dealer_score ++;
+                    dealer_score++;
                     end_round();
                 } else if (Deck.get_points(player) > Deck.get_points(dealer)) {
                     System.out.println("Игрок набрал больше, он победил!\n");
-                    player_score ++;
+                    player_score++;
                     end_round();
                 } else {
                     System.out.println("Игрок и Диллер набрали одинаково, получилась ничья!\n");
