@@ -206,7 +206,7 @@ class Game {
         while (sum > 21) {
             if (!player.get(0).aces.isEmpty()) {
                 player.get(player.get(0).aces.get(0)).value = 1;
-                player.get(0).aces.removeFirst();
+                player.get(0).aces.remove(0);
                 player.get(0).summary -= 10;
                 sum = Deck.get_points((player));
             } else {
