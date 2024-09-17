@@ -66,6 +66,8 @@ class Deck {
     }
 
     /**
+     * We return the number of player points.
+     *
      * @param player deck which points we get.
      * @return points of a player.
      */

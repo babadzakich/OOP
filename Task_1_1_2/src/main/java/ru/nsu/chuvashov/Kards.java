@@ -34,7 +34,7 @@ enum Kards {
     }
 
     /**
-     * Converting enum to string
+     * Converting enum to string.
      *
      * @return string representation of cards.
      */

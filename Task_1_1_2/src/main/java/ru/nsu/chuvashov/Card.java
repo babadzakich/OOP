@@ -31,7 +31,7 @@ class Card {
     }
 
     /**
-     * String convertor
+     * String convertor.
      *
      * @return string card representation.
      */
