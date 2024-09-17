@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.bj;
 
 /**
  * An enum for Cards representation.

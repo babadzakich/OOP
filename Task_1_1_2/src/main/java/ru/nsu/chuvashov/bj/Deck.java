@@ -1,4 +1,7 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.bj;
+
+import ru.nsu.chuvashov.bj.Kards;
+import ru.nsu.chuvashov.bj.Mast;
 
 import java.util.ArrayList;
 import java.util.Collections;

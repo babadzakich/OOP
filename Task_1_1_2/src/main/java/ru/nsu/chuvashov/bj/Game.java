@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.bj;
 
 import static java.lang.Math.abs;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * Class for main logic behind the game.
  */
-class Game {
+public class Game {
 
     private static int round;
     private static int playerScore;
@@ -17,14 +17,17 @@ class Game {
     static ArrayList<Card> player = new ArrayList<>();
     static ArrayList<Card> dealer = new ArrayList<>();
 
-    /**
-     * Starter of game.
-     */
-    public void blackJack() {
+    public Game() {
         System.out.println("Добро пожаловать в Блэкджек!");
         round = 1;
         playerScore = dealerScore = 0;
         Deck.createBigDeck();
+    }
+
+    /**
+     * Starter of game.
+     */
+    public void blackJack() {
         Game.round();
     }
 

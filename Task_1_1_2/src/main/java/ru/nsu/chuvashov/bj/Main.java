@@ -1,4 +1,6 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.bj;
+
+import ru.nsu.chuvashov.bj.Game;
 
 /**
  * Blackjack implementation.

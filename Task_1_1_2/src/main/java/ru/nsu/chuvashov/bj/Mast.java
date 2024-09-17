@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.bj;
 
 /**
  * An enum for Masti of cards.
@@ -13,7 +13,7 @@ enum Mast {
     final String name;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param name - mast` of card.
      */
@@ -22,6 +22,8 @@ enum Mast {
     }
 
     /**
+     * String Convertor.
+     *
      * @return string representation of mast`.
      */
     public String toString() {
