@@ -13,7 +13,7 @@ class GameTest {
         InputStream inapt = System.in;
 
         try {
-            ByteArrayInputStream in = new ByteArrayInputStream("0\n".getBytes());
+            ByteArrayInputStream in = new ByteArrayInputStream("1\n0\n".getBytes());
             System.setIn(in);
             Game game = new Game();
             game.blackJack();
