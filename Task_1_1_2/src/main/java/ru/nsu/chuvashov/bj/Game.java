@@ -17,6 +17,9 @@ public class Game {
     static ArrayList<Card> player = new ArrayList<>();
     static ArrayList<Card> dealer = new ArrayList<>();
 
+    /**
+     * Constructor for GAME class.
+     */
     public Game() {
         System.out.println("Добро пожаловать в Блэкджек!");
         round = 1;

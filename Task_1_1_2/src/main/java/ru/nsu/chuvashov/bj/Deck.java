@@ -1,10 +1,9 @@
 package ru.nsu.chuvashov.bj;
 
-import ru.nsu.chuvashov.bj.Kards;
-import ru.nsu.chuvashov.bj.Mast;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import ru.nsu.chuvashov.bj.Kards;
+import ru.nsu.chuvashov.bj.Mast;
 
 /**
  * class that represents deck.

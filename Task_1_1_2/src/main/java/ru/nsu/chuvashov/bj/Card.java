@@ -1,9 +1,8 @@
 package ru.nsu.chuvashov.bj;
 
+import java.util.ArrayList;
 import ru.nsu.chuvashov.bj.Kards;
 import ru.nsu.chuvashov.bj.Mast;
-
-import java.util.ArrayList;
 
 /**
  * Class for Card representation,
