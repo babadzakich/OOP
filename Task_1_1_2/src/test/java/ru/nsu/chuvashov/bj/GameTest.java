@@ -16,7 +16,7 @@ class GameTest {
             ByteArrayInputStream in = new ByteArrayInputStream("1\n0\n".getBytes());
             System.setIn(in);
             Game game = new Game();
-            game.blackJack();
+            game.blackJack(false);
 
             assertTrue(true);
         } catch (Exception e) {

@@ -30,14 +30,14 @@ public class Game {
     /**
      * Starter of game.
      */
-    public void blackJack() {
-        Game.round();
+    public void blackJack(Boolean flag) {
+        Game.round(flag);
     }
 
     /**
      * Round logic with start, player move, dealer move and resolve.
      */
-    private static void round() {
+    private static void round(boolean flag) {
         int resultOfGame;
         while (abs(playerScore - dealerScore) < 3) {
             resultOfGame = roundStart();
@@ -47,7 +47,13 @@ public class Game {
                 endRound();
                 continue;
             }
-            resultOfGame = playerMove();
+            if (flag) {
+                resultOfGame = realPlayerMove();
+            } else {
+                resultOfGame = computerPlayerMove();
+            }
+
+
             if (resultOfGame > 0) {
                 System.out.println("Игрок набрал Блэкджек!\n");
                 playerScore++;
@@ -127,7 +133,7 @@ public class Game {
      *
      * @return resolve for player move
      */
-    private static int playerMove() {
+    private static int realPlayerMove() {
         int input;
         System.out.println("Ваш Ход");
         System.out.println("-------");
@@ -168,6 +174,18 @@ public class Game {
             getRoundInfo(closedCard);
         }
         return calculatePoints(dealer);
+    }
+
+    private static int computerPlayerMove() {
+        System.out.println("Ваш ход");
+        System.out.println("-------");
+        getRoundInfo(closedCard);
+        while (player.get(0).summary < 18) {
+            Deck.draw_cards(player);
+            System.out.println("Вы открыли карту " + player.get(player.size() - 1));
+            getRoundInfo(closedCard);
+        }
+        return calculatePoints(player);
     }
 
     /**
