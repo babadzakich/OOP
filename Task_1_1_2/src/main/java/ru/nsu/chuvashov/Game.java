@@ -1,9 +1,9 @@
 package ru.nsu.chuvashov;
 
+import static java.lang.Math.abs;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static java.lang.Math.abs;
 
 /**
  * Class for main logic behind the game.
@@ -128,7 +128,9 @@ class Game {
         do {
             System.out.println("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться...");
             input = working_input();
-            if (input == 0) { break; }
+            if (input == 0) {
+                break;
+            }
             Deck.draw_cards(player);
             System.out.println("Вы открыли карту " + player.get(player.size() - 1));
             int res = calculatePoints(player);
@@ -211,12 +213,12 @@ class Game {
      * prints points of players,
      * depending on the situation in game.
      *
-     * @param closed_card - flag whether to show closed dealer kard, or hide.
+     * @param closedCard - flag whether to show closed dealer kard, or hide.
      */
-    private static void getRoundInfo(boolean closed_card) {
+    private static void getRoundInfo(boolean closedCard) {
         System.out.println("Карты игрока: " + player.toString() + " => " + Deck.getPoints(player));
-        if (closed_card) {
-            System.out.println("Карты Дилера: " + "[" + dealer.get(0).toString() + ", <закрытая карта>]\n");
+        if (closedCard) {
+            System.out.println("Карты Дилера: [" + dealer.get(0).toString() + ", <закрыто>]\n");
         } else {
             System.out.println("Карты Дилера: " + dealer.toString() + " => " + Deck.getPoints(dealer) + "\n");
         }

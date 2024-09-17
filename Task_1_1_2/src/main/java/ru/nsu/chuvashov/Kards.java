@@ -28,7 +28,7 @@ enum Kards {
      * @param name - name of card.
      * @param value - score of a card.
      */
-    Kards(String name,int value) {
+    Kards(String name, int value) {
         this.value = value;
         this.name = name;
     }
