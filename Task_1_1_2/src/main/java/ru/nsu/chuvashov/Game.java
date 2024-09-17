@@ -220,7 +220,8 @@ class Game {
         if (closedCard) {
             System.out.println("Карты Дилера: [" + dealer.get(0).toString() + ", <закрыто>]\n");
         } else {
-            System.out.println("Карты Дилера: " + dealer.toString() + " => " + Deck.getPoints(dealer) + "\n");
+            System.out.println("Карты Дилера: " + dealer.toString()
+                    + " => " + Deck.getPoints(dealer) + "\n");
         }
     }
 }

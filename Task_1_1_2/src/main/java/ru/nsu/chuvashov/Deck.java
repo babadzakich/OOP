@@ -8,15 +8,15 @@ import java.util.Collections;
  */
 class Deck {
 
-    static private ArrayList<Card> deck;
-    static private int deck_card_index;
+    static ArrayList<Card> deck;
+    static int deck_card_index;
 
     /**
      * creating big deck from which we draw cards.
      */
     public static void createBigDeck() {
         deck = new ArrayList<>();
-        for(Mast mast: Mast.values()) {
+        for (Mast mast : Mast.values()) {
             for (Kards kards : Kards.values()) {
                 deck.add(new Card(mast, kards));
             }
@@ -56,11 +56,11 @@ class Deck {
     public static void createSmallDeck(ArrayList<Card> player) {
         player.add(deck.get(deck_card_index++));
         if (player.get(player.size() - 1).value == 11) {
-            player.get(0).aces.add(player.size()-1);
+            player.get(0).aces.add(player.size() - 1);
         }
         player.add(deck.get(deck_card_index++));
         if (player.get(player.size() - 1).value == 11) {
-            player.get(0).aces.add(player.size()-1);
+            player.get(0).aces.add(player.size() - 1);
         }
         player.get(0).summary += player.get(player.size() - 1).value;
     }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 class Card {
 
-    String Mast;
-    String Name;
+    String mast;
+    String name;
     int value;
     int summary;
     ArrayList<Integer> aces;
@@ -23,17 +23,19 @@ class Card {
      * @param kards - card where we have name and value.
      */
     Card(Mast mast, Kards kards) {
-        this.Mast = mast.name;
-        this.Name = kards.name;
+        this.mast = mast.name;
+        this.name = kards.name;
         this.value = kards.value;
         this.summary = this.value;
         this.aces = new ArrayList<>();
     }
 
     /**
+     * String convertor
+     *
      * @return string card representation.
      */
     public String toString() {
-        return this.Mast + " " + this.Name + " (" + this.value + ")";
+        return this.mast + " " + this.name + " (" + this.value + ")";
     }
 }

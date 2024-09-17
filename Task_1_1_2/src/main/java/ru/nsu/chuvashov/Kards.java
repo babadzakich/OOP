@@ -34,6 +34,8 @@ enum Kards {
     }
 
     /**
+     * Converting enum to string
+     *
      * @return string representation of cards.
      */
     public String toString() {
