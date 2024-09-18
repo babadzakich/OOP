@@ -2,78 +2,62 @@ package ru.nsu.chuvashov.bj;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import ru.nsu.chuvashov.bj.Kards;
-import ru.nsu.chuvashov.bj.Mast;
 
 /**
- * class that represents deck.
+ * Singleton class that represents deck.
  */
-class Deck {
+public class Deck {
+    private static Deck instance;
+    private ArrayList<Card> deck;
+    private int deckCardIndex;
 
-    static ArrayList<Card> deck;
-    static int deck_card_index;
+    /**
+     * Constructor for our singleton;
+     */
+    private Deck() {
+        createBigDeck();
+    }
+
+    /**
+     * Method that overrides constructor to be able,
+     * to leave only one instance of class.
+     *
+     * @return our singletone instance.
+     */
+    public static Deck getInstance() {
+        if (instance == null) {
+            instance = new Deck();
+        }
+        return instance;
+    }
 
     /**
      * creating big deck from which we draw cards.
      */
-    public static void createBigDeck() {
+    public void createBigDeck() {
         deck = new ArrayList<>();
         for (Mast mast : Mast.values()) {
             for (Kards kards : Kards.values()) {
                 deck.add(new Card(mast, kards));
             }
         }
-        deck_card_index = 0;
+        deckCardIndex = 0;
     }
 
     /**
      * Shuffles deck.
      */
-    public static void shuffleDeck() {
+    public void shuffleDeck() {
         Collections.shuffle(deck);
-        deck_card_index = 0;
+        deckCardIndex = 0;
     }
 
     /**
-     * We draw card,
-     * save summary of cards in the first elem of deck,
-     * and store in first element where aces located.
+     * We want to draw cards from deck.
      *
-     * @param player deck where we draw cards.
+     * @return card from deck.
      */
-    public static void draw_cards(ArrayList<Card> player) {
-        player.add(deck.get(deck_card_index++));
-        if (player.get(player.size() - 1).value == 11) {
-            player.get(0).aces.add(player.size() - 1);
-        }
-        player.get(0).summary += player.get(player.size() - 1).value;
-    }
-
-    /**
-     * We create players deck.
-     * We also store the summary and aces pos in 1 elem.
-     *
-     * @param player deck which we create.
-     */
-    public static void createSmallDeck(ArrayList<Card> player) {
-        player.add(deck.get(deck_card_index++));
-        if (player.get(player.size() - 1).value == 11) {
-            player.get(0).aces.add(player.size() - 1);
-        }
-        player.add(deck.get(deck_card_index++));
-        if (player.get(player.size() - 1).value == 11) {
-            player.get(0).aces.add(player.size() - 1);
-        }
-        player.get(0).summary += player.get(player.size() - 1).value;
-    }
-
-    /**
-     * We return the number of player points.
-     *
-     * @param player deck which points we get.
-     * @return points of a player.
-     */
-    public static int getPoints(ArrayList<Card> player) {
-        return player.get(0).summary;
+    public Card getter() {
+        return deck.get(deckCardIndex++);
     }
 }

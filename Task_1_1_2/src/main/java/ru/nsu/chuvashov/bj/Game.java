@@ -2,7 +2,6 @@ package ru.nsu.chuvashov.bj;
 
 import static java.lang.Math.abs;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,12 +9,13 @@ import java.util.Scanner;
  */
 public class Game {
 
-    private static int round;
-    private static int playerScore;
-    private static int dealerScore;
-    private static boolean closedCard;
-    static ArrayList<Card> player = new ArrayList<>();
-    static ArrayList<Card> dealer = new ArrayList<>();
+    private int round;
+    private int playerScore;
+    private int dealerScore;
+    private boolean closedCard;
+    private PlayerDeck player;
+    private PlayerDeck dealer;
+    Deck bigDeck;
 
     /**
      * Constructor for GAME class.
@@ -24,20 +24,22 @@ public class Game {
         System.out.println("Добро пожаловать в Блэкджек!");
         round = 1;
         playerScore = dealerScore = 0;
-        Deck.createBigDeck();
+        bigDeck = Deck.getInstance();
     }
 
     /**
      * Starter of game.
      */
     public void blackJack(Boolean flag) {
-        Game.round(flag);
+        round(flag);
     }
 
     /**
      * Round logic with start, player move, dealer move and resolve.
+     *
+     * @param flag - shows if player is human or pc.
      */
-    private static void round(boolean flag) {
+    private void round(boolean flag) {
         int resultOfGame;
         while (abs(playerScore - dealerScore) < 3) {
             resultOfGame = roundStart();
@@ -75,11 +77,11 @@ public class Game {
                 dealerScore++;
                 endRound();
             } else {
-                if (Deck.getPoints(player) < Deck.getPoints(dealer)) {
+                if (player.getPoints() < dealer.getPoints()) {
                     System.out.println("Диллер набрал больше, он победил!\n");
                     dealerScore++;
                     endRound();
-                } else if (Deck.getPoints(player) > Deck.getPoints(dealer)) {
+                } else if (player.getPoints() > player.getPoints()) {
                     System.out.println("Игрок набрал больше, он победил!\n");
                     playerScore++;
                     endRound();
@@ -100,7 +102,7 @@ public class Game {
      * ending of round.
      * clears all player decks, shows score and increments round.
      */
-    private static void endRound() {
+    private void endRound() {
         player.clear();
         dealer.clear();
         round++;
@@ -112,11 +114,11 @@ public class Game {
      *
      * @return points that acquired player(we could get 21 instantly).
      */
-    private static int roundStart() {
-        Deck.shuffleDeck();
+    private int roundStart() {
+        bigDeck.shuffleDeck();
         System.out.println("Раунд " + round + "\nДиллер раздал карты");
-        Deck.createSmallDeck(player);
-        Deck.createSmallDeck(dealer);
+        player = new PlayerDeck();
+        dealer = new PlayerDeck();
         closedCard = true;
         getRoundInfo(true);
         return calculatePoints(player);
@@ -133,18 +135,18 @@ public class Game {
      *
      * @return resolve for player move
      */
-    private static int realPlayerMove() {
+    private int realPlayerMove() {
         int input;
         System.out.println("Ваш Ход");
         System.out.println("-------");
         do {
             System.out.println("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться...");
-            input = working_input();
+            input = workingInput();
             if (input == 0) {
                 break;
             }
-            Deck.draw_cards(player);
-            System.out.println("Вы открыли карту " + player.get(player.size() - 1));
+            player.drawCards();
+            System.out.println("Вы открыли карту " + player.getLast());
             int res = calculatePoints(player);
             getRoundInfo(closedCard);
             if (res != 0) {
@@ -162,27 +164,33 @@ public class Game {
      *
      * @return dealer resolve.
      */
-    private static int dealerMove() {
+    private int dealerMove() {
         closedCard = false;
         System.out.println("Ход диллера");
         System.out.println("-------");
-        System.out.println("Диллер открывает закрытую карту " + dealer.get(dealer.size() - 1));
+        System.out.println("Диллер открывает закрытую карту " + dealer.getLast());
         getRoundInfo(closedCard);
-        while (dealer.get(0).summary < 17) {
-            Deck.draw_cards(dealer);
-            System.out.println("Диллер открыл карту " + dealer.get(dealer.size() - 1));
+        while (dealer.getPoints() < 17) {
+            dealer.drawCards();
+            System.out.println("Диллер открыл карту " + dealer.getLast());
             getRoundInfo(closedCard);
         }
         return calculatePoints(dealer);
     }
 
-    private static int computerPlayerMove() {
+    /**
+     * Implementation of player decision,
+     * for testing purposes.
+     *
+     * @return player resolve.
+     */
+    private int computerPlayerMove() {
         System.out.println("Ваш ход");
         System.out.println("-------");
         getRoundInfo(closedCard);
-        while (player.get(0).summary < 18) {
-            Deck.draw_cards(player);
-            System.out.println("Вы открыли карту " + player.get(player.size() - 1));
+        while (player.getPoints() < 18) {
+            player.drawCards();
+            System.out.println("Вы открыли карту " + player.getLast());
             getRoundInfo(closedCard);
         }
         return calculatePoints(player);
@@ -194,7 +202,7 @@ public class Game {
      *
      * @return input data.
      */
-    private static int working_input() {
+    private int workingInput() {
         Scanner in = new Scanner(System.in);
         int input = in.nextInt();
         while (input != 0 && input != 1) {
@@ -213,14 +221,11 @@ public class Game {
      * @return 1 - BlackJack, -1 - overflow, 0 - else.
      */
     @SuppressWarnings("ReassignedVariable")
-    private static int calculatePoints(ArrayList<Card> player) {
-        int sum = Deck.getPoints(player);
+    private int calculatePoints(PlayerDeck player) {
+        int sum = player.getPoints();
         while (sum > 21) {
-            if (!player.get(0).aces.isEmpty()) {
-                player.get(player.get(0).aces.get(0)).value = 1;
-                player.get(0).aces.remove(0);
-                player.get(0).summary -= 10;
-                sum = Deck.getPoints((player));
+            if (player.aceChecker()) {
+                sum = player.getPoints();
             } else {
                 return -1;
             }
@@ -239,13 +244,13 @@ public class Game {
      *
      * @param closedCard - flag whether to show closed dealer kard, or hide.
      */
-    private static void getRoundInfo(boolean closedCard) {
-        System.out.println("Карты игрока: " + player.toString() + " => " + Deck.getPoints(player));
+    private void getRoundInfo(boolean closedCard) {
+        System.out.println("Карты игрока: " + player.toString() + " => " + player.getPoints());
         if (closedCard) {
-            System.out.println("Карты Дилера: [" + dealer.get(0).toString() + ", <закрыто>]\n");
+            System.out.println("Карты Дилера: [" + dealer.getFirst().toString() + ", <закрыто>]\n");
         } else {
             System.out.println("Карты Дилера: " + dealer.toString()
-                    + " => " + Deck.getPoints(dealer) + "\n");
+                    + " => " + dealer.getPoints() + "\n");
         }
     }
 }

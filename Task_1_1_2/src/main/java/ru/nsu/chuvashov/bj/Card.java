@@ -12,11 +12,9 @@ import ru.nsu.chuvashov.bj.Mast;
  */
 class Card {
 
-    String mast;
-    String name;
+    final String mast;
+    final String name;
     int value;
-    int summary;
-    ArrayList<Integer> aces;
 
     /**
      * Constructor for class.
@@ -28,8 +26,6 @@ class Card {
         this.mast = mast.name;
         this.name = kards.name;
         this.value = kards.value;
-        this.summary = this.value;
-        this.aces = new ArrayList<>();
     }
 
     /**
