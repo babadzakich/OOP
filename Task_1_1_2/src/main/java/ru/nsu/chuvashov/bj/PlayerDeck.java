@@ -1,7 +1,7 @@
 package ru.nsu.chuvashov.bj;
 
-import ru.nsu.chuvashov.bj.Card;
 import java.util.ArrayList;
+import ru.nsu.chuvashov.bj.Card;
 
 /**
  * Class for player and dealer decks.

@@ -12,7 +12,7 @@ public class Deck {
     private int deckCardIndex;
 
     /**
-     * Constructor for our singleton;
+     * Constructor for our singleton.
      */
     private Deck() {
         createBigDeck();
