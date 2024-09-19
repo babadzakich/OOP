@@ -15,7 +15,7 @@ class GameTest {
             ByteArrayInputStream in = new ByteArrayInputStream("1\n0\n".getBytes());
             System.setIn(in);
             Game game = new Game();
-            game.blackJack(false);
+            game.blackJack(true);
 
             assertTrue(true);
         } catch (Exception e) {
@@ -24,5 +24,12 @@ class GameTest {
         } finally {
             System.setIn(inapt);
         }
+    }
+
+    @Test
+    void checkWithComp() {
+        Game game = new Game();
+        game.blackJack(false);
+        assertTrue(true);
     }
 }
