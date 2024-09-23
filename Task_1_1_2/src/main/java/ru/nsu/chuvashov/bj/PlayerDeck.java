@@ -12,17 +12,19 @@ public class PlayerDeck {
     private ArrayList<Card> deck = new ArrayList<>();
     private ArrayList<Integer> aces = new ArrayList<>();
 
+
     /**
      * We draw card,
      * save summary of cards in the first elem of deck,
      * and store in first element where aces located.
      */
     public void drawCards() {
+        final int lastCardIndex = deck.size() - 1;
         deck.add(bigDeck.getter());
-        if (deck.get(deck.size() - 1).value == 11) {
-            aces.add(deck.size() - 1);
+        if (deck.get(lastCardIndex).value == 11) {
+            aces.add(lastCardIndex);
         }
-        summary += deck.get(deck.size() - 1).value;
+        summary += deck.get(lastCardIndex).value;
     }
 
     /**
@@ -30,16 +32,17 @@ public class PlayerDeck {
      * We also store the summary and aces pos in 1 elem.
      */
     public PlayerDeck() {
+        final int lastCardIndex = deck.size();
         deck.add(bigDeck.getter());
-        if (deck.get(deck.size() - 1).value == 11) {
-            aces.add(deck.size() - 1);
+        if (deck.get(lastCardIndex).value == 11) {
+            aces.add(lastCardIndex);
         }
-        summary += deck.get(deck.size() - 1).value;
+        summary += deck.get(lastCardIndex).value;
         deck.add(bigDeck.getter());
-        if (deck.get(deck.size() - 1).value == 11) {
-            aces.add(deck.size() - 1);
+        if (deck.get(lastCardIndex + 1).value == 11) {
+            aces.add(lastCardIndex + 1);
         }
-        summary += deck.get(deck.size() - 1).value;
+        summary += deck.get(lastCardIndex + 1).value;
     }
 
     /**
@@ -74,6 +77,7 @@ public class PlayerDeck {
      *
      * @return string implement of deck.
      */
+    @Override
     public String toString() {
         return deck.toString();
     }

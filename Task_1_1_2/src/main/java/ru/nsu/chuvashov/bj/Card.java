@@ -33,6 +33,7 @@ class Card {
      *
      * @return string card representation.
      */
+    @Override
     public String toString() {
         return this.mast + " " + this.name + " (" + this.value + ")";
     }

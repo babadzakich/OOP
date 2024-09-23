@@ -38,6 +38,7 @@ enum Kards {
      *
      * @return string representation of cards.
      */
+    @Override
     public String toString() {
         return name;
     }

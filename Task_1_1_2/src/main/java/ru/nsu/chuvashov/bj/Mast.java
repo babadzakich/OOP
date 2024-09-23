@@ -26,6 +26,7 @@ enum Mast {
      *
      * @return string representation of mast`.
      */
+    @Override
     public String toString() {
         return name;
     }
