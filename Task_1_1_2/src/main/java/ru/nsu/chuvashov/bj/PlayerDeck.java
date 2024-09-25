@@ -1,7 +1,6 @@
 package ru.nsu.chuvashov.bj;
 
 import java.util.ArrayList;
-import ru.nsu.chuvashov.bj.Card;
 
 /**
  * Class for player and dealer decks.
@@ -19,8 +18,8 @@ public class PlayerDeck {
      * and store in first element where aces located.
      */
     public void drawCards() {
-        final int lastCardIndex = deck.size() - 1;
-        deck.add(bigDeck.getter());
+        final int lastCardIndex = deck.size();
+        deck.add(bigDeck.takeCard());
         if (deck.get(lastCardIndex).value == 11) {
             aces.add(lastCardIndex);
         }
@@ -33,12 +32,12 @@ public class PlayerDeck {
      */
     public PlayerDeck() {
         final int lastCardIndex = deck.size();
-        deck.add(bigDeck.getter());
+        deck.add(bigDeck.takeCard());
         if (deck.get(lastCardIndex).value == 11) {
             aces.add(lastCardIndex);
         }
         summary += deck.get(lastCardIndex).value;
-        deck.add(bigDeck.getter());
+        deck.add(bigDeck.takeCard());
         if (deck.get(lastCardIndex + 1).value == 11) {
             aces.add(lastCardIndex + 1);
         }

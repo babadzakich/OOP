@@ -9,9 +9,10 @@ import java.util.Scanner;
  */
 public class Game {
 
+    final private int endGame = 228;
     private int round;
-    private int playerScore;
-    private int dealerScore;
+    int playerScore;
+    int dealerScore;
     private boolean closedCard;
     private PlayerDeck player;
     private PlayerDeck dealer;
@@ -22,8 +23,6 @@ public class Game {
      */
     public Game() {
         System.out.println("Добро пожаловать в Блэкджек!");
-        round = 1;
-        playerScore = dealerScore = 0;
         bigDeck = Deck.getInstance();
     }
 
@@ -31,6 +30,8 @@ public class Game {
      * Starter of game.
      */
     public void blackJack(Boolean flag) {
+        round = 1;
+        dealerScore = playerScore = 0;
         round(flag);
     }
 
@@ -40,7 +41,7 @@ public class Game {
      * @param flag - shows if player is human or pc.
      */
     private void round(boolean flag) {
-        int resultOfGame;
+        int resultOfGame = 0;
         while (abs(playerScore - dealerScore) < 3) {
             resultOfGame = roundStart();
             if (resultOfGame > 0) {
@@ -51,6 +52,9 @@ public class Game {
             }
             if (flag) {
                 resultOfGame = realPlayerMove();
+                if (resultOfGame == endGame) {
+
+                }
             } else {
                 resultOfGame = computerPlayerMove();
             }
@@ -91,10 +95,14 @@ public class Game {
                 }
             }
         }
-        if (playerScore > dealerScore) {
-            System.out.println("Игрок победил, казино в проигрыше!");
+        if (resultOfGame == endGame) {
+            System.out.println("Игра была прервана пользователем с помощью магической силы");
         } else {
-            System.out.println("Диллер выиграл, Казино в выигрыше!");
+            if (playerScore > dealerScore) {
+                System.out.println("Игрок победил, казино в проигрыше!");
+            } else {
+                System.out.println("Диллер выиграл, Казино в выигрыше!");
+            }
         }
     }
 
@@ -115,7 +123,6 @@ public class Game {
      * @return points that acquired player(we could get 21 instantly).
      */
     private int roundStart() {
-        bigDeck.shuffleDeck();
         System.out.println("Раунд " + round + "\nДиллер раздал карты");
         player = new PlayerDeck();
         dealer = new PlayerDeck();
@@ -142,6 +149,9 @@ public class Game {
         do {
             System.out.println("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться...");
             input = workingInput();
+            if (input == endGame) {
+                return input;
+            }
             if (input == 0) {
                 break;
             }
@@ -205,6 +215,9 @@ public class Game {
     private int workingInput() {
         Scanner in = new Scanner(System.in);
         int input = in.nextInt();
+        if (input == 228) {
+            return input;
+        }
         while (input != 0 && input != 1) {
             System.out.println("Неправильный ввод, повторите еще раз!");
             input = in.nextInt();

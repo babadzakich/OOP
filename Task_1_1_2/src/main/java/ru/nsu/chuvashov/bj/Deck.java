@@ -34,7 +34,7 @@ public class Deck {
     /**
      * creating big deck from which we draw cards.
      */
-    public void createBigDeck() {
+    private void createBigDeck() {
         deck = new ArrayList<>();
         for (Mast mast : Mast.values()) {
             for (Kards kards : Kards.values()) {
@@ -47,7 +47,7 @@ public class Deck {
     /**
      * Shuffles deck.
      */
-    public void shuffleDeck() {
+    private void shuffleDeck() {
         Collections.shuffle(deck);
         deckCardIndex = 0;
     }
@@ -57,7 +57,10 @@ public class Deck {
      *
      * @return card from deck.
      */
-    public Card getter() {
+    public Card takeCard() {
+        if (deckCardIndex >= 52) {
+            shuffleDeck();
+        }
         return deck.get(deckCardIndex++);
     }
 }

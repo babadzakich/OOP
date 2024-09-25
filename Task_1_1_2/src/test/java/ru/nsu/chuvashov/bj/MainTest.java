@@ -18,7 +18,7 @@ class MainTest {
 
             assertTrue(true);
         } catch (Exception e) {
-            ByteArrayInputStream in2 = new ByteArrayInputStream("no\n".getBytes());
+            ByteArrayInputStream in2 = new ByteArrayInputStream("0\n".getBytes());
             System.setIn(in2);
         } finally {
             System.setIn(inapt);

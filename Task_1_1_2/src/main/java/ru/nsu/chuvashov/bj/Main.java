@@ -4,7 +4,7 @@ import ru.nsu.chuvashov.bj.Game;
 
 /**
  * Blackjack implementation.
- *
+ *`
  * @author artyom.
  */
 public class Main {
