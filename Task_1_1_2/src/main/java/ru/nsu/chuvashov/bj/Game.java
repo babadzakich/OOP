@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Game {
 
-    final private int endGame = 228;
+    private final int endGame = 228;
     private int round;
     int playerScore;
     int dealerScore;
@@ -53,7 +53,7 @@ public class Game {
             if (flag) {
                 resultOfGame = realPlayerMove();
                 if (resultOfGame == endGame) {
-
+                    break;
                 }
             } else {
                 resultOfGame = computerPlayerMove();
