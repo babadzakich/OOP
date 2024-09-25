@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":10,"i3":10};
+var data = {"i0":9,"i1":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -154,13 +154,6 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createBigDeck()">createBigDeck</a></span>()</code></th>
-<td class="colLast">
-<div class="block">creating big deck from which we draw cards.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="Deck.html" title="class in ru.nsu.chuvashov.bj">Deck</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInstance()">getInstance</a></span>()</code></th>
 <td class="colLast">
@@ -168,18 +161,11 @@ extends java.lang.Object</pre>
  to leave only one instance of class.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>ru.nsu.chuvashov.bj.Card</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getter()">getter</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#takeCard()">takeCard</a></span>()</code></th>
 <td class="colLast">
 <div class="block">We want to draw cards from deck.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#shuffleDeck()">shuffleDeck</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Shuffles deck.</div>
 </td>
 </tr>
 </table>
@@ -221,33 +207,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="createBigDeck()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>createBigDeck</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;createBigDeck()</pre>
-<div class="block">creating big deck from which we draw cards.</div>
-</li>
-</ul>
-<a id="shuffleDeck()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>shuffleDeck</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;shuffleDeck()</pre>
-<div class="block">Shuffles deck.</div>
-</li>
-</ul>
-<a id="getter()">
+<a id="takeCard()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getter</h4>
-<pre class="methodSignature">public&nbsp;ru.nsu.chuvashov.bj.Card&nbsp;getter()</pre>
+<h4>takeCard</h4>
+<pre class="methodSignature">public&nbsp;ru.nsu.chuvashov.bj.Card&nbsp;takeCard()</pre>
 <div class="block">We want to draw cards from deck.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
