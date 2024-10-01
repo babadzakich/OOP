@@ -3,7 +3,7 @@ package ru.nsu.chuvashov.bj;
 /**
  * An enum for Masti of cards.
  */
-enum Mast {
+public enum Mast {
 
     SPADES("Пики"),
     HEARTS("Черви"),

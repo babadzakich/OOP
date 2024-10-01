@@ -3,7 +3,7 @@ package ru.nsu.chuvashov.bj;
 /**
  * An enum for Cards representation.
  */
-enum Kards {
+public enum Kards {
 
     ACE("Туз", 11),
     KING("Король", 10),
