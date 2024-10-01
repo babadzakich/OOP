@@ -41,10 +41,10 @@ class GameTest {
     void checkGetter() {
         Card card;
         Deck deck = Deck.getInstance();
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < 53; i++) {
             card = deck.takeCard();
         }
-        assertTrue(deck.deckCardIndex == 0);
+        assertTrue(deck.deckCardIndex == 1);
     }
 
     @Test
