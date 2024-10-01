@@ -19,8 +19,8 @@ enum Kards {
     THREE("Три", 3),
     TWO("Два", 2);
 
-    final String name;
-    final int value;
+    final private String name;
+    final private int value;
 
     /**
      * Constructor for Cards.
@@ -41,5 +41,14 @@ enum Kards {
     @Override
     public String toString() {
         return name;
+    }
+
+    /**
+     * gets value.
+     *
+     * @return value of kard.
+     */
+    public int getValue() {
+        return value;
     }
 }

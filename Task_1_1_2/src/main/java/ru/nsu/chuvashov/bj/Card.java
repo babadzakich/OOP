@@ -12,9 +12,9 @@ import ru.nsu.chuvashov.bj.Mast;
  */
 class Card {
 
-    final String mast;
-    final String name;
-    int value;
+    final private String mast;
+    final private String name;
+    private int value;
 
     /**
      * Constructor for class.
@@ -22,10 +22,10 @@ class Card {
      * @param mast mast` of card.
      * @param kards - card where we have name and value.
      */
-    Card(Mast mast, Kards kards) {
+    public Card(Mast mast, Kards kards) {
         this.mast = mast.name;
-        this.name = kards.name;
-        this.value = kards.value;
+        this.name = kards.toString();
+        this.value = kards.getValue();
     }
 
     /**
@@ -36,5 +36,23 @@ class Card {
     @Override
     public String toString() {
         return this.mast + " " + this.name + " (" + this.value + ")";
+    }
+
+    /**
+     * Returns value of var.
+     *
+     * @return value.
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param value - value we want our card to have
+     */
+    public void setValue(int value) {
+        this.value = value;
     }
 }

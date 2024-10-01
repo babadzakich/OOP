@@ -41,14 +41,10 @@ class GameTest {
     void checkGetter() {
         Card card;
         Deck deck = Deck.getInstance();
-        try {
-            for (int i = 0; i < 52; i++) {
-                card = deck.takeCard();
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw e;
+        for (int i = 0; i < 52; i++) {
+            card = deck.takeCard();
         }
-
+        assertTrue(deck.deckCardIndex == 0);
     }
 
     @Test

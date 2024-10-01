@@ -11,8 +11,8 @@ public class Game {
 
     private final int endGame = 228;
     private int round;
-    int playerScore;
-    int dealerScore;
+    public int playerScore;
+    public int dealerScore;
     private boolean closedCard;
     private PlayerDeck player;
     private PlayerDeck dealer;

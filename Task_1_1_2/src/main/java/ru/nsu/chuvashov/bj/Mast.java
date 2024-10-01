@@ -10,7 +10,7 @@ enum Mast {
     BUBNA("Буби"),
     KRESTY("Крести");
 
-    final String name;
+    final public String name;
 
     /**
      * Constructor.

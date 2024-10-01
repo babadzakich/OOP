@@ -9,7 +9,7 @@ import java.util.Collections;
 public class Deck {
     private static Deck instance;
     private ArrayList<Card> deck;
-    private int deckCardIndex;
+    public int deckCardIndex;
 
     /**
      * Constructor for our singleton.

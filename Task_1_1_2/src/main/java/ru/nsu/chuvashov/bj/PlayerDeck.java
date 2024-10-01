@@ -20,10 +20,10 @@ public class PlayerDeck {
     public void drawCards() {
         final int lastCardIndex = deck.size();
         deck.add(bigDeck.takeCard());
-        if (deck.get(lastCardIndex).value == 11) {
+        if (deck.get(lastCardIndex).getValue() == 11) {
             aces.add(lastCardIndex);
         }
-        summary += deck.get(lastCardIndex).value;
+        summary += deck.get(lastCardIndex).getValue();
     }
 
     /**
@@ -33,15 +33,15 @@ public class PlayerDeck {
     public PlayerDeck() {
         final int lastCardIndex = deck.size();
         deck.add(bigDeck.takeCard());
-        if (deck.get(lastCardIndex).value == 11) {
+        if (deck.get(lastCardIndex).getValue() == 11) {
             aces.add(lastCardIndex);
         }
-        summary += deck.get(lastCardIndex).value;
+        summary += deck.get(lastCardIndex).getValue();
         deck.add(bigDeck.takeCard());
-        if (deck.get(lastCardIndex + 1).value == 11) {
+        if (deck.get(lastCardIndex + 1).getValue() == 11) {
             aces.add(lastCardIndex + 1);
         }
-        summary += deck.get(lastCardIndex + 1).value;
+        summary += deck.get(lastCardIndex + 1).getValue();
     }
 
     /**
@@ -101,7 +101,7 @@ public class PlayerDeck {
         if (aces.isEmpty()) {
             return false;
         }
-        deck.get(aces.get(0)).value = 1;
+        deck.get(aces.get(0)).setValue(1);
         aces.remove(0);
         summary -= 10;
         return true;
