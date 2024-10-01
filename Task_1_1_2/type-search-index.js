@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.chuvashov.bj","l":"Deck"},{"p":"ru.nsu.chuvashov.bj","l":"Game"},{"p":"ru.nsu.chuvashov.bj","l":"Main"},{"p":"ru.nsu.chuvashov.bj","l":"PlayerDeck"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.chuvashov.bj","l":"Deck"},{"p":"ru.nsu.chuvashov.bj","l":"Game"},{"p":"ru.nsu.chuvashov.bj","l":"Kards"},{"p":"ru.nsu.chuvashov.bj","l":"Main"},{"p":"ru.nsu.chuvashov.bj","l":"Mast"},{"p":"ru.nsu.chuvashov.bj","l":"PlayerDeck"}]
