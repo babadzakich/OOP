@@ -19,8 +19,8 @@ enum Kards {
     THREE("Три", 3),
     TWO("Два", 2);
 
-    final private String name;
-    final private int value;
+    private final String name;
+    private final int value;
 
     /**
      * Constructor for Cards.

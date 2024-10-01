@@ -1,6 +1,5 @@
 package ru.nsu.chuvashov.bj;
 
-import java.util.ArrayList;
 import ru.nsu.chuvashov.bj.Kards;
 import ru.nsu.chuvashov.bj.Mast;
 
@@ -12,8 +11,8 @@ import ru.nsu.chuvashov.bj.Mast;
  */
 class Card {
 
-    final private String mast;
-    final private String name;
+    private final String mast;
+    private final String name;
     private int value;
 
     /**
