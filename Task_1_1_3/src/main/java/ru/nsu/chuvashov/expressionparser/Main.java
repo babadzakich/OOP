@@ -1,7 +1,15 @@
-package ru.nsu.chuvashov.expressionParser;
+package ru.nsu.chuvashov.expressionparser;
 
+/**
+ * Our main class.
+ */
 public class Main {
-    public static void main(String[] args) {
+    /**
+     * Our main method.
+     *
+     * @param args - empty string
+     */
+    public static void main(String[] args) throws Exception {
         Expression e = new Add(new Add(new Number(3), new Variable("y")), new Mul(new Number(2),
                 new Variable("x")));
         e.print();

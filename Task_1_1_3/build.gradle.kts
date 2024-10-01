@@ -3,7 +3,7 @@ plugins {
     id("jacoco")
 }
 
-group = "ru.nsu.chuvashov.expressionParser"
+group = "ru.nsu.chuvashov.expressionparser"
 version = "1.0-SNAPSHOT"
 
 repositories {

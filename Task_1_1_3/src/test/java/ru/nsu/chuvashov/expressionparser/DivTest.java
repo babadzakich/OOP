@@ -1,8 +1,8 @@
-package ru.nsu.chuvashov.expressionParser;
-
-import org.junit.jupiter.api.Test;
+package ru.nsu.chuvashov.expressionparser;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class DivTest {
 
