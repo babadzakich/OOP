@@ -3,7 +3,7 @@ package ru.nsu.chuvashov.expressionparser;
 /**
  * Substraction class.
  */
-public class Sub extends Expression{
+public class Sub extends Expression {
     private final Expression left;
     private final Expression right;
 

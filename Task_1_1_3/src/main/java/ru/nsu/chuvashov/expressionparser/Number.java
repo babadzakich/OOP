@@ -12,7 +12,7 @@ public class Number extends Expression {
      *
      * @param number - number that we use.
      */
-    public Number (int number) {
+    public Number(int number) {
         this.value = number;
     }
 
@@ -43,6 +43,6 @@ public class Number extends Expression {
      */
     @Override
     public Expression derivative(String variable) {
-        return new Number(0) ;
+        return new Number(0);
     }
 }

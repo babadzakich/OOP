@@ -1,6 +1,6 @@
 package ru.nsu.chuvashov.expressionparser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
