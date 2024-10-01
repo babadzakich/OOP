@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public class Main {
     public static void main(String[] args) {

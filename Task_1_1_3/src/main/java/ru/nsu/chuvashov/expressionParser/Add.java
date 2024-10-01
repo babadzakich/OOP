@@ -1,21 +1,21 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public class Add extends Expression {
-    Expression left;
-    Expression right;
+    private final Expression left;
+    private final Expression right;
 
-    Add(Expression a, Expression b) {
+    public Add(Expression a, Expression b) {
         this.left = a;
         this.right = b;
     }
 
     @Override
-    double eval(String variables) {
+    public double eval(String variables) {
         return left.eval(variables) + right.eval(variables);
     }
 
     @Override
-    void print() {
+    public void print() {
         System.out.print('(');
         left.print();
         System.out.print(" + ");
@@ -24,7 +24,7 @@ public class Add extends Expression {
     }
 
     @Override
-    Expression derivative(String variable) {
+    public Expression derivative(String variable) {
         return new Add(left.derivative(variable), right.derivative(variable));
     }
 }

@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public abstract class Expression {
     abstract double eval(String variables);

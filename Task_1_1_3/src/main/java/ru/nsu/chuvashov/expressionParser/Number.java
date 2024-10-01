@@ -1,24 +1,24 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public class Number extends Expression {
 
-    double value;
-    Number (int number) {
+    private final double value;
+    public Number (int number) {
         this.value = number;
     }
 
     @Override
-    double eval(String variables) {
+    public double eval(String variables) {
         return value;
     }
 
     @Override
-    void print() {
+    public void print() {
         System.out.print(value);
     }
 
     @Override
-    Expression derivative(String variable) {
+    public Expression derivative(String variable) {
         return new Number(0) ;
     }
 }

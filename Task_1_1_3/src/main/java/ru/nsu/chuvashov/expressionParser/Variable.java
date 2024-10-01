@@ -1,14 +1,14 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public class Variable extends Expression {
-    String var;
+    private final String var;
 
-    Variable(String input) {
+    public Variable(String input) {
         this.var = input;
     }
 
     @Override
-    double eval(String variables) {
+    public double eval(String variables) {
         String[] vars = variables.split("; ");
         for (String s : vars) {
             String[] variab = s.split(" = ");
@@ -20,12 +20,12 @@ public class Variable extends Expression {
     }
 
     @Override
-    void print() {
+    public void print() {
         System.out.print(var);
     }
 
     @Override
-    Expression derivative(String variable) {
+    public Expression derivative(String variable) {
         if (var.equals(variable)) {
             return new Number(1);
         }

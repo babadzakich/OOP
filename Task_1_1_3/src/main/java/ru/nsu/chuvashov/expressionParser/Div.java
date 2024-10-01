@@ -1,21 +1,24 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.expressionParser;
 
 public class Div extends Expression {
-    Expression left;
-    Expression right;
+    private final Expression left;
+    private final Expression right;
 
-    Div(Expression a, Expression b) {
+    public Div(Expression a, Expression b) {
         this.left = a;
         this.right = b;
     }
 
     @Override
-    double eval(String variables) {
+    public double eval(String variables) {
+        if (right.eval(variables) == 0) {
+            throw new ArithmeticException("Can`t divide by zero!!");
+        }
         return left.eval(variables) / right.eval(variables);
     }
 
     @Override
-    void print() {
+     public void print() {
         System.out.print('(');
         left.print();
         System.out.print(" / ");
@@ -24,7 +27,7 @@ public class Div extends Expression {
     }
 
     @Override
-    Expression derivative(String variable) {
+    public Expression derivative(String variable) {
         return new Div(
                 new Sub(new Mul(left.derivative(variable), right),
                         new Mul(left, right.derivative(variable))),
