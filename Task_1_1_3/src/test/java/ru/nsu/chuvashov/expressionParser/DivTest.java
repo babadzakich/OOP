@@ -17,6 +17,8 @@ class DivTest {
 
     @Test
     void print() {
+        new Div(new Number(10), new Mul(new Number(1), new Number(2))).print();
+//        assertTrue();
     }
 
     @Test
