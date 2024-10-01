@@ -41,7 +41,7 @@ class GameTest {
     void checkGetter() {
         Card card;
         Deck deck = Deck.getInstance();
-        for (int i = 0; i < 53; i++) {
+        for (int i = deck.deckCardIndex; i < 53; i++) {
             card = deck.takeCard();
         }
         assertTrue(deck.deckCardIndex == 1);
