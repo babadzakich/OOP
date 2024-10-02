@@ -79,8 +79,11 @@ public class Parser {
                 type = TokenType.VARIABLE;
                 StringBuilder var = new StringBuilder();
 
-                while (Character.isLetter(c) && inIndex < input.length()) {
+                while (Character.isLetter(c)) {
                     var.append(c);
+                    if (inIndex == input.length()) {
+                        break;
+                    }
                     c = input.charAt(inIndex++);
                 }
                 expression = new Variable(var.toString());

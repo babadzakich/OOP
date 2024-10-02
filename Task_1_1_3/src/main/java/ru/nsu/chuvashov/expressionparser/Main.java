@@ -17,7 +17,7 @@ public class Main {
         Parser parserAutomaton = Parser.getParser();
         Expression parsed = parserAutomaton.parseExpression(input);
         parsed.print();
-        System.out.println(parsed.eval(""));
+        System.out.println(parsed.eval("X = 2"));
 
 //        Expression e = new Add(new Add(new Number(3), new Variable("y")), new Mul(new Number(2),
 //                new Variable("x")));
