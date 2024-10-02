@@ -14,12 +14,12 @@ public abstract class Expression {
      * @return result of evaluation.
      * @throws Exception division by zero.
      */
-    abstract public double eval(String variables) throws Exception;
+    public abstract double eval(String variables) throws Exception;
 
     /**
      * We print our statement.
      */
-    abstract public void print();
+    public abstract void print();
 
     /**
      * We take derivative.
@@ -27,12 +27,12 @@ public abstract class Expression {
      * @param variable by which we take derivative.
      * @return new derivative expression.
      */
-    abstract public Expression derivative(String variable);
+    public abstract Expression derivative(String variable);
 
     /**
      * Method for testing purposes.
      *
      * @return expression with brackets.
      */
-    abstract public String toString();
+    public abstract String toString();
 }

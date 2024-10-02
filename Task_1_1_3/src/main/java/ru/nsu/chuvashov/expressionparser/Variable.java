@@ -43,7 +43,6 @@ public class Variable extends Expression {
                     result = 1;
                 }
                 return result;
-//                return Double.parseDouble(variab[1]);
             }
         }
         throw new Exception("Variable " + this.var + " wasn`t introduced");
