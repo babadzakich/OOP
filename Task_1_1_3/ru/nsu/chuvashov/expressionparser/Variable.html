@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -203,13 +203,20 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <div class="block">Prints variable.</div>
 </td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Method for testing purposes.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -262,12 +269,14 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <div class="block">Separates string by ;, and searches for
  needed variable, if not found, throws exeption.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Expression.html#eval(java.lang.String)">eval</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>variables</code> - - string with variables.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>result of substitution.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.Exception</code> - of dividing by zero.</dd>
+<dd><code>java.lang.Exception</code> - if needed variable wasn`t presented.</dd>
 </dl>
 </li>
 </ul>
@@ -279,21 +288,44 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <h4>print</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;print()</pre>
 <div class="block">Prints variable.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Expression.html#print()">print</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser">Expression</a></code></dd>
+</dl>
 </li>
 </ul>
 <a id="derivative(java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>derivative</h4>
 <pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser">Expression</a>&nbsp;derivative&#8203;(java.lang.String&nbsp;variable)</pre>
 <div class="block">Makes derivatization.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Expression.html#derivative(java.lang.String)">derivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>variable</code> - - derivative var.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>1 if current var is derivat number.</dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="Expression.html#toString()">Expression</a></code></span></div>
+<div class="block">Method for testing purposes.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Expression.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser">Expression</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>expression with brackets.</dd>
 </dl>
 </li>
 </ul>
