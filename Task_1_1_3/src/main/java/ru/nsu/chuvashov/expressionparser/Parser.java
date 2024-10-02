@@ -15,21 +15,39 @@ public class Parser {
     private Parser() {
         type = TokenType.NUMBER;
         inIndex = 0;
-    };
+    }
 
+    /**
+     * Making of Singleton.
+     *
+     * @return Singletone instance.
+     */
     public static Parser getParser() {
-        if(parser == null) {
+        if (parser == null) {
             parser = new Parser();
         }
         return parser;
     }
 
+    /**
+     * Public method that gets string and
+     * starts its parsing.
+     *
+     * @param inn - input string.
+     * @return parsed string in Expression class.
+     */
     public Expression parseExpression(String inn) {
         input = inn;
         advance();
         return add();
     }
 
+    /**
+     * method that skips all whitespaces and
+     * checks for type of current token,
+     * it can be plus or minus or even number or variable,
+     * and we parse number or variable getting it from string.
+     */
     private void advance() {
         if (end) {
             type = TokenType.TOKENEOF;
@@ -96,6 +114,14 @@ public class Parser {
         }
     }
 
+    /**
+     * The summary has the lowest priority
+     * among other operations so we start from it,
+     * making new Expression Add with requrcively,
+     * calling mul so we look for operation with higher priority.
+     *
+     * @return new Add.
+     */
     private Expression add() {
         Expression exp = mul();
         while (true) {
@@ -115,6 +141,11 @@ public class Parser {
         }
     }
 
+    /**
+     * We are making multiplication with number so.
+     *
+     * @return
+     */
     private Expression mul() {
         Expression exp = constant();
         while (true) {
@@ -144,7 +175,7 @@ public class Parser {
 
     private Expression grouping() {
         advance();
-        Expression exp = expression;
+        Expression exp = add();
         advance();
 
         return exp;
