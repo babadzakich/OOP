@@ -1,5 +1,7 @@
 package ru.nsu.chuvashov.expressionparser;
 
+import java.util.Map;
+
 /**
  * Class of numbers.
  */
@@ -44,5 +46,10 @@ public class Number extends Expression {
     @Override
     public Expression derivative(String variable) {
         return new Number(0);
+    }
+
+    @Override
+    public String toString() {
+        return "" + value;
     }
 }

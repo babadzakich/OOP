@@ -1,5 +1,7 @@
 package ru.nsu.chuvashov.expressionparser;
 
+import java.util.Map;
+
 /**
  * Variable class.
  */
@@ -21,7 +23,7 @@ public class Variable extends Expression {
      *
      * @param variables - string with variables.
      * @return result of substitution.
-     * @throws Exception of dividing by zero.
+     * @throws Exception if needed variable wasn`t presented.
      */
     @Override
     public double eval(String variables) throws Exception {
@@ -33,7 +35,15 @@ public class Variable extends Expression {
         for (String s : vars) {
             String[] variab = s.split(" = ");
             if (variab[0].equals(var)) {
-                return Double.parseDouble(variab[1]);
+                double result;
+                try {
+                    result = Double.parseDouble(variab[1]);
+                } catch (Exception e) {
+                    System.out.println("Wrong number format, setting variable to default");
+                    result = 1;
+                }
+                return result;
+//                return Double.parseDouble(variab[1]);
             }
         }
         throw new Exception("Variable " + this.var + " wasn`t introduced");
@@ -59,5 +69,10 @@ public class Variable extends Expression {
             return new Number(1);
         }
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return var;
     }
 }

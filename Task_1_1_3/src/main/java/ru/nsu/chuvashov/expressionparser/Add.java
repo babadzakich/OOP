@@ -52,4 +52,13 @@ public class Add extends Expression {
     public Expression derivative(String variable) {
         return new Add(left.derivative(variable), right.derivative(variable));
     }
+
+    @Override
+    public String toString() {
+        return "("
+                + left.toString()
+                + " + "
+                + right.toString()
+                + ")";
+    }
 }

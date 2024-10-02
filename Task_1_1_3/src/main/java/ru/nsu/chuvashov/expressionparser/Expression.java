@@ -1,5 +1,7 @@
 package ru.nsu.chuvashov.expressionparser;
 
+import java.util.Map;
+
 /**
  * Abstract class that has only signatures,
  * for all classes that extend this class.
@@ -12,12 +14,12 @@ public abstract class Expression {
      * @return result of evaluation.
      * @throws Exception division by zero.
      */
-    abstract double eval(String variables) throws Exception;
+    abstract public double eval(String variables) throws Exception;
 
     /**
      * We print our statement.
      */
-    abstract void print();
+    abstract public void print();
 
     /**
      * We take derivative.
@@ -25,5 +27,12 @@ public abstract class Expression {
      * @param variable by which we take derivative.
      * @return new derivative expression.
      */
-    abstract Expression derivative(String variable);
+    abstract public Expression derivative(String variable);
+
+    /**
+     * Method for testing purposes.
+     *
+     * @return expression with brackets.
+     */
+    abstract public String toString();
 }
