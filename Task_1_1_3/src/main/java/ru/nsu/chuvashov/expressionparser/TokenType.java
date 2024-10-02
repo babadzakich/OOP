@@ -8,8 +8,9 @@ public enum TokenType {
     TOKENDIV(3),
     OPENBB(4),
     CLOSEDBB(5),
-    CONST(6),
-    TOKENEOF(7);
+    NUMBER(6),
+    VARIABLE(7),
+    TOKENEOF(8);
 
     private final int value;
 

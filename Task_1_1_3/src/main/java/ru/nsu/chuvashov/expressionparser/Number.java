@@ -14,7 +14,7 @@ public class Number extends Expression {
      *
      * @param number - number that we use.
      */
-    public Number(int number) {
+    public Number(double number) {
         this.value = number;
     }
 
