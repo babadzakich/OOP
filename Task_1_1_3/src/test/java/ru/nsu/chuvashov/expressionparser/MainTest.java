@@ -10,7 +10,7 @@ class MainTest {
 
     @Test
     void mainTest() throws Exception {
-        InputStream in = System.in;
+        final InputStream in = System.in;
         ByteArrayInputStream bais = new ByteArrayInputStream("(2 + 2) * 2\n".getBytes());
         System.setIn(bais);
         Main.main(new String[]{});

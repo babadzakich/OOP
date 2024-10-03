@@ -32,7 +32,7 @@ class SubTest {
      */
     @Test
     void print() {
-        OutputStream saveOut = System.out;
+        final OutputStream saveOut = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         Expression e = new Sub(new Number(5), new Variable("X"));

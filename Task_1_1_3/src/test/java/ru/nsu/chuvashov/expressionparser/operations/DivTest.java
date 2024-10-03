@@ -52,7 +52,7 @@ class DivTest {
     void derivative() throws Exception {
         Expression der = new Div(new Mul(new Number(5), new Variable("X")),
                 new Number(3)).derivative("X");
-        assertEquals((double)15/(double)9,
+        assertEquals((double) 15 / (double) 9,
                 der.eval("X = 3"));
     }
 
@@ -61,7 +61,7 @@ class DivTest {
      */
     @Test
     void testPrint() {
-        OutputStream saveOut = System.out;
+        final OutputStream saveOut = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         Expression e = new Div(new Number(5), new Variable("X"));
