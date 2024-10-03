@@ -42,7 +42,7 @@ public class Number extends Expression {
      * @return zero(result of taking derivative)
      */
     @Override
-    public Expression derivative(String variable) {
+    public Expression derivative(String variable) throws Exception {
         return new Number(0);
     }
 }

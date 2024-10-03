@@ -51,7 +51,7 @@ public class Add extends Expression {
      * @return new derivative.
      */
     @Override
-    public Expression derivative(String variable) {
+    public Expression derivative(String variable) throws Exception {
         return new Add(left.derivative(variable), right.derivative(variable));
     }
 }

@@ -29,18 +29,18 @@ public class Variable extends Expression {
             throw new Exception("Not enough arguments for substituting"
             + " variable");
         }
-        String[] vars = variables.split("; ");
+        String[] vars = variables.split(";");
         for (String s : vars) {
-            String[] variab = s.split(" = ");
-            if (variab[0].equals(var)) {
-                double result;
-                try {
+            String[] variab = s.split("=");
+            try {
+                variab[0] = variab[0].trim();
+                if (variab[0].equals(var)) {
+                    double result;
                     result = Double.parseDouble(variab[1]);
-                } catch (Exception e) {
-                    System.out.println("Wrong number format, setting variable to default");
-                    result = 1;
+                    return result;
                 }
-                return result;
+            } catch (Exception e) {
+                throw new Exception("Wrong number format");
             }
         }
         throw new Exception("Variable " + this.var + " wasn`t introduced");
@@ -61,7 +61,10 @@ public class Variable extends Expression {
      * @return 1 if current var is derivat number.
      */
     @Override
-    public Expression derivative(String variable) {
+    public Expression derivative(String variable) throws Exception {
+        if (variable.isEmpty()) {
+            throw new Exception("Empty variable");
+        }
         if (var.equals(variable)) {
             return new Number(1);
         }

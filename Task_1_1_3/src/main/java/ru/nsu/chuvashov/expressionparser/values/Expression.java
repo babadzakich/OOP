@@ -25,5 +25,5 @@ public abstract class Expression {
      * @param variable by which we take derivative.
      * @return new derivative expression.
      */
-    public abstract Expression derivative(String variable);
+    public abstract Expression derivative(String variable) throws Exception;
 }

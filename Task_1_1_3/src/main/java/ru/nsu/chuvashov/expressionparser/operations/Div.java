@@ -54,7 +54,7 @@ public class Div extends Expression {
      * @return new derivative.
      */
     @Override
-    public Expression derivative(String variable) {
+    public Expression derivative(String variable) throws Exception {
         return new Div(
                 new Sub(new Mul(left.derivative(variable), right),
                         new Mul(left, right.derivative(variable))),

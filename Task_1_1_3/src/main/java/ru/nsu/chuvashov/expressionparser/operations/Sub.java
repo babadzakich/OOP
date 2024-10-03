@@ -51,7 +51,7 @@ public class Sub extends Expression {
      * @return derivative of substraction.
      */
     @Override
-    public Expression derivative(String variable) {
+    public Expression derivative(String variable) throws Exception {
         return new Sub(left.derivative(variable),
                 right.derivative(variable));
     }
