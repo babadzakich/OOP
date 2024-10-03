@@ -1,13 +1,9 @@
-package ru.nsu.chuvashov.expressionparser;
+package ru.nsu.chuvashov.expressionparser.operations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.chuvashov.expressionparser.operations.Add;
-import ru.nsu.chuvashov.expressionparser.operations.Div;
-import ru.nsu.chuvashov.expressionparser.operations.Mul;
-import ru.nsu.chuvashov.expressionparser.operations.Sub;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;

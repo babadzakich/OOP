@@ -44,7 +44,7 @@ public class Parser {
      * @param inn - input string.
      * @return parsed string in Expression class.
      */
-    public Expression parseExpression(String inn) {
+    public Expression parseExpression(String inn) throws Exception {
         input = inn.replaceAll(" ", "");
         advance();
         return add();
@@ -56,7 +56,7 @@ public class Parser {
      * it can be plus or minus or even number or variable,
      * and we parse number or variable getting it from string.
      */
-    private void advance() {
+    private void advance() throws Exception {
         if (end) {
             type = TokenType.TOKENEOF;
             return;
@@ -81,6 +81,9 @@ public class Parser {
 //        }
 
         if (c == '+') {
+            if (type != TokenType.NUMBER && type != TokenType.VARIABLE) {
+                throw new Exception("");
+            }
             type = TokenType.TOKENADD;
         } else if (c == '-') {
             type = TokenType.TOKENSUB;
@@ -133,7 +136,7 @@ public class Parser {
      *
      * @return new Add.
      */
-    private Expression add() {
+    private Expression add() throws Exception {
         Expression exp = mul();
         while (true) {
             switch (type) {
@@ -157,7 +160,7 @@ public class Parser {
      *
      * @return multiplication.
      */
-    private Expression mul() {
+    private Expression mul() throws Exception {
         Expression exp = constant();
         while (true) {
             switch (type) {
@@ -175,7 +178,7 @@ public class Parser {
         }
     }
 
-    private Expression constant() {
+    private Expression constant() throws Exception {
         if (type == TokenType.NUMBER || type == TokenType.VARIABLE) {
             Expression exp = expression;
             advance();
@@ -184,7 +187,7 @@ public class Parser {
         return grouping();
     }
 
-    private Expression grouping() {
+    private Expression grouping() throws Exception {
         advance();
         Expression exp = add();
         advance();

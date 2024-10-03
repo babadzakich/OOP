@@ -26,11 +26,4 @@ public abstract class Expression {
      * @return new derivative expression.
      */
     public abstract Expression derivative(String variable);
-
-    /**
-     * Method for testing purposes.
-     *
-     * @return expression with brackets.
-     */
-    public abstract String toString();
 }

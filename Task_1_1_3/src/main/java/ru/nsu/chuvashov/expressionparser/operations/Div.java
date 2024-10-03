@@ -60,13 +60,4 @@ public class Div extends Expression {
                         new Mul(left, right.derivative(variable))),
                 new Mul(right, right));
     }
-
-    @Override
-    public String toString() {
-        return "("
-                + left.toString()
-                + " / "
-                + right.toString()
-                + ")";
-    }
 }

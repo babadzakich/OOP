@@ -45,9 +45,4 @@ public class Number extends Expression {
     public Expression derivative(String variable) {
         return new Number(0);
     }
-
-    @Override
-    public String toString() {
-        return "" + value;
-    }
 }

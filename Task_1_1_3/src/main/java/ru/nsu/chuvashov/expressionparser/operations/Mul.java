@@ -56,13 +56,4 @@ public class Mul extends Expression {
                 new Mul(left.derivative(variable), right),
                 new Mul(left, right.derivative(variable)));
     }
-
-    @Override
-    public String toString() {
-        return "("
-                + left.toString()
-                + " * "
-                + right.toString()
-                + ")";
-    }
 }

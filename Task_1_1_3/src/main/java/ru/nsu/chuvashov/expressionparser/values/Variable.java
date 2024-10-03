@@ -67,9 +67,4 @@ public class Variable extends Expression {
         }
         return this;
     }
-
-    @Override
-    public String toString() {
-        return var;
-    }
 }

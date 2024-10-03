@@ -55,13 +55,4 @@ public class Sub extends Expression {
         return new Sub(left.derivative(variable),
                 right.derivative(variable));
     }
-
-    @Override
-    public String toString() {
-        return "("
-                + left.toString()
-                + " + "
-                + right.toString()
-                + ")";
-    }
 }
