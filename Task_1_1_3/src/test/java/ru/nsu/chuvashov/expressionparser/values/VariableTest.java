@@ -1,15 +1,24 @@
 package ru.nsu.chuvashov.expressionparser.values;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.operations.Add;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Class for variable test.
+ */
 class VariableTest {
 
+    /**
+     * Test for all eval troubles,
+     * like empty variables, wrong format,
+     * and lack of variable.
+     */
     @Test
     void eval() {
         Expression expression = new Add(new Variable("X"), new Variable("Y"));
@@ -42,6 +51,9 @@ class VariableTest {
         }
     }
 
+    /**
+     * Test for print.
+     */
     @Test
     void print() {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -53,6 +65,12 @@ class VariableTest {
         System.setOut(new PrintStream(saveOut));
     }
 
+    /**
+     * Test for taking derivative by variable
+     * that differs from our variable.
+     *
+     * @throws Exception not in this test.
+     */
     @Test
     void derivativeOther() throws Exception {
         Expression e = new Variable("X");
@@ -65,18 +83,25 @@ class VariableTest {
         System.setOut(new PrintStream(saveOut));
     }
 
+    /**
+     * Checking for exception when we insert
+     * empty line in derivative.
+     */
     @Test
     void derivativeEmpty() {
-        boolean flag = false;
         Expression e = new Variable("X");
         try {
             e.derivative("");
         } catch (Exception x) {
-            flag = true;
+            assertInstanceOf(IllegalArgumentException.class, x);
         }
-        assertTrue(flag);
     }
 
+    /**
+     * Just derivative check.
+     *
+     * @throws Exception that can`t be thrown.
+     */
     @Test
     void derivative() throws Exception {
         Expression e = new Variable("X");

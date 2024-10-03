@@ -63,7 +63,7 @@ public class Variable extends Expression {
     @Override
     public Expression derivative(String variable) throws Exception {
         if (variable.isEmpty()) {
-            throw new Exception("Empty variable");
+            throw new IllegalArgumentException("Empty variable");
         }
         if (var.equals(variable)) {
             return new Number(1);
