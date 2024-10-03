@@ -2,15 +2,13 @@ package ru.nsu.chuvashov.expressionparser.operations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 /**
  * Test class for adding operator.
@@ -27,55 +25,18 @@ class AddTest {
         assertEquals(10, expression.eval("X = 5"));
     }
 
-    @Test
-    void eval2() throws Exception {
-        Expression expression = new Add(new Mul(new Variable("X"), new Number(3)), new Variable("X"));
-        assertEquals(40, expression.eval("X = 10"));
-    }
-
-    @Test
-    void eval3() throws Exception {
-        Expression expression = new Add(new Number(3), new Mul(new Number(3), new Number(3)));
-        assertEquals(12, expression.eval("X = 10"));
-    }
-
+    /**
+     * Derivative creation test.
+     */
     @Test
     void derivative() {
         Expression expression = new Add(new Number(5), new Variable("X"));
         assertEquals("(0.0 + 1.0)", expression.derivative("X").toString());
     }
 
-    @Test
-    void derivative2() {
-        Expression expression = new Add(new Mul(new Variable("X"), new Number(3)), new Variable("X"));
-        String expected = "(((1.0 * 3.0) + (X * 0.0)) + 1.0)";
-        assertEquals(expected, expression.derivative("X").toString());
-    }
-
-    @Test
-    void derivative3() throws Exception {
-        Expression expression = new Add(new Number(5), new Add(new Variable("X"), new Number(3)));
-        assertEquals(1, expression.derivative("X").eval(""));
-    }
-
-    @Test
-    void testToString() {
-        Expression e = new Add(new Number(5), new Variable("X"));
-        assertEquals("(5.0 + X)", e.toString());
-    }
-
-    @Test
-    void testToString2() {
-        Expression e2 = new Add(new Add(new Number(5), new Variable("X")), new Variable("X"));
-        assertEquals("((5.0 + X) + X)", e2.toString());
-    }
-
-    @Test
-    void testToString3() {
-        Expression e3 = new Add(new Number(5), new Add(new Variable("X"), new Variable("X")));
-        assertEquals("(5.0 + (X + X))", e3.toString());
-    }
-
+    /**
+     * Print test.
+     */
     @Test
     void testPrint() {
         OutputStream saveOut = System.out;

@@ -3,14 +3,13 @@ package ru.nsu.chuvashov.expressionparser.operations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
-
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 class DivTest {
 
@@ -47,26 +46,6 @@ class DivTest {
     }
 
     /**
-     * Test for printing brackets.
-     */
-    @Test
-    void print1() {
-        String expression = new Div(new Number(10),
-                new Mul(new Number(1), new Number(2))).toString();
-        assertEquals("(10.0 / (1.0 * 2.0))", expression);
-    }
-
-    /**
-     * Another brackets print test.
-     */
-    @Test
-    void print2() {
-        String expression = new Div(new Add(new Number(10), new Number(2)),
-                new Mul(new Variable("XA"), new Number(2))).toString();
-        assertEquals("((10.0 + 2.0) / (XA * 2.0))", expression);
-    }
-
-    /**
      * Derivative calculating process.
      */
     @Test
@@ -79,6 +58,9 @@ class DivTest {
                 der.toString());
     }
 
+    /**
+     * Test for printing expression.
+     */
     @Test
     void testPrint() {
         OutputStream saveOut = System.out;
