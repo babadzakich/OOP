@@ -1,4 +1,6 @@
-package ru.nsu.chuvashov.expressionparser;
+package ru.nsu.chuvashov.expressionparser.operations;
+
+import ru.nsu.chuvashov.expressionparser.values.Expression;
 
 /**
  * Multiplication class.

@@ -1,6 +1,4 @@
-package ru.nsu.chuvashov.expressionparser;
-
-import java.util.Map;
+package ru.nsu.chuvashov.expressionparser.values;
 
 /**
  * Abstract class that has only signatures,

@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov.expressionparser;
+package ru.nsu.chuvashov.expressionparser.backusnaurparser;
 
 public enum TokenType {
     
@@ -16,8 +16,5 @@ public enum TokenType {
 
     TokenType(int i) {
         this.value = i;
-    }
-    public int getValue() {
-        return value;
     }
 }

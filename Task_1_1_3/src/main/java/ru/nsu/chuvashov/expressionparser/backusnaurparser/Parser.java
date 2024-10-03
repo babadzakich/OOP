@@ -1,4 +1,12 @@
-package ru.nsu.chuvashov.expressionparser;
+package ru.nsu.chuvashov.expressionparser.backusnaurparser;
+
+import ru.nsu.chuvashov.expressionparser.operations.Add;
+import ru.nsu.chuvashov.expressionparser.operations.Div;
+import ru.nsu.chuvashov.expressionparser.operations.Mul;
+import ru.nsu.chuvashov.expressionparser.operations.Sub;
+import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
+import ru.nsu.chuvashov.expressionparser.values.Variable;
 
 /**
  * Class for parsing expression from string.
@@ -63,6 +71,9 @@ public class Parser {
 
         while (Character.isWhitespace(c)) {
             c = input.charAt(inIndex++);
+            if (c == ' ' && inIndex == input.length()) {
+                break;
+            }
             if (c == '\0' || c == '\n') {
                 type = TokenType.TOKENEOF;
                 return;
@@ -144,7 +155,7 @@ public class Parser {
     /**
      * We are making multiplication with number so.
      *
-     * @return
+     * @return multiplication.
      */
     private Expression mul() {
         Expression exp = constant();
