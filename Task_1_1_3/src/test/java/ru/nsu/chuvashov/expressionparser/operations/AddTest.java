@@ -7,11 +7,15 @@ import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 /**
  * Test class for adding operator.
  */
 class AddTest {
-
     /**
      * Checking add.
      *
@@ -70,5 +74,16 @@ class AddTest {
     void testToString3() {
         Expression e3 = new Add(new Number(5), new Add(new Variable("X"), new Variable("X")));
         assertEquals("(5.0 + (X + X))", e3.toString());
+    }
+
+    @Test
+    void testPrint() {
+        OutputStream saveOut = System.out;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        Expression e = new Add(new Number(5), new Variable("X"));
+        e.print();
+        assertEquals("(5.0 + X)", out.toString());
+        System.setOut(new PrintStream(saveOut));
     }
 }

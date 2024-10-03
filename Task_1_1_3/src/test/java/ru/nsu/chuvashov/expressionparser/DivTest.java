@@ -12,6 +12,10 @@ import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 class DivTest {
 
     /**
@@ -77,5 +81,16 @@ class DivTest {
                         + "(5.0 * 1.0)) * 3.0) +"
                         + " ((5.0 * X) * 0.0)) / (3.0 * 3.0))",
                 der.toString());
+    }
+
+    @Test
+    void testPrint() {
+        OutputStream saveOut = System.out;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        Expression e = new Div(new Number(5), new Variable("X"));
+        e.print();
+        assertEquals("(5.0 / X)", out.toString());
+        System.setOut(new PrintStream(saveOut));
     }
 }
