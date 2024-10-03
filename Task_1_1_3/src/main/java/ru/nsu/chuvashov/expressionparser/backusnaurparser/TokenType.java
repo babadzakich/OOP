@@ -1,5 +1,8 @@
 package ru.nsu.chuvashov.expressionparser.backusnaurparser;
 
+/**
+ * Enum for types of expression in token.
+ */
 public enum TokenType {
     
     TOKENADD(0),
@@ -14,6 +17,11 @@ public enum TokenType {
 
     private final int value;
 
+    /**
+     * Constructor.
+     *
+     * @param i = value for enumeration.
+     */
     TokenType(int i) {
         this.value = i;
     }
