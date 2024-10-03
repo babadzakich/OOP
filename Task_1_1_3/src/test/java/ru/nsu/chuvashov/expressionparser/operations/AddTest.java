@@ -39,8 +39,8 @@ class AddTest {
      */
     @Test
     void testPrint() {
-        OutputStream saveOut = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+        OutputStream saveOut = System.out;
         System.setOut(new PrintStream(out));
         Expression e = new Add(new Number(5), new Variable("X"));
         e.print();
