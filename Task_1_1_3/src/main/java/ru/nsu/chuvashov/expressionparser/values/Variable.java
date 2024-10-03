@@ -26,7 +26,7 @@ public class Variable extends Expression {
     @Override
     public double eval(String variables) throws Exception {
         if (variables.length() < 5) {
-            throw new Exception("Not enough arguments for substituting"
+            throw new IllegalArgumentException("Not enough arguments for substituting"
             + " variable");
         }
         String[] vars = variables.split(";");
@@ -40,10 +40,10 @@ public class Variable extends Expression {
                     return result;
                 }
             } catch (Exception e) {
-                throw new Exception("Wrong number format");
+                throw new IllegalArgumentException("Wrong number format");
             }
         }
-        throw new Exception("Variable " + this.var + " wasn`t introduced");
+        throw new NoSuchFieldException("Variable " + this.var + " wasn`t introduced");
     }
 
     /**

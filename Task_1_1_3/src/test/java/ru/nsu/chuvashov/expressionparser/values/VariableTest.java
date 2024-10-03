@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
+import ru.nsu.chuvashov.expressionparser.operations.Add;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +12,34 @@ class VariableTest {
 
     @Test
     void eval() {
+        Expression expression = new Add(new Variable("X"), new Variable("Y"));
+        try {
+            expression.eval("");
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
+
+        try {
+            expression.eval("X = 5");
+        } catch (Exception e) {
+            assertInstanceOf(NoSuchFieldException.class, e);
+        }
+
+        try {
+            expression.eval("X = 5 2");
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
+
+        double result = 0;
+        try {
+            result = expression.eval("X = 5; Y = 2");
+        } catch (Exception e) {
+            System.out.println("Holy hell, how could this happen");
+            result = Double.NaN;
+        } finally {
+            assertEquals(7, result);
+        }
     }
 
     @Test
@@ -41,7 +70,7 @@ class VariableTest {
         boolean flag = false;
         Expression e = new Variable("X");
         try {
-            Expression e2 = e.derivative("");
+            e.derivative("");
         } catch (Exception x) {
             flag = true;
         }
