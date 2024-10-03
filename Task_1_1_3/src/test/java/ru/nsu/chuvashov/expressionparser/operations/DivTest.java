@@ -49,13 +49,11 @@ class DivTest {
      * Derivative calculating process.
      */
     @Test
-    void derivative() {
+    void derivative() throws Exception {
         Expression der = new Div(new Mul(new Number(5), new Variable("X")),
                 new Number(3)).derivative("X");
-        assertEquals("(((((0.0 * X) + "
-                        + "(5.0 * 1.0)) * 3.0) +"
-                        + " ((5.0 * X) * 0.0)) / (3.0 * 3.0))",
-                der.toString());
+        assertEquals((double)15/(double)9,
+                der.eval("X = 3"));
     }
 
     /**

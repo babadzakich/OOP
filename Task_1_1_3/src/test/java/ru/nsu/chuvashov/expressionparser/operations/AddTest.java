@@ -29,9 +29,9 @@ class AddTest {
      * Derivative creation test.
      */
     @Test
-    void derivative() {
+    void derivative() throws Exception {
         Expression expression = new Add(new Number(5), new Variable("X"));
-        assertEquals("(0.0 + 1.0)", expression.derivative("X").toString());
+        assertEquals(1, expression.derivative("X").eval(""));
     }
 
     /**
