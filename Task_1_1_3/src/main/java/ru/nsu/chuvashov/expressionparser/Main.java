@@ -1,7 +1,14 @@
 package ru.nsu.chuvashov.expressionparser;
 
 import ru.nsu.chuvashov.expressionparser.backusnaurparser.Parser;
+import ru.nsu.chuvashov.expressionparser.operations.Add;
+import ru.nsu.chuvashov.expressionparser.operations.Sub;
+import ru.nsu.chuvashov.expressionparser.operations.Mul;
+import ru.nsu.chuvashov.expressionparser.operations.Div;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
+import ru.nsu.chuvashov.expressionparser.values.Variable;
+
 import java.util.Scanner;
 
 /**
@@ -19,19 +26,19 @@ public class Main {
         Parser parserAutomaton = Parser.getParser();
         Expression parsed = parserAutomaton.parseExpression(input);
         parsed.print();
-        System.out.println(parsed.eval("X = 2"));
+        System.out.println(" " + parsed.eval("X = 2"));
 
-//        Expression e = new Add(new Add(new Number(3), new Variable("y")), new Mul(new Number(2),
-//                new Variable("x")));
-//        e.print();
-//        double result = e.eval("x = 10; y = 13");
-//        System.out.println(" " + result);
-//
-//        Expression e2 = new Add(new Number(3), new Mul(new Number(2),
-//                new Variable("x")));
-//        Expression der = e2.derivative("x");
-//        der.print();
-//        result = der.eval("x = 12");
-//        System.out.println(result);
+        Expression e = new Add(new Add(new Number(3), new Variable("y")), new Mul(new Number(2),
+                new Variable("x")));
+        e.print();
+        double result = e.eval("x = 10; y = 13");
+        System.out.println(" " + result);
+
+        Expression e2 = new Add(new Number(3), new Mul(new Number(2),
+                new Variable("x")));
+        Expression der = e2.derivative("x");
+        der.print();
+        result = der.eval("x = 12");
+        System.out.println(result);
     }
 }

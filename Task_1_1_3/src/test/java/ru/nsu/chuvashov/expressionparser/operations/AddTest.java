@@ -30,16 +30,28 @@ class AddTest {
     }
 
     @Test
+    void eval3() throws Exception {
+        Expression expression = new Add(new Number(3), new Mul(new Number(3), new Number(3)));
+        assertEquals(12, expression.eval("X = 10"));
+    }
+
+    @Test
     void derivative() {
         Expression expression = new Add(new Number(5), new Variable("X"));
         assertEquals("(0.0 + 1.0)", expression.derivative("X").toString());
     }
 
     @Test
-    void derivative2() throws Exception {
+    void derivative2() {
         Expression expression = new Add(new Mul(new Variable("X"), new Number(3)), new Variable("X"));
         String expected = "(((1.0 * 3.0) + (X * 0.0)) + 1.0)";
         assertEquals(expected, expression.derivative("X").toString());
+    }
+
+    @Test
+    void derivative3() throws Exception {
+        Expression expression = new Add(new Number(5), new Add(new Variable("X"), new Number(3)));
+        assertEquals(1, expression.derivative("X").eval(""));
     }
 
     @Test

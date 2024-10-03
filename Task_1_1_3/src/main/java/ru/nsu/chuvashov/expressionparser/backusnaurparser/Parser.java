@@ -45,7 +45,7 @@ public class Parser {
      * @return parsed string in Expression class.
      */
     public Expression parseExpression(String inn) {
-        input = inn;
+        input = inn.replaceAll(" ", "");
         advance();
         return add();
     }
@@ -69,16 +69,16 @@ public class Parser {
             lastChar = '\0';
         }
 
-        while (Character.isWhitespace(c)) {
-            c = input.charAt(inIndex++);
-            if (c == ' ' && inIndex == input.length()) {
-                break;
-            }
-            if (c == '\0' || c == '\n') {
-                type = TokenType.TOKENEOF;
-                return;
-            }
-        }
+//        while (Character.isWhitespace(c)) {
+//            c = input.charAt(inIndex++);
+//            if (c == ' ' && inIndex == input.length()) {
+//                break;
+//            }
+//            if (c == '\0' || c == '\n') {
+//                type = TokenType.TOKENEOF;
+//                return;
+//            }
+//        }
 
         if (c == '+') {
             type = TokenType.TOKENADD;
