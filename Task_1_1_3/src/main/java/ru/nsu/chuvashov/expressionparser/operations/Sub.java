@@ -1,11 +1,10 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
-import ru.nsu.chuvashov.expressionparser.values.Expression;
-import ru.nsu.chuvashov.expressionparser.values.Number;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
 
 /**
  * Substraction class.
