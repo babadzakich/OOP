@@ -13,9 +13,8 @@ public enum TokenType {
     CLOSEDBB(5),
     NUMBER(6),
     VARIABLE(7),
-    TOKENEOF(8);
-
-    private final int value;
+    TOKENEOF(8),
+    STARTPOINT(9);
 
     /**
      * Constructor.
@@ -23,6 +22,5 @@ public enum TokenType {
      * @param i = value for enumeration.
      */
     TokenType(int i) {
-        this.value = i;
     }
 }

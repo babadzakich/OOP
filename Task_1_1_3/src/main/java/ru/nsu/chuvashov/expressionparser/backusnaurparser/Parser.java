@@ -14,15 +14,21 @@ import ru.nsu.chuvashov.expressionparser.values.Variable;
 public class Parser {
     private static Parser parser = null;
     private TokenType type;
-    private char lastChar = '\0';
+    private char lastChar;
     private String input;
     private int inIndex;
-    private boolean end = false;
+    private boolean end;
     private Expression expression;
 
     private Parser() {
-        type = TokenType.NUMBER;
+        initParser();
+    }
+
+    private void initParser() {
+        type = TokenType.STARTPOINT;
         inIndex = 0;
+        lastChar = '\0';
+        end = false;
     }
 
     /**
@@ -44,8 +50,9 @@ public class Parser {
      * @param inn - input string.
      * @return parsed string in Expression class.
      */
-    public Expression parseExpression(String inn) throws Exception {
-        input = inn.replaceAll(" ", "");
+    public Expression parseExpression(String inn) {
+        initParser();
+        input = inn.trim();
         advance();
         return add();
     }
@@ -56,7 +63,7 @@ public class Parser {
      * it can be plus or minus or even number or variable,
      * and we parse number or variable getting it from string.
      */
-    private void advance() throws Exception {
+    private void advance() {
         if (end) {
             type = TokenType.TOKENEOF;
             return;
@@ -69,31 +76,27 @@ public class Parser {
             lastChar = '\0';
         }
 
-//        while (Character.isWhitespace(c)) {
-//            c = input.charAt(inIndex++);
-//            if (c == ' ' && inIndex == input.length()) {
-//                break;
-//            }
-//            if (c == '\0' || c == '\n') {
-//                type = TokenType.TOKENEOF;
-//                return;
-//            }
-//        }
+        while (Character.isWhitespace(c)) {
+            c = input.charAt(inIndex++);
+        }
 
         if (c == '+') {
-            if (type != TokenType.NUMBER && type != TokenType.VARIABLE) {
-                throw new Exception("");
-            }
+            checkToken(c);
             type = TokenType.TOKENADD;
         } else if (c == '-') {
+            checkToken(c);
             type = TokenType.TOKENSUB;
         } else if (c == '*') {
+            checkToken(c);
             type = TokenType.TOKENMUL;
         } else if (c == '/') {
+            checkToken(c);
             type = TokenType.TOKENDIV;
         } else if (c == '(') {
+            checkToken2(c);
             type = TokenType.OPENBB;
         } else if (c == ')') {
+            checkToken(c);
             type = TokenType.CLOSEDBB;
         } else {
             if (Character.isDigit(c)) {
@@ -136,7 +139,7 @@ public class Parser {
      *
      * @return new Add.
      */
-    private Expression add() throws Exception {
+    private Expression add() {
         Expression exp = mul();
         while (true) {
             switch (type) {
@@ -160,7 +163,7 @@ public class Parser {
      *
      * @return multiplication.
      */
-    private Expression mul() throws Exception {
+    private Expression mul() {
         Expression exp = constant();
         while (true) {
             switch (type) {
@@ -178,7 +181,7 @@ public class Parser {
         }
     }
 
-    private Expression constant() throws Exception {
+    private Expression constant() {
         if (type == TokenType.NUMBER || type == TokenType.VARIABLE) {
             Expression exp = expression;
             advance();
@@ -187,11 +190,25 @@ public class Parser {
         return grouping();
     }
 
-    private Expression grouping() throws Exception {
+    private Expression grouping() {
         advance();
         Expression exp = add();
         advance();
 
         return exp;
+    }
+
+    private void checkToken(char c) {
+        if (type != TokenType.NUMBER && type != TokenType.VARIABLE && type != TokenType.CLOSEDBB) {
+            throw new IllegalStateException("Wrong order" +
+                    "for " + c);
+        }
+    }
+
+    private void checkToken2(char c) {
+        if (type == TokenType.NUMBER || type == TokenType.VARIABLE || type == TokenType.CLOSEDBB) {
+            throw new IllegalStateException("Wrong order " +
+                    "for " + c);
+        }
     }
 }
