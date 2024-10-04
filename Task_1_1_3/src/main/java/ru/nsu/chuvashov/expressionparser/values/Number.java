@@ -45,4 +45,14 @@ public class Number extends Expression {
     public Expression derivative(String variable) throws Exception {
         return new Number(0);
     }
+
+    /**
+     * Cant simplify number, so just return number.
+     *
+     * @return this.
+     */
+    @Override
+    public Expression simplification() {
+        return this;
+    }
 }

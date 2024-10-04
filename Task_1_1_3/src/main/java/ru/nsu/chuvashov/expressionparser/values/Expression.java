@@ -26,4 +26,11 @@ public abstract class Expression {
      * @return new derivative expression.
      */
     public abstract Expression derivative(String variable) throws Exception;
+
+    /**
+     * Simplification method.
+     *
+     * @return simplified expression.
+     */
+    public abstract Expression simplification() throws Exception;
 }

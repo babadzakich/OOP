@@ -70,4 +70,14 @@ public class Variable extends Expression {
         }
         return this;
     }
+
+    /**
+     * Cant simplify already simplified expression.
+     *
+     * @return this.
+     */
+    @Override
+    public Expression simplification() {
+        return this;
+    }
 }

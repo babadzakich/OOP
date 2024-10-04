@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
 import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
 
 /**
  * Division class.
@@ -59,5 +60,36 @@ public class Div extends Expression {
                 new Sub(new Mul(left.derivative(variable), right),
                         new Mul(left, right.derivative(variable))),
                 new Mul(right, right));
+    }
+
+    /**
+     * Simplification for division.
+     *
+     * @return simlified expression.
+     */
+    @Override
+    public Expression simplification() {
+        double leftDouble;
+        double rightDouble;
+        try {
+            leftDouble = left.eval("");
+            if (leftDouble == 0) {
+                return new Number(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Can`t simplify expression!");
+            return this;
+        }
+
+        try {
+            rightDouble = right.eval("");
+        } catch (Exception e) {
+            System.out.println("Can`t simplify expression!");
+            return this;
+        }
+        if (rightDouble == 0) {
+            throw new ArithmeticException("Can`t divide by zero!!");
+        }
+        return new Number(leftDouble / rightDouble);
     }
 }

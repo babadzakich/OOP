@@ -1,6 +1,11 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
 import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  * Substraction class.
@@ -55,4 +60,38 @@ public class Sub extends Expression {
         return new Sub(left.derivative(variable),
                 right.derivative(variable));
     }
+
+    /**
+     * Simplify if left == right.
+     *
+     * @return 0 if we can simplify.
+     */
+    @Override
+    public Expression simplification() {
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final OutputStream saveOut = System.out;
+        System.setOut(new PrintStream(out));
+        left.print();
+        String s1 = out.toString();
+        out.reset();
+        right.print();
+        String s2 = out.toString();
+        if (s1.equals(s2)) {
+            System.setOut(new PrintStream(saveOut));
+            return new Number(0);
+        }
+        System.setOut(new PrintStream(saveOut));
+        double leftDouble;
+        double rightDouble;
+        try {
+            leftDouble = left.eval("");
+            rightDouble = right.eval("");
+        } catch (Exception e) {
+            System.out.println("Can`t simplify");
+            return this;
+        }
+        return new Number(leftDouble - rightDouble);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
 import ru.nsu.chuvashov.expressionparser.values.Expression;
+import ru.nsu.chuvashov.expressionparser.values.Number;
 
 /**
  * Addition class.
@@ -53,5 +54,25 @@ public class Add extends Expression {
     @Override
     public Expression derivative(String variable) throws Exception {
         return new Add(left.derivative(variable), right.derivative(variable));
+    }
+
+    /**
+     * Simplifies summary if we can.
+     *
+     * @return simplified Expression.
+     */
+    @Override
+    public Expression simplification() {
+        double leftDouble;
+        double rightDouble;
+
+        try {
+            leftDouble = left.eval("");
+            rightDouble = right.eval("");
+        } catch (Exception e) {
+            System.out.println("Can't simplify expression");
+            return this;
+        }
+        return new Number(leftDouble + rightDouble);
     }
 }

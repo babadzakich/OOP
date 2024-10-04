@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -45,6 +46,24 @@ class AddTest {
         Expression e = new Add(new Number(5), new Variable("X"));
         e.print();
         assertEquals("(5.0 + X)", out.toString());
+        System.setOut(new PrintStream(saveOut));
+    }
+
+    @Test
+    void simplification() throws Exception {
+        Expression e = new Add(new Number(5), new Number(5));
+        Expression e2 = e.simplification();
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final OutputStream saveOut = System.out;
+        System.setOut(new PrintStream(out));
+        e2.print();
+        assertEquals("10.0", out.toString());
+        e = new Add(new Number(5), new Variable("X"));
+        try {
+            e.simplification();
+        } catch (Exception ex) {
+            assertInstanceOf(Exception.class, ex);
+        }
         System.setOut(new PrintStream(saveOut));
     }
 }
