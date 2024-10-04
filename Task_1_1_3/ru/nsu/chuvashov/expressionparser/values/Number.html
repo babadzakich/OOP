@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -203,6 +203,13 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <div class="block">Printing value of number.</div>
 </td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simplification()">simplification</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Cant simplify number, so just return number.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -286,7 +293,7 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <a id="derivative(java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>derivative</h4>
 <pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a>&nbsp;derivative&#8203;(java.lang.String&nbsp;variable)
@@ -301,6 +308,22 @@ extends <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionpar
 <dd>zero(result of taking derivative)</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a id="simplification()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>simplification</h4>
+<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a>&nbsp;simplification()</pre>
+<div class="block">Cant simplify number, so just return number.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Expression.html#simplification()">simplification</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a></code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this.</dd>
 </dl>
 </li>
 </ul>

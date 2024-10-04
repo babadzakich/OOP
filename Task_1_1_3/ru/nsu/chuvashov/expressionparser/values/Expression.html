@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -201,6 +201,13 @@ extends java.lang.Object</pre>
 <div class="block">We print our statement.</div>
 </td>
 </tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>abstract <a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simplification()">simplification</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Simplification method.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -276,7 +283,7 @@ extends java.lang.Object</pre>
 <a id="derivative(java.lang.String)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>derivative</h4>
 <pre class="methodSignature">public abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a>&nbsp;derivative&#8203;(java.lang.String&nbsp;variable)
@@ -287,6 +294,23 @@ extends java.lang.Object</pre>
 <dd><code>variable</code> - by which we take derivative.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new derivative expression.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a id="simplification()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>simplification</h4>
+<pre class="methodSignature">public abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.chuvashov.expressionparser.values">Expression</a>&nbsp;simplification()
+                                   throws java.lang.Exception</pre>
+<div class="block">Simplification method.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>simplified expression.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.Exception</code></dd>
 </dl>
