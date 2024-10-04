@@ -2,6 +2,7 @@ package ru.nsu.chuvashov.expressionparser.operations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -20,7 +21,7 @@ class DivTest {
     void eval1() {
         boolean flag = false;
         try {
-            double result = new Div(new Number(5), new Sub(new Number(5), new Number(5))).eval("");
+            new Div(new Number(5), new Sub(new Number(5), new Number(5))).eval("");
         } catch (Exception e) {
             flag = true;
         } finally {
@@ -67,6 +68,46 @@ class DivTest {
         Expression e = new Div(new Number(5), new Variable("X"));
         e.print();
         assertEquals("(5.0 / X)", out.toString());
+        System.setOut(new PrintStream(saveOut));
+    }
+
+    @Test
+    void testSimplify() throws Exception {
+        Expression e = new Div(new Number(10), new Number(2));
+        Expression e2 = e.simplification();
+
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final OutputStream saveOut = System.out;
+        System.setOut(new PrintStream(out));
+        e2.print();
+        assertEquals("5.0", out.toString());
+
+        e = new Div(new Number(5), new Variable("X"));
+        try {
+            e.simplification();
+        } catch (Exception ex) {
+            assertInstanceOf(Exception.class, ex);
+        }
+
+        e = new Div(new Variable("X"), new Number(3));
+        try {
+            e.simplification();
+        } catch (Exception ex) {
+            assertInstanceOf(Exception.class, ex);
+        }
+
+        e = new Div(new Number(2), new Number(0));
+        try {
+            e.simplification();
+        } catch (Exception ex) {
+            assertInstanceOf(ArithmeticException.class, ex);
+        }
+
+        out.reset();
+        Expression e4 = new Div(new Number(0), new Number(1212));
+        Expression e5 = e4.simplification();
+        e5.print();
+        assertEquals("0.0", out.toString());
         System.setOut(new PrintStream(saveOut));
     }
 }
