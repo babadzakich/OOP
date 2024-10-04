@@ -200,15 +200,15 @@ public class Parser {
 
     private void checkToken(char c) {
         if (type != TokenType.NUMBER && type != TokenType.VARIABLE && type != TokenType.CLOSEDBB) {
-            throw new IllegalStateException("Wrong order" +
-                    "for " + c);
+            throw new IllegalStateException("Wrong order"
+                    + "for " + c);
         }
     }
 
     private void checkToken2(char c) {
         if (type == TokenType.NUMBER || type == TokenType.VARIABLE || type == TokenType.CLOSEDBB) {
-            throw new IllegalStateException("Wrong order " +
-                    "for " + c);
+            throw new IllegalStateException("Wrong order "
+                    + "for " + c);
         }
     }
 }
