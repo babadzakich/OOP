@@ -7,17 +7,9 @@ import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 
 class ParserTest {
-
-    @Test
-    void getParser() {
-        Parser p1 = Parser.getParser();
-        Parser p2 = Parser.getParser();
-        assertEquals(p1, p2);
-    }
-
     @Test
     void parseExpression() throws Exception {
-        Parser p1 = Parser.getParser();
+        Parser p1 = new Parser();
         Expression e1 = p1.parseExpression("2 + 2 * 2 - 2 / 2 + 2 * (3 + 5) + 10 + XA");
         assertEquals(36, e1.eval("XA = 5"));
         try {

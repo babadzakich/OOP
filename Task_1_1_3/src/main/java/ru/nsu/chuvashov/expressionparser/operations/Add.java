@@ -38,11 +38,7 @@ public class Add extends Expression {
      */
     @Override
     public void print() {
-        System.out.print('(');
-        left.print();
-        System.out.print(" + ");
-        right.print();
-        System.out.print(')');
+        System.out.println(this);
     }
 
     /**
@@ -63,8 +59,8 @@ public class Add extends Expression {
      */
     @Override
     public Expression simplification() {
-        double leftDouble;
-        double rightDouble;
+        final double leftDouble;
+        final double rightDouble;
 
         try {
             leftDouble = left.eval("");
@@ -74,5 +70,25 @@ public class Add extends Expression {
             return this;
         }
         return new Number(leftDouble + rightDouble);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Add a) {
+            return this.left.equals(a.left) && this.right.equals(a.right);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return left.hashCode() + right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left.toString() + " + " + right.toString() + ")";
     }
 }

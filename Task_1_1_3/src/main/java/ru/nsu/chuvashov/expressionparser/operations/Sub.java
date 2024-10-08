@@ -1,8 +1,5 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 
@@ -41,11 +38,7 @@ public class Sub extends Expression {
      */
     @Override
     public void print() {
-        System.out.print('(');
-        left.print();
-        System.out.print(" - ");
-        right.print();
-        System.out.print(')');
+        System.out.print(this);
     }
 
     /**
@@ -67,19 +60,10 @@ public class Sub extends Expression {
      */
     @Override
     public Expression simplification() {
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final OutputStream saveOut = System.out;
-        System.setOut(new PrintStream(out));
-        left.print();
-        String s1 = out.toString();
-        out.reset();
-        right.print();
-        String s2 = out.toString();
-        if (s1.equals(s2)) {
-            System.setOut(new PrintStream(saveOut));
+        if (this.left.equals(this.right)) {
             return new Number(0);
         }
-        System.setOut(new PrintStream(saveOut));
+
         double leftDouble;
         double rightDouble;
         try {
@@ -92,5 +76,23 @@ public class Sub extends Expression {
         return new Number(leftDouble - rightDouble);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Sub a) {
+            return this.left.equals(a.left) && this.right.equals(a.right);
+        }
+        return false;
+    }
 
+    @Override
+    public int hashCode() {
+        return this.left.hashCode() + this.right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.left.toString() + " + " + this.right.toString() + ")";
+    }
 }

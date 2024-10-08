@@ -80,4 +80,24 @@ public class Variable extends Expression {
     public Expression simplification() {
         return this;
     }
+
+    @Override
+    public String toString() {
+        return var;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Variable a) {
+            return var.equals(a.var);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return var.hashCode();
+    }
 }

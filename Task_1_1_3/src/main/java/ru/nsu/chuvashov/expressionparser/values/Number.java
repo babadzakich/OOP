@@ -55,4 +55,24 @@ public class Number extends Expression {
     public Expression simplification() {
         return this;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Number a) {
+            return value == a.value;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.valueOf(value).hashCode();
+    }
 }

@@ -12,7 +12,6 @@ import ru.nsu.chuvashov.expressionparser.values.Variable;
  * Class for parsing expression from string.
  */
 public class Parser {
-    private static Parser parser = null;
     private TokenType type;
     private char lastChar;
     private String input;
@@ -20,7 +19,7 @@ public class Parser {
     private boolean end;
     private Expression expression;
 
-    private Parser() {
+    public Parser() {
         initParser();
     }
 
@@ -29,18 +28,6 @@ public class Parser {
         inIndex = 0;
         lastChar = '\0';
         end = false;
-    }
-
-    /**
-     * Making of Singleton.
-     *
-     * @return Singletone instance.
-     */
-    public static Parser getParser() {
-        if (parser == null) {
-            parser = new Parser();
-        }
-        return parser;
     }
 
     /**
@@ -65,7 +52,7 @@ public class Parser {
      */
     private void advance() {
         if (end) {
-            type = TokenType.TOKENEOF;
+            type = TokenType.valueOf("TOKENEOF");
             return;
         }
         char c;
@@ -80,54 +67,57 @@ public class Parser {
             c = input.charAt(inIndex++);
         }
 
-        if (c == '+') {
-            checkToken(c);
-            type = TokenType.TOKENADD;
-        } else if (c == '-') {
-            checkToken(c);
-            type = TokenType.TOKENSUB;
-        } else if (c == '*') {
-            checkToken(c);
-            type = TokenType.TOKENMUL;
-        } else if (c == '/') {
-            checkToken(c);
-            type = TokenType.TOKENDIV;
-        } else if (c == '(') {
-            checkToken2(c);
-            type = TokenType.OPENBB;
-        } else if (c == ')') {
-            checkToken(c);
-            type = TokenType.CLOSEDBB;
-        } else {
-            if (Character.isDigit(c)) {
-                type = TokenType.NUMBER;
-                double value = 0;
-                while (Character.isDigit(c)) {
-                    value = value * 10 + (c - '0');
-                    if (inIndex == input.length()) {
-                        break;
-                    }
-                    c = input.charAt(inIndex++);
-                }
-                expression = new Number(value);
-            } else {
-                type = TokenType.VARIABLE;
-                StringBuilder var = new StringBuilder();
+        checkToken(c);
 
-                while (Character.isLetter(c)) {
-                    var.append(c);
-                    if (inIndex == input.length()) {
-                        break;
+        switch (c) {
+            case ('+'):
+                type = TokenType.valueOf("TOKENADD");
+                break;
+            case ('-'):
+                type = TokenType.valueOf("TOKENSUB");
+                break;
+            case ('*'):
+                type = TokenType.valueOf("TOKENMUL");
+                break;
+            case ('/'):
+                type = TokenType.valueOf("TOKENDIV");
+                break;
+            case ('('):
+                type = TokenType.valueOf("OPENBB");
+                break;
+            case (')'):
+                type = TokenType.valueOf("CLOSEDBB");
+                break;
+            default:
+                if (Character.isDigit(c)) {
+                    type = TokenType.NUMBER;
+                    double value = 0;
+                    while (Character.isDigit(c)) {
+                        value = value * 10 + (c - '0');
+                        if (inIndex == input.length()) {
+                            break;
+                        }
+                        c = input.charAt(inIndex++);
                     }
-                    c = input.charAt(inIndex++);
-                }
-                expression = new Variable(var.toString());
-            }
+                    expression = new Number(value);
+                } else {
+                    type = TokenType.VARIABLE;
+                    StringBuilder var = new StringBuilder();
 
-            lastChar = c;
-            if (inIndex == input.length()) {
-                end = true;
-            }
+                    while (Character.isLetter(c)) {
+                        var.append(c);
+                        if (inIndex == input.length()) {
+                            break;
+                        }
+                        c = input.charAt(inIndex++);
+                    }
+                    expression = new Variable(var.toString());
+                }
+
+                lastChar = c;
+                if (inIndex == input.length()) {
+                    end = true;
+                }
         }
     }
 
@@ -199,15 +189,12 @@ public class Parser {
     }
 
     private void checkToken(char c) {
-        if (type != TokenType.NUMBER && type != TokenType.VARIABLE && type != TokenType.CLOSEDBB) {
-            throw new IllegalStateException("Wrong order"
-                    + "for " + c);
+        if (Character.isDigit(c) || Character.isLetter(c)) {
+            return;
         }
-    }
-
-    private void checkToken2(char c) {
-        if (type == TokenType.NUMBER || type == TokenType.VARIABLE || type == TokenType.CLOSEDBB) {
-            throw new IllegalStateException("Wrong order "
+        if ((!type.checkForNotNumOrOpenBB() && c != '(')
+                || (type.checkForNotNumOrOpenBB() && c == '(')) {
+            throw new IllegalStateException("Wrong order"
                     + "for " + c);
         }
     }

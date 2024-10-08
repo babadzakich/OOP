@@ -38,11 +38,7 @@ public class Mul extends Expression {
      */
     @Override
     public void print() {
-        System.out.print('(');
-        left.print();
-        System.out.print(" * ");
-        right.print();
-        System.out.print(')');
+        System.out.print(this);
     }
 
     /**
@@ -65,51 +61,48 @@ public class Mul extends Expression {
      */
     @Override
     public Expression simplification() throws Exception {
-        boolean rightCheck = false;
+        double leftEval;
+        double rightEval;
         try {
-            double leftEval = left.eval("");
-            if (leftEval == 0) {
-                return new Number(0);
-            }
-
-            if (leftEval == 1) {
-                return right;
-            }
-
+            leftEval = left.eval("");
+            rightEval = right.eval("");
         } catch (Exception e) {
-            try {
-                rightCheck = true;
-                double rightEval = right.eval("");
-                if (rightEval == 0) {
-                    return new Number(0);
-                }
-
-                if (rightEval == 1) {
-                    return left;
-                }
-
-            } catch (Exception ex) {
-                System.out.println("Can't simplify");
-                return this;
-            }
+            System.out.println("Can't simplify");
+            return this;
         }
 
-        if (!rightCheck) {
-            try {
-                double rightEval = right.eval("");
-                if (rightEval == 0) {
-                    return new Number(0);
-                }
-
-                if (rightEval == 1) {
-                    return left;
-                }
-
-            } catch (Exception ex) {
-                System.out.println("Can't simplify");
-                return this;
-            }
+        if (rightEval == 0 || leftEval == 0) {
+            return new Number(0);
         }
+
+        if (rightEval == 1) {
+            return left;
+        }
+
+        if (leftEval == 1) {
+            return right;
+        }
+
         return new Number(this.eval(""));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Mul a) {
+            return this.left.equals(a.left) && this.right.equals(a.right);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.left.hashCode() + this.right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.left.toString() + " + " + this.right.toString() + ")";
     }
 }
