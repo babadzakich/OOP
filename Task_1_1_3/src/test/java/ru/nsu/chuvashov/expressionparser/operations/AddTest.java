@@ -16,27 +16,26 @@ import ru.nsu.chuvashov.expressionparser.values.Variable;
  */
 class AddTest {
     /**
-     * Checking add.
-     *
-     * @throws Exception if variable is not presented in eval.
+     * We are summarizing 5 and X = 5 and get 10.
      */
     @Test
-    void eval() throws Exception {
+    void eval() {
         Expression expression = new Add(new Number(5), new Variable("X"));
         assertEquals(10, expression.eval("X = 5"));
     }
 
     /**
-     * Derivative creation test.
+     * We create derivative of (5 + X) and we get (0 + 1).
      */
     @Test
-    void derivative() throws Exception {
+    void derivative() {
         Expression expression = new Add(new Number(5), new Variable("X"));
-        assertEquals(1, expression.derivative("X").eval(""));
+        assertEquals(new Add(new Number(0), new Number(1)), expression.derivative("X"));
     }
 
     /**
-     * Print test.
+     * We substitute stdout buffer for our buffer, so e.print() prints
+     * result into our array so we can check it.
      */
     @Test
     void testPrint() {
@@ -47,23 +46,19 @@ class AddTest {
         e.print();
         assertEquals("(5.0 + X)", out.toString());
         System.setOut(new PrintStream(saveOut));
+
     }
 
     @Test
-    void simplification() throws Exception {
+    void simplification() {
         Expression e = new Add(new Number(5), new Number(5));
         Expression e2 = e.simplification();
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final OutputStream saveOut = System.out;
-        System.setOut(new PrintStream(out));
-        e2.print();
-        assertEquals("10.0", out.toString());
+        assertEquals(new Number(10), e2);
         e = new Add(new Number(5), new Variable("X"));
         try {
             e.simplification();
         } catch (Exception ex) {
             assertInstanceOf(Exception.class, ex);
         }
-        System.setOut(new PrintStream(saveOut));
     }
 }

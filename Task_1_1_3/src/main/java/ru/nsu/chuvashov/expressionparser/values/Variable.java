@@ -21,10 +21,11 @@ public class Variable extends Expression {
      *
      * @param variables - string with variables.
      * @return result of substitution.
-     * @throws Exception if needed variable wasn`t presented.
+     * @throws IllegalArgumentException if needed variable wasn`t presented,
+     * or we got no variables, or we got wrong format string.
      */
     @Override
-    public double eval(String variables) throws Exception {
+    public double eval(String variables) throws IllegalArgumentException {
         if (variables.length() < 5) {
             throw new IllegalArgumentException("Not enough arguments for substituting"
             + " variable");
@@ -43,7 +44,7 @@ public class Variable extends Expression {
                 throw new IllegalArgumentException("Wrong number format");
             }
         }
-        throw new NoSuchFieldException("Variable " + this.var + " wasn`t introduced");
+        throw new IllegalArgumentException("Variable " + this.var + " wasn`t introduced");
     }
 
     /**
@@ -59,9 +60,10 @@ public class Variable extends Expression {
      *
      * @param variable - derivative var.
      * @return 1 if current var is derivat number.
+     * @throws IllegalArgumentException when we take derivative by empty string.
      */
     @Override
-    public Expression derivative(String variable) throws Exception {
+    public Expression derivative(String variable) throws IllegalArgumentException {
         if (variable.isEmpty()) {
             throw new IllegalArgumentException("Empty variable");
         }
@@ -83,13 +85,17 @@ public class Variable extends Expression {
 
     @Override
     public String toString() {
-        return var;
+        return this.var;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
         if (o instanceof Variable a) {
             return var.equals(a.var);
         }

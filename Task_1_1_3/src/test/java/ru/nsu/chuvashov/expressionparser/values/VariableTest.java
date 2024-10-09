@@ -31,7 +31,7 @@ class VariableTest {
         try {
             expression.eval("X = 5");
         } catch (Exception e) {
-            assertInstanceOf(NoSuchFieldException.class, e);
+            assertInstanceOf(IllegalArgumentException.class, e);
         }
 
         try {
@@ -68,19 +68,12 @@ class VariableTest {
     /**
      * Test for taking derivative by variable
      * that differs from our variable.
-     *
-     * @throws Exception not in this test.
      */
     @Test
-    void derivativeOther() throws Exception {
+    void derivativeOther() {
         Expression e = new Variable("X");
         Expression e2 = e.derivative("Y");
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final OutputStream saveOut = System.out;
-        System.setOut(new PrintStream(out));
-        e2.print();
-        assertEquals("X", out.toString());
-        System.setOut(new PrintStream(saveOut));
+        assertEquals(e, e2);
     }
 
     /**
@@ -99,13 +92,11 @@ class VariableTest {
 
     /**
      * Just derivative check.
-     *
-     * @throws Exception that can`t be thrown.
      */
     @Test
-    void derivative() throws Exception {
+    void derivative() {
         Expression e = new Variable("X");
         Expression e2 = e.derivative("X");
-        assertEquals(1, e2.eval(""));
+        assertEquals(new Number(1), e2);
     }
 }

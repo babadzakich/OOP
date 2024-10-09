@@ -26,19 +26,12 @@ public class Sub extends Expression {
      *
      * @param variables - vars that we substitute.
      * @return result of substraction.
-     * @throws Exception if we try to divide by zero.
+     * @throws ArithmeticException if we try to divide by zero.
+     * @throws IllegalArgumentException if we try to eval var without var.
      */
     @Override
-    public double eval(String variables) throws Exception {
+    public double eval(String variables) throws ArithmeticException, IllegalArgumentException {
         return left.eval(variables) - right.eval(variables);
-    }
-
-    /**
-     * Prints substraction.
-     */
-    @Override
-    public void print() {
-        System.out.print(this);
     }
 
     /**
@@ -46,9 +39,10 @@ public class Sub extends Expression {
      *
      * @param variable - derivative var.
      * @return derivative of substraction.
+     * @throws IllegalArgumentException when we take derivative by empty string.
      */
     @Override
-    public Expression derivative(String variable) throws Exception {
+    public Expression derivative(String variable) throws IllegalArgumentException {
         return new Sub(left.derivative(variable),
                 right.derivative(variable));
     }
@@ -69,7 +63,7 @@ public class Sub extends Expression {
         try {
             leftDouble = left.eval("");
             rightDouble = right.eval("");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | ArithmeticException e) {
             System.out.println("Can`t simplify");
             return this;
         }
@@ -78,8 +72,12 @@ public class Sub extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
         if (o instanceof Sub a) {
             return this.left.equals(a.left) && this.right.equals(a.right);
         }
@@ -88,11 +86,11 @@ public class Sub extends Expression {
 
     @Override
     public int hashCode() {
-        return this.left.hashCode() + this.right.hashCode();
+        return (31 * 7 + this.left.hashCode()) * 31 + this.right.hashCode();
     }
 
     @Override
     public String toString() {
-        return "(" + this.left.toString() + " + " + this.right.toString() + ")";
+        return "(" + this.left.toString() + " - " + this.right.toString() + ")";
     }
 }

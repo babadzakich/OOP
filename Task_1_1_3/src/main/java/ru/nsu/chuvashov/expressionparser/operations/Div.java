@@ -26,10 +26,11 @@ public class Div extends Expression {
      *
      * @param variables - our variables with value.
      * @return result of division.
-     * @throws Exception when we try to divide by zero.
+     * @throws ArithmeticException when we try to divide by zero.
+     * @throws IllegalArgumentException if we try to evaluate string in wrong format.
      */
     @Override
-    public double eval(String variables) throws Exception {
+    public double eval(String variables) throws ArithmeticException, IllegalArgumentException {
         if (right.eval(variables) == 0) {
             throw new ArithmeticException("Can`t divide by zero!!");
         }
@@ -37,21 +38,14 @@ public class Div extends Expression {
     }
 
     /**
-     * We print our division.
-     */
-    @Override
-     public void print() {
-        System.out.print(this);
-    }
-
-    /**
      * New derivative instance.
      *
      * @param variable by which we take derivative.
      * @return new derivative.
+     * @throws IllegalArgumentException when we take derivative by empty string.
      */
     @Override
-    public Expression derivative(String variable) throws Exception {
+    public Expression derivative(String variable) throws IllegalArgumentException {
         return new Div(
                 new Sub(new Mul(left.derivative(variable), right),
                         new Mul(left, right.derivative(variable))),
@@ -68,18 +62,18 @@ public class Div extends Expression {
         double leftDouble;
         double rightDouble;
         try {
-            leftDouble = left.eval("");
-            if (leftDouble == 0) {
+            if (left.equals(new Number(0))) {
                 return new Number(0);
             }
-        } catch (Exception e) {
+            leftDouble = left.eval("");
+        } catch (IllegalArgumentException | ArithmeticException e) {
             System.out.println("Can`t simplify expression!");
             return this;
         }
 
         try {
             rightDouble = right.eval("");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Can`t simplify expression!");
             return this;
         }
@@ -91,8 +85,12 @@ public class Div extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
         if (o instanceof Div a) {
             return this.left.equals(a.left) && this.right.equals(a.right);
         }
@@ -101,7 +99,7 @@ public class Div extends Expression {
 
     @Override
     public int hashCode() {
-        return left.hashCode() + right.hashCode();
+        return (31 * 7 + this.left.hashCode()) * 31 + this.right.hashCode();
     }
 
     @Override

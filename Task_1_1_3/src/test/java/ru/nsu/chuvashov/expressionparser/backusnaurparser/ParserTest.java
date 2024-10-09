@@ -8,7 +8,7 @@ import ru.nsu.chuvashov.expressionparser.values.Expression;
 
 class ParserTest {
     @Test
-    void parseExpression() throws Exception {
+    void parseExpression() {
         Parser p1 = new Parser();
         Expression e1 = p1.parseExpression("2 + 2 * 2 - 2 / 2 + 2 * (3 + 5) + 10 + XA");
         assertEquals(36, e1.eval("XA = 5"));

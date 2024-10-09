@@ -26,19 +26,12 @@ public class Mul extends Expression {
      *
      * @param variables - substitution var.
      * @return multiplication of two parts.
-     * @throws Exception of dividing by zero.
+     * @throws ArithmeticException of dividing by zero in some expression below.
+     * @throws IllegalStateException if our variables are in wrong format.
      */
     @Override
-    public double eval(String variables) throws Exception {
+    public double eval(String variables) throws ArithmeticException, IllegalArgumentException {
         return left.eval(variables) * right.eval(variables);
-    }
-
-    /**
-     * Printing multiplication.
-     */
-    @Override
-    public void print() {
-        System.out.print(this);
     }
 
     /**
@@ -48,7 +41,7 @@ public class Mul extends Expression {
      * @return taking derivative result.
      */
     @Override
-    public Expression derivative(String variable) throws Exception {
+    public Expression derivative(String variable) throws IllegalArgumentException {
         return new Add(
                 new Mul(left.derivative(variable), right),
                 new Mul(left, right.derivative(variable)));
@@ -60,13 +53,13 @@ public class Mul extends Expression {
      * @return simplified function if we can simplify.
      */
     @Override
-    public Expression simplification() throws Exception {
+    public Expression simplification() {
         double leftEval;
         double rightEval;
         try {
             leftEval = left.eval("");
             rightEval = right.eval("");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | ArithmeticException e ) {
             System.out.println("Can't simplify");
             return this;
         }
@@ -83,13 +76,17 @@ public class Mul extends Expression {
             return right;
         }
 
-        return new Number(this.eval(""));
+        return new Number(leftEval * rightEval);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
         if (o instanceof Mul a) {
             return this.left.equals(a.left) && this.right.equals(a.right);
         }
@@ -98,11 +95,11 @@ public class Mul extends Expression {
 
     @Override
     public int hashCode() {
-        return this.left.hashCode() + this.right.hashCode();
+        return (31 * 7 + this.left.hashCode()) * 31 + this.right.hashCode();
     }
 
     @Override
     public String toString() {
-        return "(" + this.left.toString() + " + " + this.right.toString() + ")";
+        return "(" + this.left.toString() + " * " + this.right.toString() + ")";
     }
 }

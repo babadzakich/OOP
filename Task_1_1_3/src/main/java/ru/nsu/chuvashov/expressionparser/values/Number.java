@@ -42,7 +42,7 @@ public class Number extends Expression {
      * @return zero(result of taking derivative)
      */
     @Override
-    public Expression derivative(String variable) throws Exception {
+    public Expression derivative(String variable) {
         return new Number(0);
     }
 
@@ -63,8 +63,12 @@ public class Number extends Expression {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
         if (o instanceof Number a) {
             return value == a.value;
         }

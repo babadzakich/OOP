@@ -10,27 +10,31 @@ public abstract class Expression {
      *
      * @param variables - our variables with value.
      * @return result of evaluation.
-     * @throws Exception division by zero.
+     * @throws ArithmeticException division by zero.
+     * @throws IllegalArgumentException when our variable evaluation is in wrong format.
      */
-    public abstract double eval(String variables) throws Exception;
+    public abstract double eval(String variables) throws IllegalArgumentException, ArithmeticException;
 
     /**
      * We print our statement.
      */
-    public abstract void print();
+    public void print() {
+        System.out.print(this);
+    }
 
     /**
      * We take derivative.
      *
      * @param variable by which we take derivative.
      * @return new derivative expression.
+     * @throws IllegalArgumentException when we take derivative by empty string.
      */
-    public abstract Expression derivative(String variable) throws Exception;
+    public abstract Expression derivative(String variable) throws IllegalArgumentException;
 
     /**
      * Simplification method.
      *
      * @return simplified expression.
      */
-    public abstract Expression simplification() throws Exception;
+    public abstract Expression simplification();
 }

@@ -16,7 +16,12 @@ public enum TokenType {
     TOKENEOF,
     STARTPOINT;
 
-    public boolean checkForNotNumOrOpenBB() {
+    /**
+     * We need this check for handling problems with wrong order of symbols.
+     *
+     * @return true if our token is Number or variable or closing bracket.
+     */
+    public boolean typeCheck() {
         return this.equals(TokenType.NUMBER)
                 || this.equals(TokenType.CLOSEDBB)
                 || this.equals(TokenType.VARIABLE);
