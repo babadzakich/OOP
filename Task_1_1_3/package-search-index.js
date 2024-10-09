@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.nsu.chuvashov.expressionparser"},{"l":"ru.nsu.chuvashov.expressionparser.backusnaurparser"},{"l":"ru.nsu.chuvashov.expressionparser.operations"},{"l":"ru.nsu.chuvashov.expressionparser.values"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.chuvashov.expressionparser.backusnaurparser"},{"l":"ru.nsu.chuvashov.expressionparser.operations"},{"l":"ru.nsu.chuvashov.expressionparser.values"}];updateSearchResults();
