@@ -25,3 +25,9 @@ tasks.jacocoTestReport {
         xml.required = true
     }
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
