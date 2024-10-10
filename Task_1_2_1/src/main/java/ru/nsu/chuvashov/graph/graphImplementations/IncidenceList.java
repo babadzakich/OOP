@@ -9,8 +9,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class IncidenceList implements Graph {
-    private final Map<Vertex, ArrayList<Edge>> incidenceList = new HashMap<>();
+    public final Map<Vertex, ArrayList<Edge>> incidenceList;
 
+    public IncidenceList() {
+        incidenceList = new HashMap<>();
+    }
 
     @Override
     public void addVertex(Vertex vertex) {
