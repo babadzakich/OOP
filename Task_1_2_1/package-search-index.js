@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.chuvashov.graph"},{"l":"ru.nsu.chuvashov.graph.baseStructure"},{"l":"ru.nsu.chuvashov.graph.graphImplementations"}];updateSearchResults();

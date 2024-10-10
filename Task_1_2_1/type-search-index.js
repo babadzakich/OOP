@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.chuvashov.graph.baseStructure","l":"Edge"},{"p":"ru.nsu.chuvashov.graph","l":"Graph"},{"p":"ru.nsu.chuvashov.graph.graphImplementations","l":"IncidenceList"},{"p":"ru.nsu.chuvashov.graph.baseStructure","l":"Vertex"}];updateSearchResults();
