@@ -3,14 +3,13 @@ package ru.nsu.chuvashov.expressionparser.operations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
-
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
 class MulTest {
 
@@ -82,7 +81,7 @@ class MulTest {
         Expression e = new Mul(new Number(5), new Variable("X"));
         Expression e2 = new Mul(new Number(5), new Variable("X"));
         assertEquals(e, e2);
-        assertEquals(e,e);
+        assertEquals(e, e);
         assertNotEquals(e, null);
 
         Expression e3 = new Add(new Number(5), new Variable("X"));
