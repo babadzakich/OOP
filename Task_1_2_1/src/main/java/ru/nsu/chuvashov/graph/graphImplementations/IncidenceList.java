@@ -27,13 +27,18 @@ public class IncidenceList implements Graph {
         if (!incidenceList.containsKey(edge.getFrom())) {
             incidenceList.put(edge.getFrom(), new ArrayList<>());
         }
+        if (!incidenceList.containsKey(edge.getTo())) {
+            incidenceList.put(edge.getTo(), new ArrayList<>());
+        }
         incidenceList.get(edge.getFrom()).add(edge);
+        edge.getFrom().updateDegree(edge);
+        edge.getTo().updateDegree(edge);
     }
 
     @Override
-    public List<Vertex> getNeighbors(Vertex vertex) {
+    public ArrayList<Vertex> getNeighbors(Vertex vertex) {
         if (!incidenceList.containsKey(vertex)) {
-            throw new IllegalArgumentException("Vertex " + vertex + " does not exist");
+            throw new NoSuchElementException("Vertex not found");
         }
         ArrayList<Vertex> result = new ArrayList<>(incidenceList.get(vertex).size());
         for (Edge edge : incidenceList.get(vertex)) {
@@ -70,7 +75,7 @@ public class IncidenceList implements Graph {
     }
 
     @Override
-    public List<Vertex> toposort() {
+    public ArrayList<Vertex> toposort() {
         final Set<Vertex> visited = new HashSet<>();
         final ArrayList<Vertex> result = new ArrayList<>();
 
@@ -79,7 +84,7 @@ public class IncidenceList implements Graph {
                 dfs(vertex, visited, result);
             }
         }
-        return result.reversed();
+        return result;
     }
 
     private void dfs(Vertex vertex, Set<Vertex> visited, ArrayList<Vertex> result) {
@@ -88,7 +93,7 @@ public class IncidenceList implements Graph {
             if (!visited.contains(v)) {
                 dfs(v, visited, result);
             }
-            result.add(v);
         }
+        result.add(vertex);
     }
 }
