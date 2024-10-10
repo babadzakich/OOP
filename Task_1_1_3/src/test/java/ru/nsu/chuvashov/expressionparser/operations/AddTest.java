@@ -1,8 +1,5 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -10,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for adding operator.
@@ -46,7 +45,6 @@ class AddTest {
         e.print();
         assertEquals("(5.0 + X)", out.toString());
         System.setOut(new PrintStream(saveOut));
-
     }
 
     @Test
@@ -55,10 +53,33 @@ class AddTest {
         Expression e2 = e.simplification();
         assertEquals(new Number(10), e2);
         e = new Add(new Number(5), new Variable("X"));
-        try {
-            e.simplification();
-        } catch (Exception ex) {
-            assertInstanceOf(Exception.class, ex);
-        }
+        assertEquals(e, e.simplification());
+
+        e = new Add(new Variable("X"), new Number(5));
+        assertEquals(e, e.simplification());
+    }
+
+    @Test
+    void equalsCheck() {
+        Expression e = new Add(new Number(5), new Variable("X"));
+        Expression e2 = new Add(new Number(5), new Variable("X"));
+        assertEquals(e, e2);
+        assertEquals(e,e);
+        assertNotEquals(e, null);
+
+        Expression e3 = new Sub(new Number(5), new Variable("X"));
+        assertNotEquals(e, e3);
+
+        Expression e4 = new Add(new Number(4), new Variable("X"));
+        assertNotEquals(e, e4);
+
+        Expression e5 = new Add(new Number(5), new Variable("Y"));
+        assertNotEquals(e, e5);
+    }
+
+    @Test
+    void hashCheck() {
+        Expression e = new Add(new Number(5), new Variable("X"));
+        assertEquals(-1033102689, e.hashCode());
     }
 }

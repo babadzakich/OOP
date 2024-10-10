@@ -53,34 +53,29 @@ public class Div extends Expression {
     }
 
     /**
-     * Simplification for division.
+     * Simplification for division. If divisor == 0,
+     * we return 0, if divider == 0, throws ArithmeticException.-m,.
      *
      * @return simlified expression.
      */
     @Override
     public Expression simplification() {
-        double leftDouble;
-        double rightDouble;
-        try {
-            if (left.equals(new Number(0))) {
+        Expression leftSimplified = left.simplification();
+        Expression rightSimplified = right.simplification();
+
+        if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
+            if (l.equals(new Number(0))) {
                 return new Number(0);
             }
-            leftDouble = left.eval("");
-        } catch (IllegalArgumentException | ArithmeticException e) {
-            System.out.println("Can`t simplify expression!");
-            return this;
+            if (r.equals(new Number(0))) {
+                throw new ArithmeticException("Can`t divide by zero!!");
+            }
+            if (r.equals(new Number(1))) {
+                return l;
+            }
+            return new Number(l.eval("") / r.eval(""));
         }
-
-        try {
-            rightDouble = right.eval("");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Can`t simplify expression!");
-            return this;
-        }
-        if (rightDouble == 0) {
-            throw new ArithmeticException("Can`t divide by zero!!");
-        }
-        return new Number(leftDouble / rightDouble);
+        return this;
     }
 
     @Override
@@ -99,7 +94,7 @@ public class Div extends Expression {
 
     @Override
     public int hashCode() {
-        return (31 * 7 + this.left.hashCode()) * 31 + this.right.hashCode();
+        return (31 * 5 + this.left.hashCode()) * 31 + this.right.hashCode();
     }
 
     @Override

@@ -10,8 +10,8 @@ class ParserTest {
     @Test
     void parseExpression() {
         Parser p1 = new Parser();
-        Expression e1 = p1.parseExpression("2 + 2 * 2 - 2 / 2 + 2 * (3 + 5) + 10 + XA");
-        assertEquals(36, e1.eval("XA = 5"));
+        Expression e1 = p1.parseExpression("2 + 2 * 2 - 2 / 2 + Y * (3 + 5) + 10 + XA");
+        assertEquals(36, e1.eval("XA = 5; Y = 2"));
         try {
             p1.parseExpression("(2+2)(4+4)");
         } catch (Exception e) {
@@ -23,6 +23,18 @@ class ParserTest {
 
         try {
             p1.parseExpression("12 + + 2");
+        } catch (Exception e) {
+            assertInstanceOf(IllegalStateException.class, e);
+        }
+
+        try {
+            p1.parseExpression("A B");
+        } catch (Exception e) {
+            assertInstanceOf(IllegalStateException.class, e);
+        }
+
+        try {
+            p1.parseExpression("B(2)");
         } catch (Exception e) {
             assertInstanceOf(IllegalStateException.class, e);
         }

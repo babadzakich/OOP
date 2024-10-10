@@ -67,6 +67,11 @@ public class Parser {
             c = input.charAt(inIndex++);
         }
 
+        if (inIndex >= input.length()) {
+            end = true;
+            return;
+        }
+
         checkToken(c);
 
         switch (c) {
@@ -118,6 +123,7 @@ public class Parser {
                 if (inIndex == input.length()) {
                     end = true;
                 }
+                break;
         }
     }
 

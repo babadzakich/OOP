@@ -48,35 +48,27 @@ public class Mul extends Expression {
     }
 
     /**
-     * Simplification function.
+     * Simplification function. If we see multiplication by 0, we return 0,
+     * if we multiply by 1, we return other multiplier.
      *
      * @return simplified function if we can simplify.
      */
     @Override
     public Expression simplification() {
-        double leftEval;
-        double rightEval;
-        try {
-            leftEval = left.eval("");
-            rightEval = right.eval("");
-        } catch (IllegalArgumentException | ArithmeticException e ) {
-            System.out.println("Can't simplify");
-            return this;
-        }
+        Expression leftSimplified = left.simplification();
+        Expression rightSimplified = right.simplification();
 
-        if (rightEval == 0 || leftEval == 0) {
+        if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
+            return new Number(l.eval("") * r.eval(""));
+        } else if ((leftSimplified instanceof Number l && l.equals(new Number(0)))
+                || (rightSimplified instanceof Number r && r.equals(new Number(0)))) {
             return new Number(0);
+        } else if (leftSimplified instanceof Number l && l.equals(new Number(1))) {
+            return rightSimplified;
+        } else if (rightSimplified instanceof Number r && r.equals(new Number(1))) {
+            return leftSimplified;
         }
-
-        if (rightEval == 1) {
-            return left;
-        }
-
-        if (leftEval == 1) {
-            return right;
-        }
-
-        return new Number(leftEval * rightEval);
+        return this;
     }
 
     @Override
@@ -95,7 +87,7 @@ public class Mul extends Expression {
 
     @Override
     public int hashCode() {
-        return (31 * 7 + this.left.hashCode()) * 31 + this.right.hashCode();
+        return (31 * 9 + this.left.hashCode()) * 31 + this.right.hashCode();
     }
 
     @Override

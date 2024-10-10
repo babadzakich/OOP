@@ -57,17 +57,12 @@ public class Sub extends Expression {
         if (this.left.equals(this.right)) {
             return new Number(0);
         }
-
-        double leftDouble;
-        double rightDouble;
-        try {
-            leftDouble = left.eval("");
-            rightDouble = right.eval("");
-        } catch (IllegalArgumentException | ArithmeticException e) {
-            System.out.println("Can`t simplify");
-            return this;
+        Expression leftSimplified = left.simplification();
+        Expression rightSimplified = right.simplification();
+        if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
+            return new Number(leftSimplified.eval("") - rightSimplified.eval(""));
         }
-        return new Number(leftDouble - rightDouble);
+        return this;
     }
 
     @Override

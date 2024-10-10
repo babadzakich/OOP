@@ -1,13 +1,13 @@
 package ru.nsu.chuvashov.expressionparser.values;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.expressionparser.operations.Add;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Class for variable test.
@@ -98,5 +98,11 @@ class VariableTest {
         Expression e = new Variable("X");
         Expression e2 = e.derivative("X");
         assertEquals(new Number(1), e2);
+    }
+
+    @Test
+    void equalsCheck() {
+        Expression e = new Variable("X");
+        assertNotEquals(e, null);
     }
 }

@@ -1,8 +1,5 @@
 package ru.nsu.chuvashov.expressionparser.operations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -11,6 +8,9 @@ import ru.nsu.chuvashov.expressionparser.values.Expression;
 import ru.nsu.chuvashov.expressionparser.values.Number;
 import ru.nsu.chuvashov.expressionparser.values.Variable;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 /**
  * Class for substraction tests.
  */
@@ -18,11 +18,9 @@ class SubTest {
 
     /**
      * Evaluation test.
-     *
-     * @throws Exception of variables.
      */
     @Test
-    void eval() throws Exception {
+    void eval() {
         Expression expression = new Sub(new Number(228), new Number(42));
         assertEquals(186, expression.eval(""));
     }
@@ -43,36 +41,51 @@ class SubTest {
 
     /**
      * Derivative test.
-     *
-     * @throws Exception from variable.
      */
     @Test
-    void derivative() throws Exception {
+    void derivative() {
         Expression expression = new Sub(new Number(2), new Variable("X"));
         assertEquals(-1, expression.derivative("X").eval("X = 2"));
     }
 
     @Test
-    void testSimplify() throws Exception {
+    void testSimplify() {
         Expression e = new Sub(new Number(10), new Number(2));
         Expression e2 = e.simplification();
+        assertEquals(new Number(8), e2);
+
         Expression e3 = new Sub(new Number(2), new Number(2));
         Expression e4 = e3.simplification();
-
-        assertEquals(0, e4.eval(""));
-
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final OutputStream saveOut = System.out;
-        System.setOut(new PrintStream(out));
-        e2.print();
-        assertEquals("8.0", out.toString());
+        assertEquals(new Number(0), e4);
 
         e = new Sub(new Number(5), new Variable("X"));
-        try {
-            e.simplification();
-        } catch (Exception ex) {
-            assertInstanceOf(Exception.class, ex);
-        }
-        System.setOut(new PrintStream(saveOut));
+        assertEquals(e, e.simplification());
+
+        e = new Sub(new Variable("X"), new Number(1));
+        assertEquals(e, e.simplification());
+    }
+
+    @Test
+    void equalsCheck() {
+        Expression e = new Sub(new Number(5), new Variable("X"));
+        Expression e2 = new Sub(new Number(5), new Variable("X"));
+        assertEquals(e, e2);
+        assertEquals(e,e);
+        assertNotEquals(e, null);
+
+        Expression e3 = new Add(new Number(5), new Variable("X"));
+        assertNotEquals(e, e3);
+
+        Expression e4 = new Sub(new Number(4), new Variable("X"));
+        assertNotEquals(e, e4);
+
+        Expression e5 = new Sub(new Number(5), new Variable("Y"));
+        assertNotEquals(e, e5);
+    }
+
+    @Test
+    void hashCheck() {
+        Expression e = new Sub(new Number(5), new Variable("X"));
+        assertEquals(-1033102689, e.hashCode());
     }
 }

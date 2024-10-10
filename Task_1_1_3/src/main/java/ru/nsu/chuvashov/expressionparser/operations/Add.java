@@ -53,23 +53,12 @@ public class Add extends Expression {
      */
     @Override
     public Expression simplification() {
-        final double leftDouble;
-        final double rightDouble;
-
-
-        try {
-            if (left instanceof Number l && right instanceof Number r) {
-                return new Number(l.eval("") + r.eval(""));
-            } else if (left instanceof Number l) {
-                return new Number(l.eval("") + right.simplification().eval(""));
-            }
-            leftDouble = left.eval("");
-            rightDouble = right.eval("");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Can't simplify expression");
-            return this;
+        Expression leftSimplified = left.simplification();
+        Expression rightSimplified = right.simplification();
+        if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
+            return new Number(leftSimplified.eval("") + rightSimplified.eval(""));
         }
-        return new Number(leftDouble + rightDouble);
+        return this;
     }
 
     @Override
