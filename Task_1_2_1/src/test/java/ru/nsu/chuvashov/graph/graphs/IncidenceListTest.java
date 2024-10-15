@@ -1,13 +1,14 @@
 package ru.nsu.chuvashov.graph.graphs;
 
-import org.junit.jupiter.api.Test;
-import ru.nsu.chuvashov.graph.structure.Edge;
-import ru.nsu.chuvashov.graph.structure.Vertex;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 class IncidenceListTest {
 
@@ -103,7 +104,7 @@ class IncidenceListTest {
         check.add(v2);
         check.add(v5);
         check.add(v4);
-        ArrayList<Vertex> tSort = list.toposort();
-        assertEquals(check, tSort);
+        ArrayList<Vertex> tsort = list.toposort();
+        assertEquals(check, tsort);
     }
 }

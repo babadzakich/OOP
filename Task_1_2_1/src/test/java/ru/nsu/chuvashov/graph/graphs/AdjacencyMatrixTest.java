@@ -1,10 +1,11 @@
 package ru.nsu.chuvashov.graph.graphs;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AdjacencyMatrixTest {
 
