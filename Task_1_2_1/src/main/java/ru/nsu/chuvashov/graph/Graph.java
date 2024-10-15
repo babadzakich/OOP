@@ -1,6 +1,8 @@
 package ru.nsu.chuvashov.graph;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
@@ -13,5 +15,5 @@ public interface Graph {
 
     void readFromFile(String filename);
 
-    ArrayList<Vertex> toposort();
+    List<Vertex> getVertices();
 }

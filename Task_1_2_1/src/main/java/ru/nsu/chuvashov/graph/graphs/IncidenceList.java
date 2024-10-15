@@ -83,26 +83,13 @@ public class IncidenceList implements Graph {
         }
     }
 
+    /**
+     * @return list of our vertexes.
+     */
     @Override
-    public ArrayList<Vertex> toposort() {
-        final Set<Vertex> visited = new HashSet<>();
-        final ArrayList<Vertex> result = new ArrayList<>();
-
-        for (Vertex vertex : incidenceList.keySet()) {
-            if (!visited.contains(vertex)) {
-                dfs(vertex, visited, result);
-            }
-        }
-        return result;
+    public List<Vertex> getVertices() {
+        return List.copyOf(incidenceList.keySet());
     }
 
-    private void dfs(Vertex vertex, Set<Vertex> visited, ArrayList<Vertex> result) {
-        visited.add(vertex);
-        for (Vertex v : this.getNeighbors(vertex)) {
-            if (!visited.contains(v)) {
-                dfs(v, visited, result);
-            }
-        }
-        result.add(vertex);
-    }
+
 }

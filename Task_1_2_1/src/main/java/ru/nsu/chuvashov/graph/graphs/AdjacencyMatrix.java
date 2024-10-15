@@ -1,6 +1,8 @@
 package ru.nsu.chuvashov.graph.graphs;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
@@ -55,8 +57,13 @@ public class AdjacencyMatrix implements Graph {
 
     }
 
+    /**
+     * @return 
+     */
     @Override
-    public ArrayList<Vertex> toposort() {
-        return null;
+    public List<Vertex> getVertices() {
+       return vertices;
     }
+
+
 }
