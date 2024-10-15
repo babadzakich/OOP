@@ -23,8 +23,11 @@ public class IncidenceList implements Graph {
 
     @Override
     public void addEdge(Edge edge) {
-        if (!incidenceList.containsKey(edge.getFrom()) || !incidenceList.containsKey(edge.getTo())) {
-            throw new IllegalArgumentException("Edge from " + edge.getFrom() + " to " + edge.getTo() + " is not included");
+        if (!incidenceList.containsKey(edge.getFrom())
+                || !incidenceList.containsKey(edge.getTo())) {
+            throw new IllegalArgumentException("Edge from "
+                    + edge.getFrom() + " to "
+                    + edge.getTo() + " is not included");
         }
         incidenceList.get(edge.getFrom()).add(edge);
         edge.getFrom().updateDegree(edge);
@@ -65,7 +68,8 @@ public class IncidenceList implements Graph {
                 Edge e;
                 try {
                     if (line.length == 2) {
-                        e = new Edge(new Vertex(Integer.parseInt(line[0])), new Vertex(Integer.parseInt(line[1])));
+                        e = new Edge(new Vertex(Integer.parseInt(line[0])),
+                                new Vertex(Integer.parseInt(line[1])));
                     } else {
                         throw new IllegalArgumentException("Wrong number of arguments");
                     }
