@@ -35,7 +35,7 @@ public class IncidenceList implements Graph {
     }
 
     @Override
-    public ArrayList<Vertex> getNeighbors(Vertex vertex) {
+    public List<Vertex> getNeighbors(Vertex vertex) {
         if (!incidenceList.containsKey(vertex)) {
             throw new NoSuchElementException("Vertex not found");
         }

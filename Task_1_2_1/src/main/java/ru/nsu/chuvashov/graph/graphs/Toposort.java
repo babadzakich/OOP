@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Toposort {
-    public List<Vertex> toposort(Graph graph) {
+    public static List<Vertex> toposort(Graph graph) {
         final Set<Vertex> visited = new HashSet<>();
         final ArrayList<Vertex> result = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class Toposort {
         return result;
     }
 
-    private void dfs(Graph graph, Vertex vertex, Set<Vertex> visited, List<Vertex> result) {
+    private static void dfs(Graph graph, Vertex vertex, Set<Vertex> visited, List<Vertex> result) {
         visited.add(vertex);
         for (Vertex v : graph.getNeighbors(vertex)) {
             if (!visited.contains(v)) {

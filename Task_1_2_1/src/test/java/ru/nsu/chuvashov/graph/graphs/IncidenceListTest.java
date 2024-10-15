@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import ru.nsu.chuvashov.graph.structure.Edge;
@@ -57,7 +58,7 @@ class IncidenceListTest {
         check.add(v2);
         check.add(v3);
         check.add(v4);
-        ArrayList<Vertex> neighbors = list.getNeighbors(v1);
+        List<Vertex> neighbors = list.getNeighbors(v1);
         assertEquals(neighbors, check);
 
         assertEquals(list.getNeighbors(v2), new ArrayList<>());
@@ -104,7 +105,7 @@ class IncidenceListTest {
         check.add(v2);
         check.add(v5);
         check.add(v4);
-        ArrayList<Vertex> tsort = list.toposort();
+        ArrayList<Vertex> tsort = (ArrayList<Vertex>) Toposort.toposort(list);
         assertEquals(check, tsort);
     }
 }

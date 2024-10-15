@@ -42,7 +42,7 @@ public class AdjacencyMatrix implements Graph {
     }
 
     @Override
-    public ArrayList<Vertex> getNeighbors(Vertex vertex) {
+    public List<Vertex> getNeighbors(Vertex vertex) {
         ArrayList<Vertex> neighbors = new ArrayList<>();
         for (int i = 0; i < matrix.get(vertices.indexOf(vertex)).size(); i++) {
             if (matrix.get(vertices.indexOf(vertex)).get(i) > 0) {
