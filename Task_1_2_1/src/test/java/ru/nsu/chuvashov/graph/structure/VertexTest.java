@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov.graph.baseStructure;
+package ru.nsu.chuvashov.graph.structure;
 
 import org.junit.jupiter.api.Test;
 

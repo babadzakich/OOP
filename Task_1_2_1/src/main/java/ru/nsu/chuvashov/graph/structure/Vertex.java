@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov.graph.baseStructure;
+package ru.nsu.chuvashov.graph.structure;
 
 public class Vertex {
     private final int number;

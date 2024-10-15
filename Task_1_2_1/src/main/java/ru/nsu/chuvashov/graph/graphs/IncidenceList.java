@@ -1,8 +1,8 @@
-package ru.nsu.chuvashov.graph.graphImplementations;
+package ru.nsu.chuvashov.graph.graphs;
 
 import ru.nsu.chuvashov.graph.Graph;
-import ru.nsu.chuvashov.graph.baseStructure.Edge;
-import ru.nsu.chuvashov.graph.baseStructure.Vertex;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,11 +24,8 @@ public class IncidenceList implements Graph {
 
     @Override
     public void addEdge(Edge edge) {
-        if (!incidenceList.containsKey(edge.getFrom())) {
-            incidenceList.put(edge.getFrom(), new ArrayList<>());
-        }
-        if (!incidenceList.containsKey(edge.getTo())) {
-            incidenceList.put(edge.getTo(), new ArrayList<>());
+        if (!incidenceList.containsKey(edge.getFrom()) || !incidenceList.containsKey(edge.getTo())) {
+            throw new IllegalArgumentException("Edge from " + edge.getFrom() + " to " + edge.getTo() + " is not included");
         }
         incidenceList.get(edge.getFrom()).add(edge);
         edge.getFrom().updateDegree(edge);
@@ -52,15 +49,24 @@ public class IncidenceList implements Graph {
         try {
             File newStream = new File(fileName);
             Scanner scanner = new Scanner(newStream);
-
-            while (scanner.hasNextLine()) {
+            int vertexCount;
+            int edgeCount;
+            String[] sizes = scanner.nextLine().trim().split(" ");
+            if (sizes.length != 2) {
+                throw new IllegalArgumentException("Incorrect file format");
+            } else {
+                vertexCount = Integer.parseInt(sizes[0]);
+                edgeCount = Integer.parseInt(sizes[1]);
+            }
+            for (int i = 0; i < vertexCount; i++) {
+                addVertex(new Vertex(scanner.nextInt()));
+            }
+            for (int i = 0; i < edgeCount; i++) {
                 String[] line = scanner.nextLine().trim().split(" ");
                 Edge e;
                 try {
                     if (line.length == 2) {
-                        e = Edge.createUnweightedEdge(new Vertex(Integer.parseInt(line[0])), new Vertex(Integer.parseInt(line[1])));
-                    } else if (line.length == 3) {
-                        e = Edge.createWeightedEdge(new Vertex(Integer.parseInt(line[0])), new Vertex(Integer.parseInt(line[1])), Integer.parseInt(line[2]));
+                        e = new Edge(new Vertex(Integer.parseInt(line[0])), new Vertex(Integer.parseInt(line[1])));
                     } else {
                         throw new IllegalArgumentException("Wrong number of arguments");
                     }

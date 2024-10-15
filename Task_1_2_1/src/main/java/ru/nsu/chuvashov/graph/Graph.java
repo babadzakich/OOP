@@ -1,7 +1,7 @@
 package ru.nsu.chuvashov.graph;
 
-import ru.nsu.chuvashov.graph.baseStructure.Edge;
-import ru.nsu.chuvashov.graph.baseStructure.Vertex;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 import java.util.ArrayList;
 
