@@ -1,14 +1,13 @@
 package ru.nsu.chuvashov.graph.graphs;
 
+import java.util.ArrayList;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
-import java.util.ArrayList;
-
 public class AdjacencyMatrix implements Graph {
-    final private ArrayList<ArrayList<Integer>> matrix;
-    final private ArrayList<Vertex> vertices;
+    private final ArrayList<ArrayList<Integer>> matrix;
+    private final ArrayList<Vertex> vertices;
 
     public AdjacencyMatrix() {
         vertices = new ArrayList<>();

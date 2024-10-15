@@ -1,12 +1,11 @@
 package ru.nsu.chuvashov.graph.graphs;
 
-import ru.nsu.chuvashov.graph.Graph;
-import ru.nsu.chuvashov.graph.structure.Edge;
-import ru.nsu.chuvashov.graph.structure.Vertex;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import ru.nsu.chuvashov.graph.Graph;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 public class IncidenceList implements Graph {
     public final Map<Vertex, ArrayList<Edge>> incidenceList;
