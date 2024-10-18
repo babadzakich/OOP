@@ -82,7 +82,7 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.chuvashov.graph</a></div>
-<h1 title="Interface Graph" class="title">Interface Graph</h1>
+<h1 title="Interface Graph" class="title">Interface Graph&lt;T&gt;</h1>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -90,7 +90,8 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="graphs/AdjacencyMatrix.html" title="class in ru.nsu.chuvashov.graph.graphs">AdjacencyMatrix</a></code>, <code><a href="graphs/IncidenceList.html" title="class in ru.nsu.chuvashov.graph.graphs">IncidenceList</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Graph</span></div>
+<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Graph&lt;T&gt;</span></div>
+<div class="block">Interface for simple weighted graph.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -106,27 +107,28 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addEdge(ru.nsu.chuvashov.graph.structure.Edge)" class="member-name-link">addEdge</a><wbr>(<a href="structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&nbsp;edge)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addEdge(ru.nsu.chuvashov.graph.structure.Edge)" class="member-name-link">addEdge</a><wbr>(<a href="structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;edge)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">We add edge if the vertexes of edge are presented.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">addVertex</a><wbr>(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">addVertex</a><wbr>(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Addition of vertex.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">getNeighbors</a><wbr>(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">getNeighbors</a><wbr>(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">We search for neighbours of vertex.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getVertices()" class="member-name-link">getVertices</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getVertexes()" class="member-name-link">getVertexes</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">We search for list of all vertices of graph.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#readFromFile(java.lang.String)" class="member-name-link">readFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a><wbr>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#readFromFile(java.lang.String,java.util.function.Function)" class="member-name-link">readFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;parser)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">We read graph from formatted input,
  first we have two numbers n,m:
@@ -149,7 +151,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="addVertex(ru.nsu.chuvashov.graph.structure.Vertex)">
 <h3>addVertex</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</span></div>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</span></div>
 <div class="block">Addition of vertex.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -160,7 +162,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="addEdge(ru.nsu.chuvashov.graph.structure.Edge)">
 <h3>addEdge</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&nbsp;edge)</span></div>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;edge)</span></div>
 <div class="block">We add edge if the vertexes of edge are presented.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -171,7 +173,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)">
 <h3>getNeighbors</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</span></div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;vertex)</span></div>
 <div class="block">We search for neighbours of vertex.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -182,9 +184,10 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="readFromFile(java.lang.String)">
+<section class="detail" id="readFromFile(java.lang.String,java.util.function.Function)">
 <h3>readFromFile</h3>
-<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">readFromFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename)</span></div>
+<div class="member-signature"><span class="return-type"><a href="Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;</span>&nbsp;<span class="element-name">readFromFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;parser)</span></div>
 <div class="block">We read graph from formatted input,
  first we have two numbers n,m:
  n - number of vertexes, m - number of edges.
@@ -193,14 +196,15 @@ loadScripts(document, 'script');</script>
  first number is from, second is to.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>filename</code> - file, where we search.</dd>
+<dd><code>from</code> - file, where we search.</dd>
+<dd><code>parser</code> - - function to parse our vertex type.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getVertices()">
-<h3>getVertices</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</span>&nbsp;<span class="element-name">getVertices</span>()</div>
+<section class="detail" id="getVertexes()">
+<h3>getVertexes</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getVertexes</span>()</div>
 <div class="block">We search for list of all vertices of graph.</div>
 <dl class="notes">
 <dt>Returns:</dt>

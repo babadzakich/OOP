@@ -82,20 +82,25 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.chuvashov.graph.graphs</a></div>
-<h1 title="Class IncidenceList" class="title">Class IncidenceList</h1>
+<h1 title="Class IncidenceList" class="title">Class IncidenceList&lt;T&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">ru.nsu.chuvashov.graph.graphs.IncidenceList</div>
+<div class="inheritance">ru.nsu.chuvashov.graph.graphs.IncidenceList&lt;T&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - - our type of vertexes.</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;T&gt;</code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">IncidenceList</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">IncidenceList&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></span></div>
+implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;T&gt;</span></div>
+<div class="block">Graph implementation using vector.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -108,7 +113,7 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&gt;&gt;</code></div>
+<div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#incidenceList" class="member-name-link">incidenceList</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
@@ -139,27 +144,28 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addEdge(ru.nsu.chuvashov.graph.structure.Edge)" class="member-name-link">addEdge</a><wbr>(<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&nbsp;edge)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addEdge(ru.nsu.chuvashov.graph.structure.Edge)" class="member-name-link">addEdge</a><wbr>(<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;edge)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">We add edge if the vertexes of edge are presented.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">addVertex</a><wbr>(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">addVertex</a><wbr>(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;vertex)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Addition of vertex.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">getNeighbors</a><wbr>(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)" class="member-name-link">getNeighbors</a><wbr>(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;vertex)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">We search for neighbours of vertex.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertices()" class="member-name-link">getVertices</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertexes()" class="member-name-link">getVertexes</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">We search for list of all vertices of graph.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#readFromFile(java.lang.String)" class="member-name-link">readFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a><wbr>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#readFromFile(java.lang.String,java.util.function.Function)" class="member-name-link">readFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;parser)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">We read graph from formatted input,
  first we have two numbers n,m:
@@ -185,7 +191,7 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <li>
 <section class="detail" id="incidenceList">
 <h3>incidenceList</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&gt;&gt;</span>&nbsp;<span class="element-name">incidenceList</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;&gt;</span>&nbsp;<span class="element-name">incidenceList</span></div>
 </section>
 </li>
 </ul>
@@ -213,12 +219,12 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <li>
 <section class="detail" id="addVertex(ru.nsu.chuvashov.graph.structure.Vertex)">
 <h3>addVertex</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;vertex)</span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)">Graph</a></code></span></div>
 <div class="block">Addition of vertex.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../Graph.html#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)">addVertex</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html#addVertex(ru.nsu.chuvashov.graph.structure.Vertex)">addVertex</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>vertex</code> - - vertex that we add.</dd>
 </dl>
@@ -227,12 +233,12 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <li>
 <section class="detail" id="addEdge(ru.nsu.chuvashov.graph.structure.Edge)">
 <h3>addEdge</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&nbsp;edge)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="../structure/Edge.html" title="class in ru.nsu.chuvashov.graph.structure">Edge</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;edge)</span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#addEdge(ru.nsu.chuvashov.graph.structure.Edge)">Graph</a></code></span></div>
 <div class="block">We add edge if the vertexes of edge are presented.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../Graph.html#addEdge(ru.nsu.chuvashov.graph.structure.Edge)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html#addEdge(ru.nsu.chuvashov.graph.structure.Edge)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>edge</code> - - edge that we add.</dd>
 </dl>
@@ -241,12 +247,12 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 <li>
 <section class="detail" id="getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)">
 <h3>getNeighbors</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&nbsp;vertex)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;vertex)</span></div>
 <div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)">Graph</a></code></span></div>
 <div class="block">We search for neighbours of vertex.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../Graph.html#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)">getNeighbors</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html#getNeighbors(ru.nsu.chuvashov.graph.structure.Vertex)">getNeighbors</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>vertex</code> - - vertex, which neighbours we search.</dd>
 <dt>Returns:</dt>
@@ -255,10 +261,11 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
 </section>
 </li>
 <li>
-<section class="detail" id="readFromFile(java.lang.String)">
+<section class="detail" id="readFromFile(java.lang.String,java.util.function.Function)">
 <h3>readFromFile</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">readFromFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#readFromFile(java.lang.String)">Graph</a></code></span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</span>&nbsp;<span class="element-name">readFromFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&nbsp;parser)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#readFromFile(java.lang.String,java.util.function.Function)">Graph</a></code></span></div>
 <div class="block">We read graph from formatted input,
  first we have two numbers n,m:
  n - number of vertexes, m - number of edges.
@@ -267,21 +274,22 @@ implements <a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">G
  first number is from, second is to.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../Graph.html#readFromFile(java.lang.String)">readFromFile</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html#readFromFile(java.lang.String,java.util.function.Function)">readFromFile</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>fileName</code> - file, where we search.</dd>
+<dd><code>parser</code> - - function to parse our vertex type.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getVertices()">
-<h3>getVertices</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&gt;</span>&nbsp;<span class="element-name">getVertices</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#getVertices()">Graph</a></code></span></div>
+<section class="detail" id="getVertexes()">
+<h3>getVertexes</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getVertexes</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../Graph.html#getVertexes()">Graph</a></code></span></div>
 <div class="block">We search for list of all vertices of graph.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../Graph.html#getVertices()">getVertices</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a></code></dd>
+<dd><code><a href="../Graph.html#getVertexes()">getVertexes</a></code>&nbsp;in interface&nbsp;<code><a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;<a href="IncidenceList.html" title="type parameter in IncidenceList">T</a>&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>list of our vertexes.</dd>
 </dl>
