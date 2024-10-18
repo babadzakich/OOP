@@ -1,17 +1,17 @@
 package ru.nsu.chuvashov.graph.structure;
 
-public class Vertex {
-    private final int number;
+public class Vertex<T> {
+    private final T number;
     private int inDegree;
     private int outDegree;
 
-    public Vertex(int name) {
+    public Vertex(T name) {
         this.number = name;
         this.inDegree = 0;
         this.outDegree = 0;
     }
 
-    public void updateDegree(Edge edge) {
+    public void updateDegree(Edge<T> edge) {
         if (this.equals(edge.getFrom())) {
             this.inDegree += 1;
         }
@@ -20,7 +20,7 @@ public class Vertex {
         }
     }
 
-    public int getName() {
+    public T getName() {
         return number;
     }
 
@@ -36,11 +36,11 @@ public class Vertex {
 
     @Override
     public int hashCode() {
-        return number * 31;
+        return number.hashCode();
     }
 
     @Override
     public String toString() {
-        return String.format("%d", number);
+        return number.toString();
     }
 }

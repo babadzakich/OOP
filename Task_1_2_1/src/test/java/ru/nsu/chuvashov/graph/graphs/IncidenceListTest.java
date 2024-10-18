@@ -15,25 +15,25 @@ class IncidenceListTest {
 
     @Test
     void addVertex() {
-        IncidenceList list = new IncidenceList();
-        list.addVertex(new Vertex(1));
-        assertTrue(list.incidenceList.containsKey(new Vertex(1)));
+        IncidenceList<Integer> list = new IncidenceList<>();
+        list.addVertex(new Vertex<>(1));
+        assertTrue(list.incidenceList.containsKey(new Vertex<>(1)));
     }
 
     @Test
     void addEdge() {
-        IncidenceList list = new IncidenceList();
-        Vertex v1 = new Vertex(1);
+        IncidenceList<Integer> list = new IncidenceList<>();
+        Vertex<Integer> v1 = new Vertex<>(1);
         list.addVertex(v1);
-        Vertex v2 = new Vertex(2);
+        Vertex<Integer> v2 = new Vertex<>(2);
         list.addVertex(v2);
-        Edge e1 = new Edge(v1, v2);
+        Edge<Integer> e1 = new Edge<>(v1, v2, 1);
         list.addEdge(e1);
-        Vertex v3 = new Vertex(3);
+        Vertex<Integer> v3 = new Vertex<>(3);
         list.addVertex(v3);
-        Edge e2 = new Edge(v2, v3);
+        Edge<Integer> e2 = new Edge<>(v2, v3, 1);
         list.addEdge(e2);
-        Edge e3 = new Edge(v3, v1);
+        Edge<Integer> e3 = new Edge<>(v3, v1, 1);
         list.addEdge(e3);
         assertTrue(list.incidenceList.get(v1).contains(e1)
                 && list.incidenceList.get(v2).contains(e2));
@@ -41,30 +41,30 @@ class IncidenceListTest {
 
     @Test
     void getNeighbors() {
-        IncidenceList list = new IncidenceList();
-        Vertex v1 = new Vertex(1);
+        IncidenceList<Integer> list = new IncidenceList<>();
+        Vertex<Integer> v1 = new Vertex<>(1);
         list.addVertex(v1);
-        Vertex v2 = new Vertex(2);
+        Vertex<Integer> v2 = new Vertex<>(2);
         list.addVertex(v2);
-        list.addEdge(new Edge(v1, v2));
-        Vertex v3 = new Vertex(3);
+        list.addEdge(new Edge<>(v1, v2, 1));
+        Vertex<Integer> v3 = new Vertex<>(3);
         list.addVertex(v3);
-        list.addEdge(new Edge(v1, v3));
-        Vertex v4 = new Vertex(4);
+        list.addEdge(new Edge<>(v1, v3, 1));
+        Vertex<Integer> v4 = new Vertex<>(4);
         list.addVertex(v4);
-        list.addEdge(new Edge(v1, v4));
+        list.addEdge(new Edge<>(v1, v4, 1));
 
-        ArrayList<Vertex> check = new ArrayList<>();
+        ArrayList<Vertex<Integer>> check = new ArrayList<>();
         check.add(v2);
         check.add(v3);
         check.add(v4);
-        List<Vertex> neighbors = list.getNeighbors(v1);
+        List<Vertex<Integer>> neighbors = list.getNeighbors(v1);
         assertEquals(neighbors, check);
 
         assertEquals(list.getNeighbors(v2), new ArrayList<>());
 
         try {
-            list.getNeighbors(new Vertex(5));
+            list.getNeighbors(new Vertex<>(5));
         } catch (NoSuchElementException e) {
             assertInstanceOf(NoSuchElementException.class, e);
         }
@@ -77,35 +77,35 @@ class IncidenceListTest {
 
     @Test
     void toposort() {
-        IncidenceList list = new IncidenceList();
-        Vertex v0 = new Vertex(0);
+        IncidenceList<Integer> list = new IncidenceList<>();
+        Vertex<Integer> v0 = new Vertex<>(0);
         list.addVertex(v0);
-        Vertex v1 = new Vertex(1);
+        Vertex<Integer> v1 = new Vertex<>(1);
         list.addVertex(v1);
-        Vertex v2 = new Vertex(2);
+        Vertex<Integer> v2 = new Vertex<>(2);
         list.addVertex(v2);
-        Vertex v3 = new Vertex(3);
+        Vertex<Integer> v3 = new Vertex<>(3);
         list.addVertex(v3);
-        Vertex v4 = new Vertex(4);
+        Vertex<Integer> v4 = new Vertex<>(4);
         list.addVertex(v4);
-        Vertex v5 = new Vertex(5);
+        Vertex<Integer> v5 = new Vertex<>(5);
         list.addVertex(v5);
 
-        list.addEdge(new Edge(v3, v1));
-        list.addEdge(new Edge(v2, v3));
-        list.addEdge(new Edge(v4, v1));
-        list.addEdge(new Edge(v4, v0));
-        list.addEdge(new Edge(v5, v2));
-        list.addEdge(new Edge(v5, v0));
+        list.addEdge(new Edge<>(v3, v1, 1));
+        list.addEdge(new Edge<>(v2, v3, 1));
+        list.addEdge(new Edge<>(v4, v1, 1));
+        list.addEdge(new Edge<>(v4, v0, 1));
+        list.addEdge(new Edge<>(v5, v2, 1));
+        list.addEdge(new Edge<>(v5, v0, 1));
 
-        ArrayList<Vertex> check = new ArrayList<>();
+        ArrayList<Vertex<Integer>> check = new ArrayList<>();
         check.add(v0);
         check.add(v1);
         check.add(v3);
         check.add(v2);
-        check.add(v5);
         check.add(v4);
-        ArrayList<Vertex> tsort = (ArrayList<Vertex>) Toposort.toposort(list);
+        check.add(v5);
+        List<Vertex<Integer>> tsort = Algorithms.toposort(list);
         assertEquals(check, tsort);
     }
 }

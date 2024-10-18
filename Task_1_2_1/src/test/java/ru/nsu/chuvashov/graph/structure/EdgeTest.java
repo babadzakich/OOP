@@ -8,28 +8,32 @@ import org.junit.jupiter.api.Test;
 class EdgeTest {
     @Test
     void equalsEdge() {
-        Edge e = new Edge(new Vertex(1), new Vertex(2));
-        Edge e2 = new Edge(new Vertex(1), new Vertex(2));
+        Edge<Integer> e = new Edge<>(new Vertex<>(1), new Vertex<>(2), 1);
+        Edge<Integer> e2 = new Edge<>(new Vertex<>(1), new Vertex<>(2), 1);
         assertEquals(e, e2);
         assertEquals(e, e);
         assertNotEquals(e, null);
         assertNotEquals(e, new Object());
 
-        Edge e3 = new Edge(new Vertex(2), new Vertex(2));
+        Edge<Integer> e3 = new Edge<>(new Vertex<>(2), new Vertex<>(2), 1);
         assertNotEquals(e, e3);
-        Edge e4 = new Edge(new Vertex(1), new Vertex(3));
+        Edge<Integer> e4 = new Edge<>(new Vertex<>(1), new Vertex<>(3), 1);
         assertNotEquals(e, e4);
+        Edge<Integer> e5 = new Edge<>(new Vertex<>(1), new Vertex<>(2), 2);
+        assertNotEquals(e, e5);
+        Edge<String> e6 = new Edge<>(new Vertex<>("1"), new Vertex<>("2"), 1);
+        assertNotEquals(e, e6);
     }
 
     @Test
     void hashCodeEdge() {
-        Edge e = new Edge(new Vertex(1), new Vertex(2));
-        assertEquals(1023, e.hashCode());
+        Edge<Integer> e = new Edge<>(new Vertex<>(1), new Vertex<>(2), 1);
+        assertEquals(1024, e.hashCode());
     }
 
     @Test
     void toStringEdge() {
-        Edge e = new Edge(new Vertex(1), new Vertex(2));
-        assertEquals("Edge{from=1, to=2}", e.toString());
+        Edge<Integer> e = new Edge<>(new Vertex<>(1), new Vertex<>(2), 1);
+        assertEquals("Edge{from=1, to=2, weight=1}", e.toString());
     }
 }
