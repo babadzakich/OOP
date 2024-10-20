@@ -18,7 +18,8 @@ public class Parser {
      * @param parser - function to convert from string to our type.
      * @param <T> - type of graph.
      */
-    public static <T> void parse(Graph<T> graph, String fileName, Function<String, T> parser) throws FileNotFoundException {
+    public static <T> void parse(Graph<T> graph, String fileName,
+                                 Function<String, T> parser) throws FileNotFoundException {
         InputStream inputStream;
         inputStream = Parser.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
