@@ -1,5 +1,6 @@
 package ru.nsu.chuvashov.graph.graphs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -102,9 +103,13 @@ public class IncidenceMatrix<T> implements Graph<T> {
      */
     @Override
     public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
-        IncidenceMatrix<T> graph = new IncidenceMatrix<>();
-
-        return Parser.parse(graph, fileName, parser);
+        Graph<T> graph = new IncidenceMatrix<>();
+        try {
+            Parser.parse(graph, fileName, parser);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading file", e);
+        }
+        return graph;
     }
 
     /**

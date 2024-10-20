@@ -1,5 +1,6 @@
 package ru.nsu.chuvashov.graph.graphs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,9 +86,13 @@ public class AdjacencyList<T> implements Graph<T> {
      */
     @Override
     public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
-        AdjacencyList<T> graph = new AdjacencyList<>();
-
-        return Parser.parse(graph, fileName, parser);
+        Graph<T> graph = new AdjacencyList<>();
+        try {
+            Parser.parse(graph, fileName, parser);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading file", e);
+        }
+        return graph;
     }
 
     /**

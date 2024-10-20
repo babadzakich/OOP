@@ -1,5 +1,6 @@
 package ru.nsu.chuvashov.graph.graphs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -65,8 +66,13 @@ public class AdjacencyMatrix<T> implements Graph<T> {
 
     @Override
     public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
-        AdjacencyMatrix<T> graph = new AdjacencyMatrix<>();
-        return Parser.parse(graph, fileName, parser);
+        Graph<T> graph = new AdjacencyMatrix<>();
+        try {
+            Parser.parse(graph, fileName, parser);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading file", e);
+        }
+        return graph;
     }
 
     /**
