@@ -20,6 +20,9 @@ public class IncidenceMatrix<T> implements Graph<T> {
     private final ArrayList<Edge<T>> edges;
     private final ArrayList<ArrayList<Integer>> matrix;
 
+    /**
+     * I don`t know why, but reviewdog needs javadoc for constructor.
+     */
     public IncidenceMatrix() {
         vertexes = new ArrayList<>();
         edges = new ArrayList<>();

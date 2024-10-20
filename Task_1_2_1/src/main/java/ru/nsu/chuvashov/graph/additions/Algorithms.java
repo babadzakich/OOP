@@ -1,8 +1,8 @@
 package ru.nsu.chuvashov.graph.additions;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Vertex;
@@ -39,7 +39,8 @@ public class Algorithms {
      * @param result - list of vertexes after search.
      * @param <T> - type of graph.
      */
-    public static <T> void dfs(Graph<T> graph, Vertex<T> vertex, Set<Vertex<T>> visited, List<Vertex<T>> result) {
+    public static <T> void dfs(Graph<T> graph, Vertex<T> vertex,
+                               Set<Vertex<T>> visited, List<Vertex<T>> result) {
         visited.add(vertex);
         for (Vertex<T> v : graph.getNeighbors(vertex)) {
             if (!visited.contains(v)) {
