@@ -54,13 +54,13 @@ public class IncidenceMatrix<T> implements Graph<T> {
     @Override
     public void addEdge(Edge<T> edge) {
         if (!vertexes.contains(edge.to()) || !vertexes.contains(edge.from())) {
-            throw new IllegalArgumentException("Graph doesn`t contain vertexes from edge");
+            throw new NoSuchElementException("Graph doesn`t contain vertexes from edge");
         }
         edges.add(edge);
         for (int i = 0; i < vertexes.size(); i++) {
-            if (vertexes.get(i) == edge.from()) {
+            if (vertexes.get(i).equals(edge.from())) {
                 matrix.get(i).add(-(edge.weight()));
-            } else if (vertexes.get(i) == edge.to()) {
+            } else if (vertexes.get(i).equals(edge.to())) {
                 matrix.get(i).add(edge.weight());
             } else {
                 matrix.get(i).add(0);
@@ -82,7 +82,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
             throw new NoSuchElementException("Vertex not found");
         }
         for (int i = 0; i < matrix.get(index).size(); i++) {
-            if (matrix.get(index).get(i) > 0) {
+            if (matrix.get(index).get(i) < 0) {
                 neighbors.add(edges.get(i).to());
             }
         }

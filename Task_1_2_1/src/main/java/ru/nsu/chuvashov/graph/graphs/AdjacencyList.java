@@ -16,11 +16,11 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  *
  * @param <T> - our type of vertexes.
  */
-public class IncidenceList<T> implements Graph<T> {
-    public final Map<Vertex<T>, ArrayList<Edge<T>>> incidenceList;
+public class AdjacencyList<T> implements Graph<T> {
+    public final Map<Vertex<T>, ArrayList<Edge<T>>> adjacencyList;
 
-    public IncidenceList() {
-        incidenceList = new HashMap<>();
+    public AdjacencyList() {
+        adjacencyList = new HashMap<>();
     }
 
     /**
@@ -31,8 +31,8 @@ public class IncidenceList<T> implements Graph<T> {
      */
     @Override
     public void addVertex(Vertex<T> vertex) {
-        if (!incidenceList.containsKey(vertex)) {
-            incidenceList.put(vertex, new ArrayList<>());
+        if (!adjacencyList.containsKey(vertex)) {
+            adjacencyList.put(vertex, new ArrayList<>());
         } else {
             throw new IllegalCallerException("Vertex already exists");
         }
@@ -45,11 +45,11 @@ public class IncidenceList<T> implements Graph<T> {
      */
     @Override
     public void addEdge(Edge<T> edge) {
-        if (!incidenceList.containsKey(edge.from())
-                || !incidenceList.containsKey(edge.to())) {
+        if (!adjacencyList.containsKey(edge.from())
+                || !adjacencyList.containsKey(edge.to())) {
             throw new IllegalArgumentException("Graph doesn`t contain vertexes from edge");
         }
-        incidenceList.get(edge.from()).add(edge);
+        adjacencyList.get(edge.from()).add(edge);
     }
 
     /**
@@ -61,11 +61,11 @@ public class IncidenceList<T> implements Graph<T> {
      */
     @Override
     public List<Vertex<T>> getNeighbors(Vertex<T> vertex) {
-        if (!incidenceList.containsKey(vertex)) {
+        if (!adjacencyList.containsKey(vertex)) {
             throw new NoSuchElementException("Vertex not found");
         }
-        ArrayList<Vertex<T>> result = new ArrayList<>(incidenceList.get(vertex).size());
-        for (Edge<T> edge : incidenceList.get(vertex)) {
+        ArrayList<Vertex<T>> result = new ArrayList<>(adjacencyList.get(vertex).size());
+        for (Edge<T> edge : adjacencyList.get(vertex)) {
             result.add(edge.to());
         }
         return result;
@@ -85,7 +85,7 @@ public class IncidenceList<T> implements Graph<T> {
      */
     @Override
     public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
-        IncidenceList<T> graph = new IncidenceList<>();
+        AdjacencyList<T> graph = new AdjacencyList<>();
 
         return Parser.parse(graph, fileName, parser);
     }
@@ -97,6 +97,6 @@ public class IncidenceList<T> implements Graph<T> {
      */
     @Override
     public List<Vertex<T>> getVertexes() {
-        return List.copyOf(incidenceList.keySet());
+        return List.copyOf(adjacencyList.keySet());
     }
 }

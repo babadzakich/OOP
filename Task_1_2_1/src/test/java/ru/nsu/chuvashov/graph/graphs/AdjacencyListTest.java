@@ -12,18 +12,18 @@ import ru.nsu.chuvashov.graph.additions.Algorithms;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
-class IncidenceListTest {
+class AdjacencyListTest {
 
     @Test
     void addVertex() {
-        IncidenceList<Integer> list = new IncidenceList<>();
+        AdjacencyList<Integer> list = new AdjacencyList<>();
         list.addVertex(new Vertex<>(1));
-        assertTrue(list.incidenceList.containsKey(new Vertex<>(1)));
+        assertTrue(list.adjacencyList.containsKey(new Vertex<>(1)));
     }
 
     @Test
     void addEdge() {
-        IncidenceList<Integer> list = new IncidenceList<>();
+        AdjacencyList<Integer> list = new AdjacencyList<>();
         Vertex<Integer> v1 = new Vertex<>(1);
         list.addVertex(v1);
         Vertex<Integer> v2 = new Vertex<>(2);
@@ -36,13 +36,13 @@ class IncidenceListTest {
         list.addEdge(e2);
         Edge<Integer> e3 = new Edge<>(v3, v1, 1);
         list.addEdge(e3);
-        assertTrue(list.incidenceList.get(v1).contains(e1)
-                && list.incidenceList.get(v2).contains(e2));
+        assertTrue(list.adjacencyList.get(v1).contains(e1)
+                && list.adjacencyList.get(v2).contains(e2));
     }
 
     @Test
     void getNeighbors() {
-        IncidenceList<Integer> list = new IncidenceList<>();
+        AdjacencyList<Integer> list = new AdjacencyList<>();
         Vertex<Integer> v1 = new Vertex<>(1);
         list.addVertex(v1);
         Vertex<Integer> v2 = new Vertex<>(2);
@@ -78,7 +78,7 @@ class IncidenceListTest {
 
     @Test
     void toposort() {
-        IncidenceList<Integer> list = new IncidenceList<>();
+        AdjacencyList<Integer> list = new AdjacencyList<>();
         Vertex<Integer> v0 = new Vertex<>(0);
         list.addVertex(v0);
         Vertex<Integer> v1 = new Vertex<>(1);
