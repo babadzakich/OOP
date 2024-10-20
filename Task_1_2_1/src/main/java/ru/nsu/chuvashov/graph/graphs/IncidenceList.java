@@ -33,6 +33,8 @@ public class IncidenceList<T> implements Graph<T> {
     public void addVertex(Vertex<T> vertex) {
         if (!incidenceList.containsKey(vertex)) {
             incidenceList.put(vertex, new ArrayList<>());
+        } else {
+            throw new IllegalCallerException("Vertex already exists");
         }
     }
 
