@@ -9,6 +9,12 @@ import ru.nsu.chuvashov.graph.additions.Parser;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
+/**
+ * Graph implementation using Incidence matrix.
+ * Graph is simple, oriented and weighted.
+ *
+ * @param <T> - type of vertexes in graph.
+ */
 public class IncidenceMatrix<T> implements Graph<T> {
     private final ArrayList<Vertex<T>> vertexes;
     private final ArrayList<Edge<T>> edges;

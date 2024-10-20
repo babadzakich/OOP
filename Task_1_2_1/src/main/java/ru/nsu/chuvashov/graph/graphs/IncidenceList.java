@@ -1,8 +1,11 @@
 package ru.nsu.chuvashov.graph.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
 import java.util.function.Function;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.additions.Parser;
 import ru.nsu.chuvashov.graph.structure.Edge;
@@ -13,7 +16,7 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  *
  * @param <T> - our type of vertexes.
  */
-public class IncidenceList <T> implements Graph<T> {
+public class IncidenceList<T> implements Graph<T> {
     public final Map<Vertex<T>, ArrayList<Edge<T>>> incidenceList;
 
     public IncidenceList() {
@@ -58,6 +61,8 @@ public class IncidenceList <T> implements Graph<T> {
     }
 
     /**
+     * All vertexes from graph.
+     *
      * @return list of our vertexes.
      */
     @Override

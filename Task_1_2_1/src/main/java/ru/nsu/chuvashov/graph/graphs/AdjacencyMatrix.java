@@ -9,6 +9,12 @@ import ru.nsu.chuvashov.graph.additions.Parser;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
+/**
+ * Class that implements graph using adjacency matrix.
+ * Graph is simple oriented and with weighted edges.
+ *
+ * @param <T> - type of vertexes in graph.
+ */
 public class AdjacencyMatrix<T> implements Graph<T> {
     private final ArrayList<ArrayList<Integer>> matrix;
     private final ArrayList<Vertex<T>> vertices;
@@ -63,6 +69,8 @@ public class AdjacencyMatrix<T> implements Graph<T> {
     }
 
     /**
+     * A list of vertexes in graph.
+     *
      * @return list of vertices in graph.
      */
     @Override
