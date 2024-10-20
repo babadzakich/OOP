@@ -1,11 +1,11 @@
 package ru.nsu.chuvashov.graph.graphs;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.additions.Parser;
 import ru.nsu.chuvashov.graph.structure.Edge;

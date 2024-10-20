@@ -25,6 +25,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
         edges = new ArrayList<>();
         matrix = new ArrayList<>();
     }
+
     /**
      * Addition of vertex.
      *

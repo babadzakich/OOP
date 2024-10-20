@@ -2,14 +2,13 @@ package ru.nsu.chuvashov.graph;
 
 import java.util.List;
 import java.util.function.Function;
-
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 
 /**
  * Interface for simple weighted graph.
  */
-public interface Graph <T> {
+public interface Graph<T> {
     /**
      * Addition of vertex.
      *

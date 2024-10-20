@@ -1,12 +1,11 @@
 package ru.nsu.chuvashov.graph.additions;
 
-import ru.nsu.chuvashov.graph.Graph;
-import ru.nsu.chuvashov.graph.structure.Vertex;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
+import ru.nsu.chuvashov.graph.Graph;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 /**
  * Class for all algorithms with graphs.
