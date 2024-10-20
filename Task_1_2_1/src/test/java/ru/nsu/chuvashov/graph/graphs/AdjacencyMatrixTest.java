@@ -18,6 +18,12 @@ class AdjacencyMatrixTest {
         matrix.addVertex(new Vertex<>(1));
         matrix.addVertex(new Vertex<>(2));
         assertEquals(matrix.getNeighbors(new Vertex<>(1)).size(), 0);
+
+        try {
+            matrix.addVertex(new Vertex<>(2));
+        } catch (IllegalArgumentException e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
     }
 
     @Test

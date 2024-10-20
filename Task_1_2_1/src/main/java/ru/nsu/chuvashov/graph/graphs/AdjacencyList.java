@@ -17,7 +17,7 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  * @param <T> - our type of vertexes.
  */
 public class AdjacencyList<T> implements Graph<T> {
-    public final Map<Vertex<T>, ArrayList<Edge<T>>> adjacencyList;
+    private final Map<Vertex<T>, ArrayList<Edge<T>>> adjacencyList;
 
     public AdjacencyList() {
         adjacencyList = new HashMap<>();
@@ -34,7 +34,7 @@ public class AdjacencyList<T> implements Graph<T> {
         if (!adjacencyList.containsKey(vertex)) {
             adjacencyList.put(vertex, new ArrayList<>());
         } else {
-            throw new IllegalCallerException("Vertex already exists");
+            throw new IllegalArgumentException("Vertex already exists");
         }
     }
 

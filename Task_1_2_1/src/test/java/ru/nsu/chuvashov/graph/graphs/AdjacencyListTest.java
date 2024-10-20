@@ -17,8 +17,15 @@ class AdjacencyListTest {
     @Test
     void addVertex() {
         AdjacencyList<Integer> list = new AdjacencyList<>();
-        list.addVertex(new Vertex<>(1));
-        assertTrue(list.adjacencyList.containsKey(new Vertex<>(1)));
+        Vertex<Integer> v1 = new Vertex<>(1);
+        list.addVertex(v1);
+        assertTrue(list.getVertexes().contains(v1));
+
+        try {
+            list.addVertex(v1);
+        } catch (IllegalArgumentException e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
     }
 
     @Test
@@ -36,8 +43,14 @@ class AdjacencyListTest {
         list.addEdge(e2);
         Edge<Integer> e3 = new Edge<>(v3, v1, 1);
         list.addEdge(e3);
-        assertTrue(list.adjacencyList.get(v1).contains(e1)
-                && list.adjacencyList.get(v2).contains(e2));
+        assertTrue(list.getNeighbors(v1).contains(v2)
+                && list.getNeighbors(v2).contains(v3));
+
+        try {
+            list.addEdge(new Edge<>(v1, new Vertex<>(4), 1));
+        } catch (IllegalArgumentException e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
     }
 
     @Test

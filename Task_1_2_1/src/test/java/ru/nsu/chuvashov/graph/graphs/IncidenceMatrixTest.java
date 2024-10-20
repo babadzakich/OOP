@@ -18,6 +18,11 @@ class IncidenceMatrixTest {
         matrix.addVertex(new Vertex<>(1));
         matrix.addVertex(new Vertex<>(2));
         assertEquals(matrix.getNeighbors(new Vertex<>(1)).size(), 0);
+        try {
+            matrix.addVertex(new Vertex<>(2));
+        } catch (IllegalArgumentException e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
     }
 
     @Test
@@ -27,10 +32,12 @@ class IncidenceMatrixTest {
         matrix.addVertex(v1);
         Vertex<Integer> v2 = new Vertex<>(2);
         matrix.addVertex(v2);
+        matrix.addEdge(new Edge<>(v1, v2, 1));
+
         Vertex<Integer> v3 = new Vertex<>(3);
         matrix.addVertex(v3);
-        matrix.addEdge(new Edge<>(v1, v2, 1));
         matrix.addEdge(new Edge<>(v1, v3, 1));
+
         ArrayList<Vertex<Integer>> check = new ArrayList<>();
         check.add(v2);
         check.add(v3);

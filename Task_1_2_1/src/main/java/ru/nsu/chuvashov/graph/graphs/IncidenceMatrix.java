@@ -37,7 +37,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
     @Override
     public void addVertex(Vertex<T> vertex) {
         if (vertexes.contains(vertex)) {
-            throw new IllegalCallerException("Vertex already exists");
+            throw new IllegalArgumentException("Vertex already exists");
         }
         vertexes.add(vertex);
         matrix.add(new ArrayList<>());

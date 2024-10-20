@@ -27,7 +27,7 @@ public class AdjacencyMatrix<T> implements Graph<T> {
     @Override
     public void addVertex(Vertex<T> vertex) {
         if (vertices.contains(vertex)) {
-            throw new IllegalCallerException("Vertex already exists");
+            throw new IllegalArgumentException("Vertex already exists");
         }
         for (ArrayList<Integer> integers : matrix) {
             integers.add(0);
