@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
+import ru.nsu.chuvashov.graph.additions.Algorithms;
 import ru.nsu.chuvashov.graph.structure.Edge;
 import ru.nsu.chuvashov.graph.structure.Vertex;
 

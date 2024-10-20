@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov.graph.graphs;
+package ru.nsu.chuvashov.graph.additions;
 
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Vertex;
