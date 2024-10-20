@@ -91,6 +91,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Algorithms</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Class for all algorithms with graphs.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -123,10 +124,14 @@ loadScripts(document, 'script');</script>
  <a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&nbsp;vertex,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;&nbsp;visited,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;&nbsp;result)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Recursive algorithm for depth-first search.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#toposort(ru.nsu.chuvashov.graph.Graph)" class="member-name-link">toposort</a><wbr>(<a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;T&gt;&nbsp;graph)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Topological sort algorithm using DFS.</div>
+</div>
 </div>
 </div>
 </div>
@@ -162,6 +167,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="toposort(ru.nsu.chuvashov.graph.Graph)">
 <h3>toposort</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;</span>&nbsp;<span class="element-name">toposort</span><wbr><span class="parameters">(<a href="../Graph.html" title="interface in ru.nsu.chuvashov.graph">Graph</a>&lt;T&gt;&nbsp;graph)</span></div>
+<div class="block">Topological sort algorithm using DFS.</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - - type of graph.</dd>
+<dt>Parameters:</dt>
+<dd><code>graph</code> - - graph which we sort.</dd>
+<dt>Returns:</dt>
+<dd>sorted list of vertexes in graph.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -171,6 +185,16 @@ loadScripts(document, 'script');</script>
  <a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&nbsp;vertex,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;&nbsp;visited,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../structure/Vertex.html" title="class in ru.nsu.chuvashov.graph.structure">Vertex</a>&lt;T&gt;&gt;&nbsp;result)</span></div>
+<div class="block">Recursive algorithm for depth-first search.</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - - type of graph.</dd>
+<dt>Parameters:</dt>
+<dd><code>graph</code> - - where we use dfs.</dd>
+<dd><code>vertex</code> - - current vertex.</dd>
+<dd><code>visited</code> - - shows whether we visited vertex or not.</dd>
+<dd><code>result</code> - - list of vertexes after search.</dd>
+</dl>
 </section>
 </li>
 </ul>
