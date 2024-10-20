@@ -21,8 +21,7 @@ public class Variable extends Expression {
      *
      * @param variables - string with variables.
      * @return result of substitution.
-     * @throws IllegalArgumentException if needed variable wasn`t presented,
-     * or we got no variables, or we got wrong format string.
+     * @throws IllegalArgumentException variable wasn`t presented, no variables, or wrong format.
      */
     @Override
     public double eval(String variables) throws IllegalArgumentException {

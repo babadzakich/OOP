@@ -65,7 +65,7 @@ class AddTest {
         Expression e = new Add(new Number(5), new Variable("X"));
         Expression e2 = new Add(new Number(5), new Variable("X"));
         assertEquals(e, e2);
-        assertEquals(e,e);
+        assertEquals(e, e);
         assertNotEquals(e, null);
 
         Expression e3 = new Sub(new Number(5), new Variable("X"));

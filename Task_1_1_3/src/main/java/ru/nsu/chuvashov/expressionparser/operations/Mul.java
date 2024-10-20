@@ -59,7 +59,7 @@ public class Mul extends Expression {
         Expression rightSimplified = right.simplification();
 
         if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
-            return new Number(l.eval("") * r.eval(""));
+            return new Number(l.getValue() * r.getValue());
         } else if ((leftSimplified instanceof Number l && l.equals(new Number(0)))
                 || (rightSimplified instanceof Number r && r.equals(new Number(0)))) {
             return new Number(0);

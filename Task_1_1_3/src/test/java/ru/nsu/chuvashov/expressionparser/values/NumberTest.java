@@ -29,7 +29,7 @@ class NumberTest {
         Expression e = new Number(5);
         Expression e2 = new Number(5);
         assertEquals(e, e2);
-        assertEquals(e,e);
+        assertEquals(e, e);
         assertNotEquals(e, null);
 
         Expression e3 = new Number(4);

@@ -79,4 +79,13 @@ public class Number extends Expression {
     public int hashCode() {
         return Double.valueOf(value).hashCode();
     }
+
+    /**
+     * Getter method.
+     *
+     * @return value.
+     */
+    public double getValue() {
+        return value;
+    }
 }

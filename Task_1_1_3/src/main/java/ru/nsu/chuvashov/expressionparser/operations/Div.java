@@ -73,7 +73,7 @@ public class Div extends Expression {
             if (r.equals(new Number(1))) {
                 return l;
             }
-            return new Number(l.eval("") / r.eval(""));
+            return new Number(l.getValue() / r.getValue());
         }
         return this;
     }

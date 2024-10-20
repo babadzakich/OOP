@@ -182,8 +182,7 @@ public class Parser {
      * if it`s wrong, then it`s opened bracket, so we start grouping,
      * what is inside brackets.
      *
-     * @return Number or Variable, else we return result of parsing expression
-     * inside brackets.
+     * @return Number, Variable or expression parsed inside brackets.
      */
     private Expression constant() {
         if (type == TokenType.NUMBER || type == TokenType.VARIABLE) {

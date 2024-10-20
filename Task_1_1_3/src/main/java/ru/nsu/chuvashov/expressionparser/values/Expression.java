@@ -13,7 +13,8 @@ public abstract class Expression {
      * @throws ArithmeticException division by zero.
      * @throws IllegalArgumentException when our variable evaluation is in wrong format.
      */
-    public abstract double eval(String variables) throws IllegalArgumentException, ArithmeticException;
+    public abstract double eval(String variables)
+            throws IllegalArgumentException, ArithmeticException;
 
     /**
      * We print our statement.

@@ -56,7 +56,7 @@ public class Add extends Expression {
         Expression leftSimplified = left.simplification();
         Expression rightSimplified = right.simplification();
         if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
-            return new Number(leftSimplified.eval("") + rightSimplified.eval(""));
+            return new Number(((Number) leftSimplified).getValue() + ((Number) rightSimplified).getValue());
         }
         return this;
     }
