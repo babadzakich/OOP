@@ -3,13 +3,12 @@ package ru.nsu.chuvashov.graph.graphs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import org.junit.jupiter.api.Test;
-import ru.nsu.chuvashov.graph.structure.Edge;
-import ru.nsu.chuvashov.graph.structure.Vertex;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.junit.jupiter.api.Test;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
 class IncidenceMatrixTest {
 
