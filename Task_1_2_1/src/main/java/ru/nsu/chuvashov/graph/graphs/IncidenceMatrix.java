@@ -46,15 +46,15 @@ public class IncidenceMatrix<T> implements Graph<T> {
      */
     @Override
     public void addEdge(Edge<T> edge) {
-        if (!vertexes.contains(edge.getTo()) || !vertexes.contains(edge.getFrom())) {
+        if (!vertexes.contains(edge.to()) || !vertexes.contains(edge.from())) {
             throw new IllegalArgumentException("Graph doesn`t contain vertexes from edge");
         }
         edges.add(edge);
         for (int i = 0; i < vertexes.size(); i++) {
-            if (vertexes.get(i) == edge.getFrom()) {
-                matrix.get(i).add(-(edge.getWeight()));
-            } else if (vertexes.get(i) == edge.getTo()) {
-                matrix.get(i).add(edge.getWeight());
+            if (vertexes.get(i) == edge.from()) {
+                matrix.get(i).add(-(edge.weight()));
+            } else if (vertexes.get(i) == edge.to()) {
+                matrix.get(i).add(edge.weight());
             } else {
                 matrix.get(i).add(0);
             }
@@ -76,7 +76,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
         }
         for (int i = 0; i < matrix.get(index).size(); i++) {
             if (matrix.get(index).get(i) > 0) {
-                neighbors.add(edges.get(i).getTo());
+                neighbors.add(edges.get(i).to());
             }
         }
         return neighbors;

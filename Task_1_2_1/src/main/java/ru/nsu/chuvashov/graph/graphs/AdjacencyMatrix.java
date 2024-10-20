@@ -38,14 +38,12 @@ public class AdjacencyMatrix<T> implements Graph<T> {
 
     @Override
     public void addEdge(Edge<T> edge) {
-        if (!vertices.contains(edge.getFrom()) || !vertices.contains(edge.getTo())) {
+        if (!vertices.contains(edge.from()) || !vertices.contains(edge.to())) {
             throw new IllegalArgumentException("Graph doesn`t contain vertexes from edge");
         }
-        int x = matrix.get(vertices.indexOf(edge.getFrom())).get(vertices.indexOf(edge.getTo()));
-        x += edge.getWeight();
-        matrix.get(vertices.indexOf(edge.getFrom())).set(vertices.indexOf(edge.getTo()), x);
-        edge.getFrom().updateDegree(edge);
-        edge.getTo().updateDegree(edge);
+        int x = matrix.get(vertices.indexOf(edge.from())).get(vertices.indexOf(edge.to()));
+        x += edge.weight();
+        matrix.get(vertices.indexOf(edge.from())).set(vertices.indexOf(edge.to()), x);
     }
 
     @Override
@@ -75,6 +73,6 @@ public class AdjacencyMatrix<T> implements Graph<T> {
      */
     @Override
     public List<Vertex<T>> getVertexes() {
-       return vertices;
+        return vertices;
     }
 }

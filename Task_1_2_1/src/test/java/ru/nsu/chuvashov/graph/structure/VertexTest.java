@@ -11,9 +11,9 @@ class VertexTest {
     @Test
     void getName() {
         Vertex<Integer> v = new Vertex<>(2);
-        assertEquals(2, v.getName());
+        assertEquals(2, v.name());
         Vertex<Boolean> v2 = new Vertex<>(true);
-        assertTrue(v2.getName());
+        assertTrue(v2.name());
     }
 
     @Test

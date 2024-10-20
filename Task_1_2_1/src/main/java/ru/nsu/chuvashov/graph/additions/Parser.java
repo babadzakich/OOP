@@ -1,15 +1,26 @@
 package ru.nsu.chuvashov.graph.additions;
 
-import ru.nsu.chuvashov.graph.Graph;
-import ru.nsu.chuvashov.graph.structure.Edge;
-import ru.nsu.chuvashov.graph.structure.Vertex;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.function.Function;
+import ru.nsu.chuvashov.graph.Graph;
+import ru.nsu.chuvashov.graph.structure.Edge;
+import ru.nsu.chuvashov.graph.structure.Vertex;
 
+/**
+ * Class for parsing from file.
+ */
 public class Parser {
+    /**
+     * We read info from file to graph.
+     *
+     * @param graph which we build.
+     * @param fileName - path to file.
+     * @param parser - function to convert from string to our type.
+     * @param <T> - type of graph.
+     * @return our graph.
+     */
     public static <T> Graph<T> parse(Graph<T> graph, String fileName, Function<String, T> parser) {
         File newStream;
         Scanner scanner;
