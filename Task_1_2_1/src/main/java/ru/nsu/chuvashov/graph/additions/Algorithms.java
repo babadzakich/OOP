@@ -20,7 +20,7 @@ public class Algorithms {
      */
     public static <T> List<Vertex<T>> toposort(Graph<T> graph) {
         final Set<Vertex<T>> visited = new HashSet<>();
-        final ArrayList<Vertex<T>> result = new ArrayList<>();
+        final List<Vertex<T>> result = new ArrayList<>();
 
         for (Vertex<T> vertex : graph.getVertexes()) {
             if (!visited.contains(vertex)) {
