@@ -32,6 +32,6 @@ class VertexTest {
     @Test
     void testToString() {
         Vertex<Integer> v = new Vertex<>(1);
-        assertEquals("1", v.toString());
+        assertEquals("Vertex[name=1]", v.toString());
     }
 }

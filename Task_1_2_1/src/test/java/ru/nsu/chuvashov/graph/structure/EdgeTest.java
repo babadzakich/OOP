@@ -34,6 +34,6 @@ class EdgeTest {
     @Test
     void toStringEdge() {
         Edge<Integer> e = new Edge<>(new Vertex<>(1), new Vertex<>(2), 1);
-        assertEquals("Edge{from=1, to=2, weight=1}", e.toString());
+        assertEquals("Edge{from=Vertex[name=1], to=Vertex[name=2], weight=1}", e.toString());
     }
 }
