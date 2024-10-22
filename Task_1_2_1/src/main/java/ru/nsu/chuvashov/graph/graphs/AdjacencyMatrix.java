@@ -17,8 +17,8 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  * @param <T> - type of vertexes in graph.
  */
 public class AdjacencyMatrix<T> implements Graph<T> {
-    private final ArrayList<ArrayList<Integer>> matrix;
-    private final ArrayList<Vertex<T>> vertices;
+    private final List<List<Integer>> matrix;
+    private final List<Vertex<T>> vertices;
 
     public AdjacencyMatrix() {
         vertices = new ArrayList<>();
@@ -30,7 +30,7 @@ public class AdjacencyMatrix<T> implements Graph<T> {
         if (vertices.contains(vertex)) {
             throw new IllegalArgumentException("Vertex already exists");
         }
-        for (ArrayList<Integer> integers : matrix) {
+        for (List<Integer> integers : matrix) {
             integers.add(0);
         }
         vertices.add(vertex);
@@ -52,7 +52,7 @@ public class AdjacencyMatrix<T> implements Graph<T> {
 
     @Override
     public List<Vertex<T>> getNeighbors(Vertex<T> vertex) {
-        ArrayList<Vertex<T>> neighbors = new ArrayList<>();
+        List<Vertex<T>> neighbors = new ArrayList<>();
         if (!vertices.contains(vertex)) {
             throw new NoSuchElementException("Vertex not found");
         }
@@ -65,13 +65,9 @@ public class AdjacencyMatrix<T> implements Graph<T> {
     }
 
     @Override
-    public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
+    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException{
         Graph<T> graph = new AdjacencyMatrix<>();
-        try {
-            Parser.parse(graph, fileName, parser);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error reading file", e);
-        }
+        Parser.parse(graph, fileName, parser);
         return graph;
     }
 

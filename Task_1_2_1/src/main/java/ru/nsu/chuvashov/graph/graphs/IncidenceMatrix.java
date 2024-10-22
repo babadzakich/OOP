@@ -17,9 +17,9 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  * @param <T> - type of vertexes in graph.
  */
 public class IncidenceMatrix<T> implements Graph<T> {
-    private final ArrayList<Vertex<T>> vertexes;
-    private final ArrayList<Edge<T>> edges;
-    private final ArrayList<ArrayList<Integer>> matrix;
+    private final List<Vertex<T>> vertexes;
+    private final List<Edge<T>> edges;
+    private final List<List<Integer>> matrix;
 
     /**
      * I don`t know why, but reviewdog needs javadoc for constructor.
@@ -102,13 +102,9 @@ public class IncidenceMatrix<T> implements Graph<T> {
      * @param parser - function to parse our vertex type.
      */
     @Override
-    public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
+    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException{
         Graph<T> graph = new IncidenceMatrix<>();
-        try {
-            Parser.parse(graph, fileName, parser);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error reading file", e);
-        }
+        Parser.parse(graph, fileName, parser);
         return graph;
     }
 

@@ -1,6 +1,10 @@
 package ru.nsu.chuvashov.graph.additions;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.function.Function;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Edge;
@@ -19,7 +23,7 @@ public class Parser {
      * @param <T> - type of graph.
      */
     public static <T> void parse(Graph<T> graph, String fileName,
-                                 Function<String, T> parser) throws FileNotFoundException {
+                                 Function<String, T> parser) throws IOException{
         InputStream inputStream;
         inputStream = Parser.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {
@@ -67,12 +71,8 @@ public class Parser {
 
                 graph.addEdge(e);
             }
-        } catch (IOException | NumberFormatException ex) {
-            if (ex instanceof IOException e) {
-                throw new UncheckedIOException(e);
-            } else {
-                throw new IllegalArgumentException("Wrong type of vertexes presented");
-            }
+        } catch (NumberFormatException ex) {
+            throw new IllegalArgumentException("Wrong type of vertexes presented");
         }
     }
 }

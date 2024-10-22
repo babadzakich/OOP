@@ -18,7 +18,7 @@ import ru.nsu.chuvashov.graph.structure.Vertex;
  * @param <T> - our type of vertexes.
  */
 public class AdjacencyList<T> implements Graph<T> {
-    private final Map<Vertex<T>, ArrayList<Edge<T>>> adjacencyList;
+    private final Map<Vertex<T>, List<Edge<T>>> adjacencyList;
 
     public AdjacencyList() {
         adjacencyList = new HashMap<>();
@@ -85,13 +85,9 @@ public class AdjacencyList<T> implements Graph<T> {
      * @return graph.
      */
     @Override
-    public Graph<T> readFromFile(String fileName, Function<String, T> parser) {
+    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException {
         Graph<T> graph = new AdjacencyList<>();
-        try {
-            Parser.parse(graph, fileName, parser);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error reading file", e);
-        }
+        Parser.parse(graph, fileName, parser);
         return graph;
     }
 

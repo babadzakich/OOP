@@ -1,5 +1,6 @@
 package ru.nsu.chuvashov.graph;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.function.Function;
 import ru.nsu.chuvashov.graph.structure.Edge;
@@ -42,7 +43,7 @@ public interface Graph<T> {
      * @param from file, where we search.
      * @param parser - function to parse our vertex type.
      */
-    Graph<T> readFromFile(String from, Function<String, T> parser);
+    Graph<T> readFromFile(String from, Function<String, T> parser) throws IOException;
 
     /**
      * We search for list of all vertices of graph.
