@@ -59,9 +59,8 @@ public class Sub extends Expression {
         }
         Expression leftSimplified = left.simplification();
         Expression rightSimplified = right.simplification();
-        if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
-            return new Number(((Number) leftSimplified).getValue()
-                    - ((Number) rightSimplified).getValue());
+        if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
+            return new Number(l.getValue() - r.getValue());
         }
         return this;
     }
