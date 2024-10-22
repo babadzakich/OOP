@@ -65,7 +65,7 @@ public class AdjacencyMatrix<T> implements Graph<T> {
     }
 
     @Override
-    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException{
+    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException {
         Graph<T> graph = new AdjacencyMatrix<>();
         Parser.parse(graph, fileName, parser);
         return graph;

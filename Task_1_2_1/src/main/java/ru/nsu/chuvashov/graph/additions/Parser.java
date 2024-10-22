@@ -2,9 +2,9 @@ package ru.nsu.chuvashov.graph.additions;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.util.function.Function;
 import ru.nsu.chuvashov.graph.Graph;
 import ru.nsu.chuvashov.graph.structure.Edge;
@@ -23,7 +23,7 @@ public class Parser {
      * @param <T> - type of graph.
      */
     public static <T> void parse(Graph<T> graph, String fileName,
-                                 Function<String, T> parser) throws IOException{
+                                 Function<String, T> parser) throws IOException {
         InputStream inputStream;
         inputStream = Parser.class.getClassLoader().getResourceAsStream(fileName);
         if (inputStream == null) {

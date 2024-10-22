@@ -102,7 +102,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
      * @param parser - function to parse our vertex type.
      */
     @Override
-    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException{
+    public Graph<T> readFromFile(String fileName, Function<String, T> parser) throws IOException {
         Graph<T> graph = new IncidenceMatrix<>();
         Parser.parse(graph, fileName, parser);
         return graph;
