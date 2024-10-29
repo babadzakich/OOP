@@ -60,12 +60,12 @@ public class Mul extends Expression {
 
         if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
             return new Number(l.getValue() * r.getValue());
-        } else if ((leftSimplified instanceof Number l && l.equals(new Number(0)))
-                || (rightSimplified instanceof Number r && r.equals(new Number(0)))) {
+        } else if ((leftSimplified instanceof Number l && l.getValue() == 0)
+                || (rightSimplified instanceof Number r && r.getValue() == 0)) {
             return new Number(0);
-        } else if (leftSimplified instanceof Number l && l.equals(new Number(1))) {
+        } else if (leftSimplified instanceof Number l && l.getValue() == 1) {
             return rightSimplified;
-        } else if (rightSimplified instanceof Number r && r.equals(new Number(1))) {
+        } else if (rightSimplified instanceof Number r && r.getValue() == 1) {
             return leftSimplified;
         }
         return this;

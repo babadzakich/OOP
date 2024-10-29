@@ -22,8 +22,8 @@ public enum TokenType {
      * @return true if our token is Number or variable or closing bracket.
      */
     public boolean typeCheck() {
-        return this.equals(TokenType.NUMBER)
-                || this.equals(TokenType.CLOSEDBB)
-                || this.equals(TokenType.VARIABLE);
+        return this == TokenType.NUMBER
+                || this == TokenType.CLOSEDBB
+                || this == TokenType.VARIABLE;
     }
 }

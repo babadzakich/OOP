@@ -64,13 +64,13 @@ public class Div extends Expression {
         Expression rightSimplified = right.simplification();
 
         if (leftSimplified instanceof Number l && rightSimplified instanceof Number r) {
-            if (l.equals(new Number(0))) {
+            if (l.getValue() == 0) {
                 return new Number(0);
             }
-            if (r.equals(new Number(0))) {
+            if (r.getValue() == 0) {
                 throw new ArithmeticException("Can`t divide by zero!!");
             }
-            if (r.equals(new Number(1))) {
+            if (r.getValue() == 1) {
                 return l;
             }
             return new Number(l.getValue() / r.getValue());
