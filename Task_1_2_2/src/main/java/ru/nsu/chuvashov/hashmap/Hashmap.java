@@ -1,9 +1,6 @@
 package ru.nsu.chuvashov.hashmap;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Hashmap class that utilizes
@@ -51,7 +48,7 @@ public class Hashmap<K, V> implements Iterable<K> {
     public void delete(K key, V value) {
         int index = hash(key) % size;
         if (!keys.get(index).contains(key)) {
-            throw new IllegalArgumentException("Key does not exist");
+            throw new NoSuchElementException("Key does not exist");
         }
         if (values.get(index).get(keys.get(index).indexOf(key)) != value) {
             throw new IllegalArgumentException("Presented value does not match");
@@ -63,7 +60,7 @@ public class Hashmap<K, V> implements Iterable<K> {
     public void update(K key, V value) {
         int index = hash(key) % size;
         if (!keys.get(index).contains(key)) {
-            throw new IllegalArgumentException("Key does not exist");
+            throw new NoSuchElementException("Key does not exist");
         }
         values.get(index).set(keys.get(index).indexOf(key), value);
     }
@@ -71,7 +68,7 @@ public class Hashmap<K, V> implements Iterable<K> {
     public V get(K key) {
         int index = hash(key) % size;
         if (!keys.get(index).contains(key)) {
-            throw new IllegalArgumentException("Key does not exist");
+            throw new NoSuchElementException("Key does not exist");
         }
         return values.get(index).get(keys.get(index).indexOf(key));
     }
