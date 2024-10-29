@@ -2,6 +2,7 @@ package ru.nsu.chuvashov.hashmap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.*;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
@@ -41,5 +42,16 @@ class HashmapTest {
 
     @Test
     void print() {
+        Hashmap<Integer, Integer> hashmap = new Hashmap<>();
+        hashmap.put(1, 1);
+        hashmap.put(2, 2);
+        hashmap.put(3, 3);
+        hashmap.put(4, 4);
+        PrintStream outputStream = System.out;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        hashmap.print();
+        System.setOut(outputStream);
+        assertEquals(out.toString(), "1 1\n2 2\n3 3\n4 4\n");
     }
 }
