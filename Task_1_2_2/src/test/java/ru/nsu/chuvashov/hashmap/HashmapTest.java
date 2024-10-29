@@ -2,6 +2,7 @@ package ru.nsu.chuvashov.hashmap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
 class HashmapTest {
@@ -16,6 +17,10 @@ class HashmapTest {
 
     @Test
     void delete() {
+        Hashmap<String, Integer> hashmap = new Hashmap<>();
+        hashmap.put("1", 1);
+        hashmap.delete("1", 1);
+        assertThrows(NoSuchElementException.class, () -> hashmap.get("1"));
     }
 
     @Test

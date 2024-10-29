@@ -5,11 +5,22 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Hashmap <K,V> implements Iterable<K>{
+/**
+ * Hashmap class that utilizes
+ * arraylists of linked lists
+ * to work with collisions.
+ *
+ * @param <K> - type of keys.
+ * @param <V> - type of values.
+ */
+public class Hashmap<K, V> implements Iterable<K> {
     private final List<LinkedList<K>> keys;
     private final List<LinkedList<V>> values;
     private final int size = 1000000;
 
+    /**
+     * Constructor for hashmap.
+     */
     public Hashmap() {
         keys = new ArrayList<>(size);
         values = new ArrayList<>(size);
@@ -19,6 +30,12 @@ public class Hashmap <K,V> implements Iterable<K>{
         }
     }
 
+    /**
+     * Put element in hashmap by the key.
+     *
+     * @param key - our key.
+     * @param value - our value.
+     */
     public void put(K key, V value) {
         int index = hash(key) % size;
         if (keys.get(index).contains(key)) {
