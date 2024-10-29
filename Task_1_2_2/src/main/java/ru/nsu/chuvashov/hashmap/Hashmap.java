@@ -13,6 +13,10 @@ public class Hashmap <K,V> implements Iterable<K>{
     public Hashmap() {
         keys = new ArrayList<>(size);
         values = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            keys.add(new LinkedList<>());
+            values.add(new LinkedList<>());
+        }
     }
 
     public void put(K key, V value) {
@@ -20,6 +24,9 @@ public class Hashmap <K,V> implements Iterable<K>{
         if (keys.get(index).contains(key)) {
             throw new IllegalArgumentException("Key already exists");
         }
+        keys.add(index, new LinkedList<>());
+        values.add(index, new LinkedList<>());
+
         keys.get(index).add(key);
         values.get(index).add(value);
     }
