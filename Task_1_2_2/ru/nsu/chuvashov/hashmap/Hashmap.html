@@ -88,6 +88,11 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>K</code> - - type of keys.</dd>
+<dd><code>V</code> - - type of values.</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;K&gt;</code></dd>
 </dl>
@@ -95,6 +100,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Hashmap&lt;K,<wbr>V&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;K&gt;</span></div>
+<div class="block">Hashmap class that utilizes
+ arraylists of linked lists
+ to work with collisions.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -107,7 +115,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">Hashmap</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructor for hashmap.</div>
+</div>
 </div>
 </section>
 </li>
@@ -143,7 +153,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#put(K,V)" class="member-name-link">put</a><wbr>(<a href="Hashmap.html" title="type parameter in Hashmap">K</a>&nbsp;key,
  <a href="Hashmap.html" title="type parameter in Hashmap">V</a>&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Put element in hashmap by the key.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(K,V)" class="member-name-link">update</a><wbr>(<a href="Hashmap.html" title="type parameter in Hashmap">K</a>&nbsp;key,
  <a href="Hashmap.html" title="type parameter in Hashmap">V</a>&nbsp;value)</code></div>
@@ -172,6 +184,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base
 <section class="detail" id="&lt;init&gt;()">
 <h3>Hashmap</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Hashmap</span>()</div>
+<div class="block">Constructor for hashmap.</div>
 </section>
 </li>
 </ul>
@@ -187,6 +200,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base
 <h3 id="put(java.lang.Object,java.lang.Object)">put</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">put</span><wbr><span class="parameters">(<a href="Hashmap.html" title="type parameter in Hashmap">K</a>&nbsp;key,
  <a href="Hashmap.html" title="type parameter in Hashmap">V</a>&nbsp;value)</span></div>
+<div class="block">Put element in hashmap by the key.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>key</code> - - our key.</dd>
+<dd><code>value</code> - - our value.</dd>
+</dl>
 </section>
 </li>
 <li>
