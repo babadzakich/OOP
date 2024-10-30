@@ -123,7 +123,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      * @return an Iterator.
      */
     @Override
-    public Iterator<Entry<K,V>> iterator() {
+    public Iterator<Entry<K, V>> iterator() {
         return new HashmapIterator();
     }
 
@@ -133,15 +133,22 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public void print() {
         for (int i = 0; i < size; i++) {
-            for (Entry<K,V> entry : map.get(i)) {
+            for (Entry<K, V> entry : map.get(i)) {
                 System.out.println(entry);
             }
         }
     }
 
-    public static class Entry<K,V> {
+    /**
+     * Class for making a pair of Key and Value.
+     *
+     * @param <K> - Key parameter.
+     * @param <V> - Value parameter.
+     */
+    public static class Entry<K, V> {
         private final K key;
         private V value;
+
         public Entry(K key, V value) {
             this.key = key;
             this.value = value;
@@ -153,10 +160,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
         }
     }
 
-    private class HashmapIterator implements Iterator<Entry<K,V>> {
+    private class HashmapIterator implements Iterator<Entry<K, V>> {
         private int bucket;
         private int entry;
-        private Entry<K,V> current;
+        private Entry<K, V> current;
         private final int expectedMod;
 
         HashmapIterator() {
@@ -192,7 +199,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
          * @throws NoSuchElementException if the iteration has no more elements
          */
         @Override
-        public Entry<K,V> next() {
+        public Entry<K, V> next() {
             if (expectedMod != currentMod) {
                 throw new ConcurrentModificationException();
             }
