@@ -10,20 +10,19 @@ import java.util.*;
  * @param <K> - type of keys.
  * @param <V> - type of values.
  */
-public class Hashmap<K, V> implements Iterable<K> {
-    private final List<LinkedList<K>> keys;
-    private final List<LinkedList<V>> values;
+public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
+    private final List<List<Entry<K,V>>> map;
     private final int size = 1000000;
+    private int currentMod;
 
     /**
      * Constructor for hashmap.
      */
     public Hashmap() {
-        keys = new ArrayList<>(size);
-        values = new ArrayList<>(size);
+        currentMod = 0;
+        map = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            keys.add(new LinkedList<>());
-            values.add(new LinkedList<>());
+            map.add(new LinkedList<>());
         }
     }
 
@@ -34,48 +33,60 @@ public class Hashmap<K, V> implements Iterable<K> {
      * @param value - our value.
      */
     public void put(K key, V value) {
-        int index = hash(key);
-        if (keys.get(index).contains(key)) {
-            throw new IllegalArgumentException("Key already exists");
+        int hash = hash(key);
+        for (Entry<K,V> entry : map.get(hash)) {
+            if (entry.key == key) {
+                throw new IllegalArgumentException("key already exists");
+            }
         }
-        keys.add(index, new LinkedList<>());
-        values.add(index, new LinkedList<>());
-
-        keys.get(index).add(key);
-        values.get(index).add(value);
+        map.get(hash).add(new Entry<>(key, value));
+        currentMod++;
     }
 
     public void delete(K key, V value) {
         int index = hash(key);
-        if (!keys.get(index).contains(key)) {
-            throw new NoSuchElementException("Key does not exist");
+        for (Entry<K,V> entry : map.get(index)) {
+            if (entry.key == key && entry.value == value) {
+                map.get(index).remove(entry);
+                currentMod++;
+                return;
+            } else if (entry.key == key) {
+                throw new IllegalArgumentException("Value differs from hashed one");
+            }
         }
-        if (values.get(index).get(keys.get(index).indexOf(key)) != value) {
-            throw new IllegalArgumentException("Presented value does not match");
-        }
-        values.get(index).remove(keys.get(index).indexOf(key));
-        keys.get(index).remove(key);
+        throw new NoSuchElementException("key not found");
     }
 
     public void update(K key, V value) {
         int index = hash(key);
-        if (!keys.get(index).contains(key)) {
-            throw new NoSuchElementException("Key does not exist");
+        for (Entry<K,V> entry : map.get(index)) {
+            if (entry.key == key) {
+                entry.value = value;
+                currentMod++;
+                return;
+            }
         }
-        values.get(index).set(keys.get(index).indexOf(key), value);
+        throw new NoSuchElementException("key not found");
     }
 
     public V get(K key) {
         int index = hash(key);
-        if (!keys.get(index).contains(key)) {
-            throw new NoSuchElementException("Key does not exist");
+        for (Entry<K,V> entry : map.get(index)) {
+            if (entry.key == key) {
+                return entry.value;
+            }
         }
-        return values.get(index).get(keys.get(index).indexOf(key));
+        throw new NoSuchElementException("key not found");
     }
 
     public boolean contains(K key) {
         int index = hash(key);
-        return keys.get(index).contains(key);
+        for (Entry<K,V> entry : map.get(index)) {
+            if (entry.key == key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private int hash(K key) {
@@ -88,16 +99,80 @@ public class Hashmap<K, V> implements Iterable<K> {
      * @return an Iterator.
      */
     @Override
-    public Iterator<K> iterator() {
-        return null;
+    public Iterator<Entry<K,V>> iterator() {
+        return new HashmapIterator();
     }
 
-
     public void print() {
-        for (int j = 0; j < keys.size(); j++) {
-            for (int i = 0; i < keys.get(j).size(); i++) {
-                System.out.println(keys.get(j).get(i) + " " + values.get(j).get(i));
+        for (int i = 0; i < size; i++) {
+            for (Entry<K,V> entry : map.get(i)) {
+                System.out.println(entry);
             }
+        }
+    }
+
+    public static class Entry<K,V> {
+        private final K key;
+        private V value;
+        public Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return key.toString() + " " + value;
+        }
+    }
+
+    private class HashmapIterator implements Iterator<Entry<K,V>> {
+        private int bucket;
+        private int entry;
+        private Entry<K,V> current;
+        private final int expectedMod;
+
+        HashmapIterator() {
+            bucket = 0;
+            entry = 0;
+            current = null;
+            expectedMod = currentMod;
+        }
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            while (bucket < size) {
+                if (entry < map.get(bucket).size()) {
+                    return true;
+                }
+                bucket++;
+                entry = 0;
+            }
+            return false;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public Entry<K,V> next() {
+            if (expectedMod != currentMod) {
+                throw new ConcurrentModificationException();
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            current = map.get(bucket).get(entry++);
+            return current;
         }
     }
 }
