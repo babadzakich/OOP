@@ -94,8 +94,8 @@ class HashmapTest {
         PrintStream outputStream = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        for (Hashmap.Entry<String, Integer> Entry : hashmap) {
-            System.out.println(Entry);
+        for (Hashmap.Entry<String, Integer> entry : hashmap) {
+            System.out.println(entry);
         }
         System.setOut(outputStream);
         assertEquals(out.toString(), "1 1\n2 2\n3 3\n4 4\n");

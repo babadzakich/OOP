@@ -10,8 +10,8 @@ import java.util.*;
  * @param <K> - type of keys.
  * @param <V> - type of values.
  */
-public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
-    private final List<List<Entry<K,V>>> map;
+public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
+    private final List<List<Entry<K, V>>> map;
     private final int size = 1000000;
     private int currentMod;
 
@@ -34,7 +34,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
      */
     public void put(K key, V value) {
         int hash = hash(key);
-        for (Entry<K,V> entry : map.get(hash)) {
+        for (Entry<K, V> entry : map.get(hash)) {
             if (entry.key == key) {
                 throw new IllegalArgumentException("key already exists");
             }
@@ -43,9 +43,15 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
         currentMod++;
     }
 
+    /**
+     * Searches for key with needed value and deletes it.
+     *
+     * @param key - our key.
+     * @param value - our value.
+     */
     public void delete(K key, V value) {
         int index = hash(key);
-        for (Entry<K,V> entry : map.get(index)) {
+        for (Entry<K, V> entry : map.get(index)) {
             if (entry.key == key && entry.value == value) {
                 map.get(index).remove(entry);
                 currentMod++;
@@ -57,9 +63,15 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
         throw new NoSuchElementException("key not found");
     }
 
+    /**
+     * Searches for key and gives it new value.
+     *
+     * @param key what we search.
+     * @param value what we change.
+     */
     public void update(K key, V value) {
         int index = hash(key);
-        for (Entry<K,V> entry : map.get(index)) {
+        for (Entry<K, V> entry : map.get(index)) {
             if (entry.key == key) {
                 entry.value = value;
                 currentMod++;
@@ -69,9 +81,15 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
         throw new NoSuchElementException("key not found");
     }
 
+    /**
+     * Getter from hashmap.
+     *
+     * @param key what we search.
+     * @return value.
+     */
     public V get(K key) {
         int index = hash(key);
-        for (Entry<K,V> entry : map.get(index)) {
+        for (Entry<K, V> entry : map.get(index)) {
             if (entry.key == key) {
                 return entry.value;
             }
@@ -79,9 +97,15 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
         throw new NoSuchElementException("key not found");
     }
 
+    /**
+     * Contains method.
+     *
+     * @param key - what we search.
+     * @return true if key is in hashmap.
+     */
     public boolean contains(K key) {
         int index = hash(key);
-        for (Entry<K,V> entry : map.get(index)) {
+        for (Entry<K, V> entry : map.get(index)) {
             if (entry.key == key) {
                 return true;
             }
@@ -103,6 +127,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K,V>> {
         return new HashmapIterator();
     }
 
+    /**
+     * Print function.
+     * We print our hashmap with format (K V).
+     */
     public void print() {
         for (int i = 0; i < size; i++) {
             for (Entry<K,V> entry : map.get(i)) {
