@@ -10,23 +10,19 @@ import java.util.*;
  * @param <K> - type of keys.
  * @param <V> - type of values.
  */
-public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
-    private List<List<Entry<K, V>>> map;
-    private final int size;
+public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
+    private List<Entry<K, V>>[] map;
+    private int size;
     private int currentMod;
     private int capacity;
+    private final double loadFactor = 0.75;
 
     /**
      * Constructor for hashmap with default size.
      */
-    public Hashmap() {
-        currentMod = 0;
-        capacity = 0;
+    public HashTable() {
         size = 16;
-        map = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            map.add(new LinkedList<>());
-        }
+        Creator();
     }
 
     /**
@@ -34,13 +30,18 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      *
      * @param capacity - our hashmap capacity.
      */
-    public Hashmap(int capacity) {
-        currentMod = 0;
+    public HashTable(int capacity) {
         this.size = capacity;
-        map = new ArrayList<>(capacity);
-        for (int i = 0; i < capacity; i++) {
-            map.add(new LinkedList<>());
-        }
+        Creator();
+    }
+
+    /**
+     * Real creator.
+     */
+    private void Creator() {
+        currentMod = 0;
+        this.capacity = 0;
+        map = (LinkedList<Entry<K,V>>[]) new LinkedList<?>[size];
     }
 
     /**
@@ -52,15 +53,19 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public void put(K key, V value) {
         int hash = hash(key);
-        for (Entry<K, V> entry : map.get(hash)) {
-            if (entry.key == key) {
-                throw new IllegalArgumentException("key already exists");
+        if (map[hash] != null) {
+            for (Entry<K, V> entry : map[hash]) {
+                if (entry.key == key) {
+                    throw new IllegalArgumentException("key already exists");
+                }
             }
+
+        } else {
+            map[hash] = new LinkedList<>();
         }
-        map.get(hash).add(new Entry<>(key, value));
+        map[hash].add(new Entry<>(key, value));
         currentMod++;
         capacity++;
-        double loadFactor = 0.75;
         if (capacity * loadFactor >= size) {
             resize();
         }
@@ -71,17 +76,16 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      * we resize our hashmap to avoid huge collisions.
      */
     private void resize() {
-        capacity *= 2;
-        List<List<Entry<K, V>>> newMap = new ArrayList<>(capacity);
-        for (int i = 0; i < capacity; i++) {
-            newMap.add(new LinkedList<>());
-        }
+        size *= 2;
+        List<Entry<K, V>>[] newMap = (LinkedList<Entry<K,V>>[]) new LinkedList<?>[size];
         for (List<Entry<K, V>> list : map) {
             for (Entry<K, V> entry : list) {
-                newMap.get(hash(entry.key)).add(new Entry<>(entry.key, entry.value));
+                if (newMap[hash(entry.key)] == null) {
+                    newMap[hash(entry.key)] = new LinkedList<>();
+                }
+                newMap[hash(entry.key)].add(new Entry<>(entry.key, entry.value));
             }
         }
-        map.clear();
         map = newMap;
     }
 
@@ -93,9 +97,12 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public void delete(K key, V value) {
         int index = hash(key);
-        for (Entry<K, V> entry : map.get(index)) {
+        if (map[index] == null) {
+            throw new NoSuchElementException("bucket not initialized");
+        }
+        for (Entry<K, V> entry : map[index]) {
             if (entry.key == key && entry.value == value) {
-                map.get(index).remove(entry);
+                map[index].remove(entry);
                 currentMod++;
                 capacity--;
                 return;
@@ -114,7 +121,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public void update(K key, V value) {
         int index = hash(key);
-        for (Entry<K, V> entry : map.get(index)) {
+        if (map[index] == null) {
+            throw new NoSuchElementException("bucket not initialized");
+        }
+        for (Entry<K, V> entry : map[index]) {
             if (entry.key == key) {
                 entry.value = value;
                 currentMod++;
@@ -132,7 +142,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public V get(K key) {
         int index = hash(key);
-        for (Entry<K, V> entry : map.get(index)) {
+        if (map[index] == null) {
+            throw new NoSuchElementException("bucket not initialized");
+        }
+        for (Entry<K, V> entry : map[index]) {
             if (entry.key == key) {
                 return entry.value;
             }
@@ -148,7 +161,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public boolean contains(K key) {
         int index = hash(key);
-        for (Entry<K, V> entry : map.get(index)) {
+        if (map[index] == null) {
+            return false;
+        }
+        for (Entry<K, V> entry : map[index]) {
             if (entry.key == key) {
                 return true;
             }
@@ -157,14 +173,9 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
     }
 
     private int hash(K key) {
-        return key.hashCode() % size;
+        return (key.hashCode() + size) % size;
     }
 
-    /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an Iterator.
-     */
     @Override
     public Iterator<Entry<K, V>> iterator() {
         return new HashmapIterator();
@@ -176,8 +187,10 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      */
     public void print() {
         for (int i = 0; i < size; i++) {
-            for (Entry<K, V> entry : map.get(i)) {
-                System.out.println(entry);
+            if (map[i] != null) {
+                for (Entry<K, V> entry : map[i]) {
+                    System.out.println(entry);
+                }
             }
         }
     }
@@ -189,8 +202,8 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
      * @param <V> - Value parameter.
      */
     public static class Entry<K, V> {
-        private final K key;
-        private V value;
+        public final K key;
+        public V value;
 
         public Entry(K key, V value) {
             this.key = key;
@@ -216,18 +229,13 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
             expectedMod = currentMod;
         }
 
-        /**
-         * Returns {@code true} if the iteration has more elements.
-         * (In other words, returns {@code true} if {@link #next} would
-         * return an element rather than throwing an exception.)
-         *
-         * @return {@code true} if the iteration has more elements
-         */
         @Override
         public boolean hasNext() {
             while (bucket < size) {
-                if (entry < map.get(bucket).size()) {
-                    return true;
+                if (map[bucket] != null) {
+                    if (entry < map[bucket].size()) {
+                        return true;
+                    }
                 }
                 bucket++;
                 entry = 0;
@@ -235,21 +243,15 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
             return false;
         }
 
-        /**
-         * Returns the next element in the iteration.
-         *
-         * @return the next element in the iteration
-         * @throws NoSuchElementException if the iteration has no more elements
-         */
         @Override
         public Entry<K, V> next() {
             if (expectedMod != currentMod) {
-                throw new ConcurrentModificationException();
+                throw new ConcurrentModificationException("concurrent modification");
             }
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            current = map.get(bucket).get(entry++);
+            current = map[bucket].get(entry++);
             return current;
         }
     }
