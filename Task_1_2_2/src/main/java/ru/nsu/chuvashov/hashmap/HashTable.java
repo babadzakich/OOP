@@ -22,7 +22,7 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
      */
     public HashTable() {
         size = 16;
-        Creator();
+        creator();
     }
 
     /**
@@ -32,16 +32,16 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
      */
     public HashTable(int capacity) {
         this.size = capacity;
-        Creator();
+        creator();
     }
 
     /**
      * Real creator.
      */
-    private void Creator() {
+    private void creator() {
         currentMod = 0;
         this.capacity = 0;
-        map = (LinkedList<Entry<K,V>>[]) new LinkedList<?>[size];
+        map = (LinkedList<Entry<K, V>>[]) new LinkedList<?>[size];
     }
 
     /**
@@ -77,7 +77,7 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
      */
     private void resize() {
         size *= 2;
-        List<Entry<K, V>>[] newMap = (LinkedList<Entry<K,V>>[]) new LinkedList<?>[size];
+        List<Entry<K, V>>[] newMap = (LinkedList<Entry<K, V>>[]) new LinkedList<?>[size];
         for (List<Entry<K, V>> list : map) {
             for (Entry<K, V> entry : list) {
                 if (newMap[hash(entry.key)] == null) {

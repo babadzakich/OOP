@@ -137,7 +137,7 @@ class HashTableTest {
                 hashTable.delete(entry.key, entry.value);
             }
         } catch (ConcurrentModificationException e) {
-                assertTrue(e.getMessage().contains("concurrent modification"));
+            assertTrue(e.getMessage().contains("concurrent modification"));
         }
     }
 }
