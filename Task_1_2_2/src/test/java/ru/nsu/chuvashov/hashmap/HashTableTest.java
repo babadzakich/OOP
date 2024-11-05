@@ -140,4 +140,30 @@ class HashTableTest {
             assertTrue(e.getMessage().contains("concurrent modification"));
         }
     }
+
+    @Test
+    void equalsTest() {
+        HashTable<Integer, Integer> hashTable = new HashTable<>();
+        HashTable<Integer, Integer> hashTable2 = new HashTable<>();
+        hashTable.put(1, 1);
+        hashTable.put(2, 2);
+        hashTable.put(3, 3);
+        hashTable2.put(1, 1);
+        hashTable2.put(2, 2);
+        hashTable2.put(3, 3);
+        assertEquals(hashTable, hashTable2);
+    }
+
+    @Test
+    void notEqualsTest() {
+        HashTable<Integer, Integer> hashTable = new HashTable<>();
+        hashTable.put(1, 1);
+        hashTable.put(2, 2);
+        hashTable.put(3, 3);
+        HashTable<String, Integer> hashTable2 = new HashTable<>();
+        hashTable2.put("1", 1);
+        hashTable2.put("2", 2);
+        hashTable2.put("3", 3);
+        assertNotEquals(hashTable, hashTable2);
+    }
 }

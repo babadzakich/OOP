@@ -195,6 +195,36 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof HashTable<?, ?> hashTable) {
+            if (hashTable.size != size || hashTable.capacity != capacity) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (hashTable.map[i] == null && map[i] == null) {
+                    continue;
+                } else if (hashTable.map[i] == null || map[i] == null) {
+                    return false;
+                }
+                for (int j = 0; j < hashTable.map[i].size(); j++) {
+                    if (!hashTable.map[i].get(j).key.equals(map[i].get(j).key)
+                            || !hashTable.map[i].get(j).value.equals(map[i].get(j).value)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
     /**
      * Class for making a pair of Key and Value.
      *
