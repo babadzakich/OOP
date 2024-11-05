@@ -11,15 +11,18 @@ import java.util.*;
  * @param <V> - type of values.
  */
 public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
-    private final List<List<Entry<K, V>>> map;
-    private final int size = 1000000;
+    private List<List<Entry<K, V>>> map;
+    private final int size;
     private int currentMod;
+    private int capacity;
 
     /**
-     * Constructor for hashmap.
+     * Constructor for hashmap with default size.
      */
     public Hashmap() {
         currentMod = 0;
+        capacity = 0;
+        size = 16;
         map = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             map.add(new LinkedList<>());
@@ -27,7 +30,22 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
     }
 
     /**
+     * Constructor for hashmap with given capacity.
+     *
+     * @param capacity - our hashmap capacity.
+     */
+    public Hashmap(int capacity) {
+        currentMod = 0;
+        this.size = capacity;
+        map = new ArrayList<>(capacity);
+        for (int i = 0; i < capacity; i++) {
+            map.add(new LinkedList<>());
+        }
+    }
+
+    /**
      * Put element in hashmap by the key.
+     * If needed, we resize our hashmap.
      *
      * @param key - our key.
      * @param value - our value.
@@ -41,6 +59,30 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
         }
         map.get(hash).add(new Entry<>(key, value));
         currentMod++;
+        capacity++;
+        double loadFactor = 0.75;
+        if (capacity * loadFactor >= size) {
+            resize();
+        }
+    }
+
+    /**
+     * If our map capacity divided by size exceeds load factor,
+     * we resize our hashmap to avoid huge collisions.
+     */
+    private void resize() {
+        capacity *= 2;
+        List<List<Entry<K, V>>> newMap = new ArrayList<>(capacity);
+        for (int i = 0; i < capacity; i++) {
+            newMap.add(new LinkedList<>());
+        }
+        for (List<Entry<K, V>> list : map) {
+            for (Entry<K, V> entry : list) {
+                newMap.get(hash(entry.key)).add(new Entry<>(entry.key, entry.value));
+            }
+        }
+        map.clear();
+        map = newMap;
     }
 
     /**
@@ -55,6 +97,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
             if (entry.key == key && entry.value == value) {
                 map.get(index).remove(entry);
                 currentMod++;
+                capacity--;
                 return;
             } else if (entry.key == key) {
                 throw new IllegalArgumentException("Value differs from hashed one");
@@ -80,7 +123,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
         }
         throw new NoSuchElementException("key not found");
     }
-
+//HashMap
     /**
      * Getter from hashmap.
      *

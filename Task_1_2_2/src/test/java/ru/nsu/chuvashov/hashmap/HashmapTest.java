@@ -115,4 +115,13 @@ class HashmapTest {
         System.setOut(outputStream);
         assertEquals(out.toString(), "1 1\n2 2\n3 3\n4 4\n");
     }
+
+    @Test
+    void resizeTest() {
+        Hashmap<String, String> hashmap = new Hashmap<>(2);
+        hashmap.put("1", "1");
+        hashmap.put("2", "3");
+        hashmap.put("3", "4");
+        assertEquals("4", hashmap.get("3"));
+    }
 }
