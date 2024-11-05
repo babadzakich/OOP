@@ -144,10 +144,10 @@ class HashTableTest {
     @Test
     void equalsTest() {
         HashTable<Integer, Integer> hashTable = new HashTable<>();
-        HashTable<Integer, Integer> hashTable2 = new HashTable<>();
         hashTable.put(1, 1);
         hashTable.put(2, 2);
         hashTable.put(3, 3);
+        HashTable<Integer, Integer> hashTable2 = new HashTable<>();
         hashTable2.put(1, 1);
         hashTable2.put(2, 2);
         hashTable2.put(3, 3);
