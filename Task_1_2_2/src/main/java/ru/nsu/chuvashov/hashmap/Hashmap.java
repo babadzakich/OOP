@@ -123,7 +123,7 @@ public class Hashmap<K, V> implements Iterable<Hashmap.Entry<K, V>> {
         }
         throw new NoSuchElementException("key not found");
     }
-//HashMap
+
     /**
      * Getter from hashmap.
      *
