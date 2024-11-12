@@ -3,11 +3,11 @@ package ru.nsu.chuvashov.substring;
 import java.util.List;
 
 public class KnuthMorrisPratt {
-    public static void getPattern(String text, String pattern, List<Integer> result) {
+    public static void getPattern(String text, String pattern, List<Integer> result, int offset) {
         int[] prefix = prefixFunction(pattern + '@' + text);
         for (int i = 0; i < text.length(); i++) {
             if (prefix[i + 1 + pattern.length()] == pattern.length()) {
-                result.add(i - pattern.length() + 1);
+                result.add(i - pattern.length() + 1 + offset);
             }
         }
     }

@@ -13,7 +13,7 @@ class KnuthMorrisPrattTest {
         String text = "абракадабра";
         String pattern = "бра";
         List<Integer> result = new ArrayList<>();
-        KnuthMorrisPratt.getPattern(text, pattern, result);
+        KnuthMorrisPratt.getPattern(text, pattern, result, 0);
         List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(8);
