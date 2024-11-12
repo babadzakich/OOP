@@ -25,7 +25,6 @@ class FinderTest {
         Finder finder = new Finder();
         try {
             List<Integer> res = finder.find("test2.txt", "in");
-            System.out.println(res.size());
             assertEquals(1867, res.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -37,7 +36,6 @@ class FinderTest {
         Finder finder = new Finder();
         try {
             List<Integer> res = finder.find("test3.txt", "было");
-            System.out.println(res.size());
             assertEquals(182, res.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
