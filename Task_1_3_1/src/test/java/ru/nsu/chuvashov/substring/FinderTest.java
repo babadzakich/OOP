@@ -1,11 +1,10 @@
 package ru.nsu.chuvashov.substring;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 class FinderTest {
 
@@ -28,6 +27,18 @@ class FinderTest {
             List<Integer> res = finder.find("test2.txt", "in");
             System.out.println(res.size());
             assertEquals(1867, res.size());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testStrugatskie() {
+        Finder finder = new Finder();
+        try {
+            List<Integer> res = finder.find("test3.txt", "было");
+            System.out.println(res.size());
+            assertEquals(182, res.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
