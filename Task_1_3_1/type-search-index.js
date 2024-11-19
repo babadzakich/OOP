@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.chuvashov.substring","l":"Finder"},{"p":"ru.nsu.chuvashov.substring","l":"KnuthMorrisPratt"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.chuvashov.substring","l":"Finder"},{"p":"ru.nsu.chuvashov.substring","l":"KnuthMorrisPratt"},{"p":"ru.nsu.chuvashov.substring","l":"Main"}];updateSearchResults();
