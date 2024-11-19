@@ -4,12 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -47,21 +43,30 @@ class FinderTest {
     }
 
     @Test
-    void testBigAssData() throws IOException {
-        String line = "All work and no plаy делает Джека унылым!\n";
-        String p = "src/main/resources/temp";
-        Path path = Paths.get(p);
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
+    void testBigAssData() {
+        String line = "⇑⇓⇑⇓⇐⇒⇐⇒AB";
+        String line2 = "Примите лабу ☞☜ ☞☜ ☞☜\n";
         try {
-            Path temp = Files.createTempFile(path, "temp", ".txt");
-            temp.toFile().deleteOnExit();
-            Files.write(temp, line.repeat(1000).getBytes(StandardCharsets.UTF_8));
-            List<Integer> res = Finder.find("temp/"+temp.getFileName().toString(), "A");
-            System.out.println(res);
+            File temp = File.createTempFile( "temp", ".txt");
+            temp.deleteOnExit();
+            FileWriter writer = new FileWriter(temp);
+            for (int i = 0; i < 60000000; i++) {
+                if (i == 20234) {
+                    writer.write("♚");
+                }
+                if (i % 2 == 1) {
+                    writer.append(line2);
+                } else {
+                    writer.append(line);
+                }
+            }
+            writer.close();
+            List<Integer> res = Finder.find(temp.toString(), "♚");
+            List<Integer> expected = new ArrayList<>();
+            expected.add(323744);
+            assertEquals(expected, res);
         } catch (IOException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -69,6 +74,7 @@ class FinderTest {
     void testReallyyBig() throws IOException {
         int maxSize = 100000;
         File newFile = new File("file4.txt");
+        newFile.deleteOnExit();
         OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(newFile), StandardCharsets.UTF_8);
 
         char[] chunk = new char[maxSize];
@@ -92,6 +98,5 @@ class FinderTest {
         List<Integer> excepted = new ArrayList<>();
         excepted.add(1000000000);
         assertEquals(excepted, resultBoyerMoore);
-        newFile.delete();
     }
 }

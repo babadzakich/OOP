@@ -12,7 +12,7 @@ public class Finder {
     public static List<Integer> find(String file, String pattern) throws IOException {
         InputStream inputStream = Finder.class.getClassLoader().getResourceAsStream(file);
         if (inputStream == null) {
-            throw new FileNotFoundException("File not found: " + file);
+            inputStream = new FileInputStream(file);
         }
         int BUFFER_SIZE = 8192;
         List<Integer> result = new ArrayList<>();
