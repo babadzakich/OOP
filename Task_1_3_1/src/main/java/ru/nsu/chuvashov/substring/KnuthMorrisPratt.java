@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class KnuthMorrisPratt {
     /**
-     * Adds
+     * Adds pattern to text and runs prefixFunction.
      *
      * @param text - where we search.
      * @param pattern - what we search.
@@ -23,6 +23,12 @@ public class KnuthMorrisPratt {
         }
     }
 
+    /**
+     * We smartly search for prefixes.
+     *
+     * @param text where we make prefixFunction.
+     * @return array of prefixes values.
+     */
     private static int[] prefixFunction(String text) {
         int[] prefix = new int[text.length() + 1];
         prefix[0] = 0;

@@ -47,7 +47,7 @@ class FinderTest {
         String line = "⇑⇓⇑⇓⇐⇒⇐⇒AB";
         String line2 = "Примите лабу ☞☜ ☞☜ ☞☜\n";
         try {
-            File temp = File.createTempFile( "temp", ".txt");
+            File temp = File.createTempFile("temp", ".txt");
             temp.deleteOnExit();
             FileWriter writer = new FileWriter(temp);
             for (int i = 0; i < 60000000; i++) {
@@ -75,7 +75,8 @@ class FinderTest {
         int maxSize = 100000;
         File newFile = new File("file4.txt");
         newFile.deleteOnExit();
-        OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(newFile), StandardCharsets.UTF_8);
+        OutputStreamWriter fileWriter = new OutputStreamWriter(
+                new FileOutputStream(newFile), StandardCharsets.UTF_8);
 
         char[] chunk = new char[maxSize];
         Arrays.fill(chunk, 'h');
