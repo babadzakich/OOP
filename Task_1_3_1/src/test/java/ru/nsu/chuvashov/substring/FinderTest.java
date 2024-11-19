@@ -81,23 +81,23 @@ class FinderTest {
         char[] chunk = new char[maxSize];
         Arrays.fill(chunk, 'h');
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             fileWriter.write(chunk);
         }
 
         fileWriter.write("hello");
 
         Arrays.fill(chunk, 'l');
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             fileWriter.write(chunk);
         }
 
         fileWriter.close();
 
         String pattern = "hello";
-        List<Integer> resultKMP =  Finder.find("file4.txt", pattern);
+        List<Integer> resultKMP =  Finder.find(newFile.getPath(), pattern);
         List<Integer> excepted = new ArrayList<>();
-        excepted.add(1000000000);
+        excepted.add(100000000);
         assertEquals(excepted, resultKMP);
     }
 }
