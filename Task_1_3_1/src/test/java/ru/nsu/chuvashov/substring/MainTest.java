@@ -41,6 +41,7 @@ class MainTest {
         Main.main(new String[]{});
         System.setIn(input);
         System.setOut(new PrintStream(output));
-        assertEquals("test10.txt (Нет такого файла или каталога)\n", byteArrayOutputStream.toString());
+        assertEquals("test10.txt (Нет такого файла или каталога)\n",
+                byteArrayOutputStream.toString());
     }
 }
