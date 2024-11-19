@@ -10,7 +10,7 @@ class KnuthMorrisPrattTest {
 
     @Test
     void getPattern() {
-        String text = "абракадабра";
+        String text = "абраkadaбра";
         String pattern = "бра";
         List<Integer> result = new ArrayList<>();
         KnuthMorrisPratt.getPattern(text, pattern, result, 0);

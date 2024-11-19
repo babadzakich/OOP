@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.substring;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +9,8 @@ import java.util.List;
  * Class to implement
  */
 public class Finder {
-    public List<Integer> find(String file, String pattern) throws IOException {
-        InputStream inputStream;
-        inputStream = Finder.class.getClassLoader().getResourceAsStream(file);
+    public static List<Integer> find(String file, String pattern) throws IOException {
+        InputStream inputStream = Finder.class.getClassLoader().getResourceAsStream(file);
         if (inputStream == null) {
             throw new FileNotFoundException("File not found: " + file);
         }
@@ -18,7 +18,7 @@ public class Finder {
         List<Integer> result = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
         int filesRead = 0;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         char[] buffer = new char[BUFFER_SIZE];
         int bytesRead;
 
