@@ -50,7 +50,7 @@ class FinderTest {
             File temp = File.createTempFile("temp", ".txt");
             temp.deleteOnExit();
             FileWriter writer = new FileWriter(temp);
-            for (int i = 0; i < 600000; i++) {
+            for (int i = 0; i < 600000000; i++) {
                 if (i == 20234) {
                     writer.write("♚");
                 }
@@ -99,5 +99,23 @@ class FinderTest {
         List<Integer> excepted = new ArrayList<>();
         excepted.add(100000000);
         assertEquals(excepted, result);
+    }
+
+    @Test
+    void edgeCase() {
+        String line = "edge";
+        try {
+            File temp = File.createTempFile("temp", ".txt");
+            temp.deleteOnExit();
+            FileWriter writer = new FileWriter(temp);
+            for (int i = 0; i < 2049; i++) {
+                writer.append(line);
+            }
+            writer.close();
+            List<Integer> res = Finder.find(temp.toString(), "ee");
+            assertEquals(2048, res.size());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
