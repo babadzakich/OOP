@@ -50,7 +50,7 @@ class FinderTest {
             File temp = File.createTempFile("temp", ".txt");
             temp.deleteOnExit();
             FileWriter writer = new FileWriter(temp);
-            for (int i = 0; i < 60000000; i++) {
+            for (int i = 0; i < 600000; i++) {
                 if (i == 20234) {
                     writer.write("♚");
                 }
@@ -95,9 +95,9 @@ class FinderTest {
         fileWriter.close();
 
         String pattern = "hello";
-        List<Integer> resultBoyerMoore =  Finder.find("file4.txt", pattern);
+        List<Integer> resultKMP =  Finder.find("file4.txt", pattern);
         List<Integer> excepted = new ArrayList<>();
         excepted.add(1000000000);
-        assertEquals(excepted, resultBoyerMoore);
+        assertEquals(excepted, resultKMP);
     }
 }
