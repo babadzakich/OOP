@@ -2,7 +2,18 @@ package ru.nsu.chuvashov.substring;
 
 import java.util.List;
 
+/**
+ * KnuttMorrisPratt algorithm implementation.
+ */
 public class KnuthMorrisPratt {
+    /**
+     * Adds
+     *
+     * @param text - where we search.
+     * @param pattern - what we search.
+     * @param result - List where we store locations of patterns.
+     * @param offset - amount of chars already processed by algorithm.
+     */
     public static void getPattern(String text, String pattern, List<Integer> result, int offset) {
         int[] prefix = prefixFunction(pattern + '@' + text);
         for (int i = 0; i < text.length(); i++) {
