@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.substring;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -38,11 +39,9 @@ class MainTest {
         output = System.out;
         System.setIn(in);
         System.setOut(new PrintStream(byteArrayOutputStream));
-        Main.main(new String[]{});
+        assertThrows(RuntimeException.class, () -> Main.main(new String[]{}));
+
         System.setIn(input);
         System.setOut(new PrintStream(output));
-        System.out.println(byteArrayOutputStream);
-        assertEquals("test10.txt (No such file or directory)\n",
-                byteArrayOutputStream.toString());
     }
 }

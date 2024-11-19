@@ -24,8 +24,7 @@ public class Main {
         try {
             res = Finder.find(file, pattern);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return;
+            throw new RuntimeException("No such file");
         }
         System.out.println(res);
     }
