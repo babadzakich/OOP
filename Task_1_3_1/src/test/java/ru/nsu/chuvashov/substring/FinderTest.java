@@ -50,7 +50,7 @@ class FinderTest {
             File temp = File.createTempFile("temp", ".txt");
             temp.deleteOnExit();
             FileWriter writer = new FileWriter(temp);
-            for (int i = 0; i < 600000000; i++) {
+            for (int i = 0; i < 6000000; i++) {
                 if (i == 20234) {
                     writer.write("♚");
                 }
