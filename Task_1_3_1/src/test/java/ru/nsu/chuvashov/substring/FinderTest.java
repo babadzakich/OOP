@@ -95,9 +95,9 @@ class FinderTest {
         fileWriter.close();
 
         String pattern = "hello";
-        List<Integer> resultKMP =  Finder.find(newFile.getPath(), pattern);
+        List<Integer> result =  Finder.find(newFile.getPath(), pattern);
         List<Integer> excepted = new ArrayList<>();
         excepted.add(100000000);
-        assertEquals(excepted, resultKMP);
+        assertEquals(excepted, result);
     }
 }

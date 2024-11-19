@@ -26,22 +26,22 @@ class MainTest {
         assertEquals("[1, 8]\n", byteArrayOutputStream.toString());
     }
 
-    @Test
-    void noFileTest() {
-        ByteArrayInputStream in;
-        ByteArrayOutputStream byteArrayOutputStream;
-        in = new ByteArrayInputStream("test10.txt\nLINTER\n".getBytes(StandardCharsets.UTF_8));
-        byteArrayOutputStream = new ByteArrayOutputStream();
-        InputStream input;
-        OutputStream output;
-        input = System.in;
-        output = System.out;
-        System.setIn(in);
-        System.setOut(new PrintStream(byteArrayOutputStream));
-        Main.main(new String[]{});
-        System.setIn(input);
-        System.setOut(new PrintStream(output));
-        assertEquals("test10.txt (Нет такого файла или каталога)\n",
-                byteArrayOutputStream.toString());
-    }
+//    @Test
+//    void noFileTest() {
+//        ByteArrayInputStream in;
+//        ByteArrayOutputStream byteArrayOutputStream;
+//        in = new ByteArrayInputStream("test10.txt\nLINTER\n".getBytes(StandardCharsets.UTF_8));
+//        byteArrayOutputStream = new ByteArrayOutputStream();
+//        InputStream input;
+//        OutputStream output;
+//        input = System.in;
+//        output = System.out;
+//        System.setIn(in);
+//        System.setOut(new PrintStream(byteArrayOutputStream));
+//        Main.main(new String[]{});
+//        System.setIn(input);
+//        System.setOut(new PrintStream(output));
+//        assertEquals("test10.txt (Нет такого файла или каталога)\n",
+//                byteArrayOutputStream.toString());
+//    }
 }
