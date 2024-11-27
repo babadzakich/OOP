@@ -46,14 +46,12 @@ public class Student {
         }
     }
 
-    public List<Grade> getSubjectGrades(String subject) {
-        return grades.stream()
-                .filter(grade -> grade.getSubject().equals(subject))
-                .collect(Collectors.toList());
-    }
-
     public void setCurrentSemester(int semester) {
         this.semester = semester;
+    }
+
+    public void setCommercial(boolean commercial) {
+        this.commercial = commercial;
     }
 
     public int getSemester() {
@@ -62,14 +60,6 @@ public class Student {
 
     public List<Grade> getGrades() {
         return grades;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public boolean isCommercial() {
