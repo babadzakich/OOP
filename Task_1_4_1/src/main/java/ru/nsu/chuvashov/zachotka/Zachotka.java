@@ -1,18 +1,15 @@
 package ru.nsu.chuvashov.zachotka;
 
 public class Zachotka {
+    private final int examsPasses = 18;
     private final Student student;
     Zachotka(Student student) {
         this.student = student;
     }
 
     public double getMark() {
-        return (double) (Integer) student.getGrades().stream().mapToInt(Grade::getGrade).sum()
-                / (double) student.getGrades().size();
-    }
-
-    private static int comparator(Grade grade1, Grade grade2) {
-        return Math.max(grade1.getGrade(), grade2.getGrade());
+        return (double) Math.round((double) (Integer) student.getGrades().stream().mapToInt(Grade::getGrade).sum()
+                / (double) student.getGrades().size() * 10) / 10;
     }
 
     public boolean canTransfer() throws Exception{
@@ -34,15 +31,36 @@ public class Zachotka {
             throw new Exception("Не на бюджетной основе");
         }
 
-        return student.getGrades().stream().anyMatch(grade
-                -> grade.getSemester() == student.getSemester() - 1 && grade.getGrade() > 4);
+        return student.getGrades().stream().allMatch(grade
+                -> grade.getSemester() == (student.getSemester() - 1)
+                && grade.getGrade() > 4);
     }
 
-    public boolean redDiploma() {
-        if (student.getGrades().stream().anyMatch(grade -> grade.getGrade() <= 3)) {
+    public boolean redDiploma() throws Exception {
+        if (student.getGrades().stream().anyMatch(grade
+                -> (grade.getTypeOfPass().equals("Экзамен")
+                || grade.getTypeOfPass().equals("ДиффЗачёт"))
+                && grade.getGrade() <= 3)) {
             return false;
         }
 
-        return true;
+        if (student.getSemester() < 8) {
+            if ((student.getGrades().stream().filter(grade
+                    -> (grade.getTypeOfPass().equals("Экзамен")
+                    || grade.getTypeOfPass().equals("ДиффЗачёт"))
+                    && grade.getGrade() == 4).count() * 100 / examsPasses ) >= 25) {
+                return false;
+            } else {
+                throw new Exception("Красный диплом ещё может быть получен, а может и не быть получен!");
+            }
+        } else {
+            return (student.getGrades().stream().filter(grade
+                    -> (grade.getTypeOfPass().equals("Экзамен")
+                    || grade.getTypeOfPass().equals("ДиффЗачёт"))
+                    && grade.getGrade() == 4).count() * 100 / examsPasses) < 25
+                    && student.getGrades().stream().anyMatch(grade
+                    -> grade.getTypeOfPass().equals("Диплом")
+                    && grade.getGrade() == 5);
+        }
     }
 }
