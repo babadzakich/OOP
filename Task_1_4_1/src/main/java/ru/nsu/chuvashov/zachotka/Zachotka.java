@@ -89,8 +89,8 @@ public class Zachotka {
                     && grade.getGrade() == 4).count() * 100 / examsPasses) >= 25) {
                 return false;
             } else {
-                throw new Exception("Красный диплом ещё может быть получен, " +
-                        "а может и не быть получен!");
+                throw new Exception("Красный диплом ещё может быть получен, "
+                        + "а может и не быть получен!");
             }
         } else {
             return (student.getGrades().stream().filter(grade
