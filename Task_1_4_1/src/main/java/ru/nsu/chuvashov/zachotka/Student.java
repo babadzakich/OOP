@@ -58,9 +58,9 @@ public class Student {
             grades.stream().filter(existingGrade
                     -> existingGrade.getSubject().equals(grade.getSubject())
                 && existingGrade.getSemester() == grade.getSemester()).forEach(existingGrade -> {
-                existingGrade.setGrade(grade.getGrade());
-                existingGrade.setPassedDate(grade.getPassedDate());
-                existingGrade.setTeacherName(grade.getTeacherName());
+                    existingGrade.setGrade(grade.getGrade());
+                    existingGrade.setPassedDate(grade.getPassedDate());
+                    existingGrade.setTeacherName(grade.getTeacherName());
             });
         } else {
             grades.add(grade);
