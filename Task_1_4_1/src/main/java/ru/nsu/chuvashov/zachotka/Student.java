@@ -13,6 +13,14 @@ public class Student {
     private int semester;
     private boolean commercial;
 
+    /**
+     * Constructor.
+     *
+     * @param name - student name.
+     * @param group - group.
+     * @param semester - semester.
+     * @param commercial - is on budget?
+     */
     public Student(String name, String group, int semester, boolean commercial) {
         this.name = name;
         this.group = group;
@@ -38,14 +46,17 @@ public class Student {
             throw new IllegalArgumentException("Семестр должен быть ниже или равен текущему");
         }
 
-        if (grades.stream().anyMatch(existingGrade -> existingGrade.getSemester() == grade.getSemester() - 1
+        if (grades.stream().anyMatch(existingGrade
+                -> existingGrade.getSemester() == grade.getSemester() - 1
                 && existingGrade.getGrade() == 2)) {
             throw new IllegalArgumentException("Получил 2 в прошлом семестре");
         }
 
-        if (grades.stream().anyMatch(existingGrade -> existingGrade.getSemester() == grade.getSemester()
+        if (grades.stream().anyMatch(existingGrade
+                -> existingGrade.getSemester() == grade.getSemester()
                 && existingGrade.getSubject().equals(grade.getSubject()))) {
-            grades.stream().filter(existingGrade -> existingGrade.getSubject().equals(grade.getSubject())
+            grades.stream().filter(existingGrade
+                    -> existingGrade.getSubject().equals(grade.getSubject())
             && existingGrade.getSemester() == grade.getSemester()).forEach(existingGrade -> {
                 existingGrade.setGrade(grade.getGrade());
                 existingGrade.setPassedDate(grade.getPassedDate());

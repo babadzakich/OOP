@@ -30,7 +30,7 @@ public class Zachotka {
      * @return true if student can be transfered.
      * @throws Exception if student on budget or on 2 or less course.
      */
-    public boolean canTransfer() throws Exception{
+    public boolean canTransfer() throws Exception {
         if (!student.isCommercial()) {
             throw new Exception("Уже на бюджете");
         }
@@ -40,8 +40,11 @@ public class Zachotka {
         }
 
         return student.getGrades().stream().noneMatch(grade
-                -> ((grade.getSemester() == student.getSemester() - 1 || grade.getSemester() == student.getSemester() - 2)
-                && grade.getGrade() <= 3 && grade.getTypeOfPass().equals("Экзамен")) || (grade.getGrade() == 2));
+                -> ((grade.getSemester() == student.getSemester() - 1
+                || grade.getSemester() == student.getSemester() - 2)
+                && grade.getGrade() <= 3
+                && grade.getTypeOfPass().equals("Экзамен"))
+                || (grade.getGrade() == 2));
     }
 
     /**
@@ -83,10 +86,11 @@ public class Zachotka {
             if ((student.getGrades().stream().filter(grade
                     -> (grade.getTypeOfPass().equals("Экзамен")
                     || grade.getTypeOfPass().equals("ДиффЗачёт"))
-                    && grade.getGrade() == 4).count() * 100 / examsPasses ) >= 25) {
+                    && grade.getGrade() == 4).count() * 100 / examsPasses) >= 25) {
                 return false;
             } else {
-                throw new Exception("Красный диплом ещё может быть получен, а может и не быть получен!");
+                throw new Exception("Красный диплом ещё может быть получен, " +
+                        "а может и не быть получен!");
             }
         } else {
             return (student.getGrades().stream().filter(grade
@@ -94,8 +98,8 @@ public class Zachotka {
                     || grade.getTypeOfPass().equals("ДиффЗачёт"))
                     && grade.getGrade() == 4).count() * 100 / examsPasses) < 25
                     && student.getGrades().stream().anyMatch(grade
-                    -> grade.getTypeOfPass().equals("Диплом")
-                    && grade.getGrade() == 5);
+                        -> grade.getTypeOfPass().equals("Диплом")
+                        && grade.getGrade() == 5);
         }
     }
 }
