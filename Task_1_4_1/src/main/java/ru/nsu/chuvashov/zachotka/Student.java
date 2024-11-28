@@ -61,7 +61,7 @@ public class Student {
                     existingGrade.setGrade(grade.getGrade());
                     existingGrade.setPassedDate(grade.getPassedDate());
                     existingGrade.setTeacherName(grade.getTeacherName());
-            });
+                });
         } else {
             grades.add(grade);
         }
