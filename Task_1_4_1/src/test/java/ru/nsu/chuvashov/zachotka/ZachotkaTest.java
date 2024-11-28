@@ -1,12 +1,13 @@
 package ru.nsu.chuvashov.zachotka;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ZachotkaTest {
     Student student = new Student("Artyom Chuvashov", "23213", 3, false);
+
     @BeforeEach
     void initStudent() {
         student.addGrade(new Grade("Введение в дискретную математику и логику",
@@ -40,7 +41,7 @@ class ZachotkaTest {
         student.setCommercial(true);
         Zachotka zachotka = new Zachotka(student);
         try {
-            assert(zachotka.canTransfer());
+            assertTrue(zachotka.canTransfer());
         } catch (Exception e) {
             fail();
         }
@@ -156,7 +157,7 @@ class ZachotkaTest {
                 8, 5, "Диплом"));
         Zachotka zachotka = new Zachotka(student);
         try {
-            assert(zachotka.redDiploma());
+            assertTrue(zachotka.redDiploma());
         } catch (Exception e) {
             fail();
         }

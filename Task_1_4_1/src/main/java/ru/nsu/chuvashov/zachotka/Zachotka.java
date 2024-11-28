@@ -1,17 +1,35 @@
 package ru.nsu.chuvashov.zachotka;
 
+/**
+ * Class for record book implementation.
+ */
 public class Zachotka {
     private final int examsPasses = 18;
     private final Student student;
+
     Zachotka(Student student) {
         this.student = student;
     }
 
+    /**
+     * Method for extracting student mark rounded to 10th digit.
+     *
+     * @return average mark.
+     */
     public double getMark() {
-        return (double) Math.round((double) (Integer) student.getGrades().stream().mapToInt(Grade::getGrade).sum()
+        return (double) Math.round(
+                (double) (Integer) student.getGrades().stream()
+                        .mapToInt(Grade::getGrade).sum()
                 / (double) student.getGrades().size() * 10) / 10;
     }
 
+    /**
+     * If student is on commercial learning, and have >3 for exams,
+     * for 2 last semesters, he can be transfered to budget.
+     *
+     * @return true if student can be transfered.
+     * @throws Exception if student on budget or on 2 or less course.
+     */
     public boolean canTransfer() throws Exception{
         if (!student.isCommercial()) {
             throw new Exception("Уже на бюджете");
@@ -26,6 +44,13 @@ public class Zachotka {
                 && grade.getGrade() <= 3 && grade.getTypeOfPass().equals("Экзамен")) || (grade.getGrade() == 2));
     }
 
+    /**
+     * Check, if student got all fives and is on budget,
+     * he can get a raise in scholarship.
+     *
+     * @return true if student can get raise.
+     * @throws Exception if student isn`t on budget.
+     */
     public boolean raiseScholarship() throws Exception {
         if (student.isCommercial()) {
             throw new Exception("Не на бюджетной основе");
@@ -36,6 +61,16 @@ public class Zachotka {
                 && grade.getGrade() > 4);
     }
 
+    /**
+     * Calculation of possibility of receiving red diploma.
+     * If student got 3 or less, he cant get it.
+     * If we can`t certainly determine if he can get diploma, raise an exception.
+     * Student can get red diploma if he has less than 25% of 4 all time.
+     * And diploma work is 5.
+     *
+     * @return true if student can get red diploma.
+     * @throws Exception if we can`t determine achieving of diploma.
+     */
     public boolean redDiploma() throws Exception {
         if (student.getGrades().stream().anyMatch(grade
                 -> (grade.getTypeOfPass().equals("Экзамен")

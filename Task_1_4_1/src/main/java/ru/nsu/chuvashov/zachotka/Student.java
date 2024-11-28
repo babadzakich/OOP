@@ -2,8 +2,10 @@ package ru.nsu.chuvashov.zachotka;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * Class for describing student.
+ */
 public class Student {
     private final String name;
     private final String group;
@@ -19,6 +21,14 @@ public class Student {
         this.commercial = commercial;
     }
 
+    /**
+     * Method to add grade to Student.
+     * If grade is not between 2 and 5, we don`t add.
+     * We don`t add if we got 2 last semester or semester is greater than curr.
+     * If we already have such a subject, we only change signature.
+     *
+     * @param grade which we want to add.
+     */
     void addGrade(Grade grade) {
         if (grade.getGrade() < 2 || grade.getGrade() > 5) {
             throw new IllegalArgumentException("Оценка должна быть между 2 и 5");

@@ -1,5 +1,8 @@
 package ru.nsu.chuvashov.zachotka;
 
+/**
+ * Class for implementing grades.
+ */
 public class Grade {
     private final String subject;
     private String teacherName;
@@ -8,7 +11,8 @@ public class Grade {
     private final int semester;
     private int grade;
 
-    Grade(String subject, String teacherName, String passedDate, int semester, int grade, String typeOfPass) {
+    Grade(String subject, String teacherName, String passedDate,
+          int semester, int grade, String typeOfPass) {
         this.subject = subject;
         this.teacherName = teacherName;
         this.passedDate = passedDate;
@@ -16,6 +20,7 @@ public class Grade {
         this.grade = grade;
         this.typeOfPass = typeOfPass;
     }
+
     public String getSubject() {
         return subject;
     }
