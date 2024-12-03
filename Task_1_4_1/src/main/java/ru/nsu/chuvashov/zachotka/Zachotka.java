@@ -13,6 +13,10 @@ public class Zachotka {
         this.student = student;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
     public Zachotka(String filename) throws IOException {
         InputStream inputStream = Zachotka.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
@@ -24,7 +28,7 @@ public class Zachotka {
             throw new IllegalArgumentException("Wrong format");
         }
         Student st = new Student(start[0].trim(), start[1].trim(),
-                Integer.parseInt(start[2].trim()), start[3].trim().equals("Commercial"));
+                Integer.parseInt(start[2].trim()), start[3].trim().equals("Платка"));
         while (reader.ready()) {
             String line = reader.readLine();
             String[] parts = line.split(";");

@@ -67,6 +67,14 @@ public class Student {
         }
     }
 
+    public String getStudent() {
+        return name;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
     public void setCurrentSemester(int semester) {
         this.semester = semester;
     }
