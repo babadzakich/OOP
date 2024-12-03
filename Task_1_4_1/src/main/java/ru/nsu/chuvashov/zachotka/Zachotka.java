@@ -17,6 +17,12 @@ public class Zachotka {
         return student;
     }
 
+    /**
+     * Zachotka constructor from file in resources.
+     *
+     * @param filename - file of zachotka.
+     * @throws IOException if no file found.
+     */
     public Zachotka(String filename) throws IOException {
         InputStream inputStream = Zachotka.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
