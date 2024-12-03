@@ -26,7 +26,7 @@ public class Zachotka {
     public Zachotka(String filename) throws IOException {
         InputStream inputStream = Zachotka.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
-            inputStream = new FileInputStream(filename);
+            throw new FileNotFoundException(filename);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String[] start = reader.readLine().split(";");
