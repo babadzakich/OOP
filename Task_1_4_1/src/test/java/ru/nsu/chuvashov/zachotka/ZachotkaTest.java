@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 class ZachotkaTest {
     Student student = new Student("Artyom Chuvashov", "23213", 3, false);
 
@@ -197,5 +199,13 @@ class ZachotkaTest {
                 -> student.addGrade(new Grade("Операционные системы",
                 "Иртегов Д В", "25.12.24",
                 3, 4, "ДиффЗачёт")));
+    }
+
+    @Test
+    void testFile() throws IOException {
+        Zachotka zachotka = new Zachotka("Student1.txt");
+        assertTrue(zachotka.getStudent().getStudent().equals("Артём Чувашов")
+        && zachotka.getStudent().getGrades().size() == 1
+        && zachotka.getStudent().getGroup().equals("23213"));
     }
 }
