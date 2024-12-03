@@ -23,18 +23,19 @@ public class Zachotka {
         if (start.length != 4) {
             throw new IllegalArgumentException("Wrong format");
         }
-        Student st = new Student(start[0], start[1],
-                Integer.parseInt(start[2]), start[3].equals("Commercial"));
+        Student st = new Student(start[0].trim(), start[1].trim(),
+                Integer.parseInt(start[2].trim()), start[3].trim().equals("Commercial"));
         while (reader.ready()) {
             String line = reader.readLine();
             String[] parts = line.split(";");
             if (parts.length != 6) {
                 throw new IllegalArgumentException("Wrong format");
             }
-            Grade grade = new Grade(parts[0], parts[1], parts[2],
-                    Integer.parseInt(parts[3]),
-                            Integer.parseInt(parts[4]),
-                            parts[5]);
+            Grade grade = new Grade(parts[0].trim(), parts[1].trim(),
+                    parts[2].trim(),
+                    Integer.parseInt(parts[3].trim()),
+                            Integer.parseInt(parts[4].trim()),
+                            parts[5].trim());
             st.addGrade(grade);
         }
         this.student = st;
