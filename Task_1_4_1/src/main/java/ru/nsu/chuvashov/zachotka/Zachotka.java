@@ -1,6 +1,7 @@
 package ru.nsu.chuvashov.zachotka;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class for record book implementation.
@@ -140,6 +141,29 @@ public class Zachotka {
                     && student.getGrades().stream().anyMatch(grade
                         -> grade.getTypeOfPass().equals("Диплом")
                         && grade.getGrade() == 5);
+        }
+    }
+
+    public void toFile(String filename) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(filename);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(student.getStudent()).append("; ");
+        stringBuilder.append(student.getGroup()).append("; ");
+        stringBuilder.append(student.getSemester()).append("; ");
+        if (student.isCommercial()) {
+            stringBuilder.append("Платка\n");
+        } else {
+            stringBuilder.append("Бюджет\n");
+        }
+        fileOutputStream.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
+        for (Grade grade : student.getGrades()) {
+            stringBuilder.delete(0, stringBuilder.length());
+            stringBuilder.append(grade.getSubject()).append("; ");
+            stringBuilder.append(grade.getTeacherName()).append("; ");
+            stringBuilder.append(grade.getPassedDate()).append("; ");
+            stringBuilder.append(grade.getGrade()).append("; ");
+            stringBuilder.append(grade.getTypeOfPass()).append('\n');
+            fileOutputStream.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
         }
     }
 }
