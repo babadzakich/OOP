@@ -1,5 +1,7 @@
 package ru.nsu.chuvashov.zachotka;
 
+import java.io.*;
+
 /**
  * Class for record book implementation.
  */
@@ -9,6 +11,33 @@ public class Zachotka {
 
     Zachotka(Student student) {
         this.student = student;
+    }
+
+    public Zachotka(String filename) throws IOException {
+        InputStream inputStream = Zachotka.class.getClassLoader().getResourceAsStream(filename);
+        if (inputStream == null) {
+            inputStream = new FileInputStream(filename);
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String[] start = reader.readLine().split(";");
+        if (start.length != 4) {
+            throw new IllegalArgumentException("Wrong format");
+        }
+        Student st = new Student(start[0], start[1],
+                Integer.parseInt(start[2]), start[3].equals("Commercial"));
+        while (reader.ready()) {
+            String line = reader.readLine();
+            String[] parts = line.split(";");
+            if (parts.length != 6) {
+                throw new IllegalArgumentException("Wrong format");
+            }
+            Grade grade = new Grade(parts[0], parts[1], parts[2],
+                    Integer.parseInt(parts[3]),
+                            Integer.parseInt(parts[4]),
+                            parts[5]);
+            st.addGrade(grade);
+        }
+        this.student = st;
     }
 
     /**
