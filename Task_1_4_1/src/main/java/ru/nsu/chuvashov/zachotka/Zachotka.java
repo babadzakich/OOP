@@ -50,6 +50,7 @@ public class Zachotka {
             st.addGrade(grade);
         }
         this.student = st;
+        reader.close();
     }
 
     /**
@@ -165,5 +166,6 @@ public class Zachotka {
             stringBuilder.append(grade.getTypeOfPass()).append('\n');
             fileOutputStream.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
         }
+        fileOutputStream.close();
     }
 }
