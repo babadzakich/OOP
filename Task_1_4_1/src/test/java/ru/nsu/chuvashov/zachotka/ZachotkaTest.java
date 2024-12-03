@@ -2,6 +2,7 @@ package ru.nsu.chuvashov.zachotka;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -206,5 +207,18 @@ class ZachotkaTest {
         assertTrue(zachotka.getStudent().getStudent().equals("Артём Чувашов")
                 && zachotka.getStudent().getGrades().size() == 1
                 && zachotka.getStudent().getGroup().equals("23213"));
+    }
+
+    @Test
+    void toFile() throws IOException {
+        Zachotka zachotka = new Zachotka(student);
+        zachotka.toFile("answer.txt");
+        try {
+            File f = new File("answer.txt");
+            assertTrue(f.exists());
+            f.deleteOnExit();
+        } catch (Exception e) {
+            fail();
+        }
     }
 }
