@@ -145,8 +145,13 @@ public class Zachotka {
         }
     }
 
+    /**
+     * Serialization method.
+     *
+     * @param filename - where to save information.
+     * @throws IOException - if we have troubles with filename.
+     */
     public void toFile(String filename) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(filename);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(student.getStudent()).append("; ");
         stringBuilder.append(student.getGroup()).append("; ");
@@ -156,6 +161,7 @@ public class Zachotka {
         } else {
             stringBuilder.append("Бюджет\n");
         }
+        FileOutputStream fileOutputStream = new FileOutputStream(filename);
         fileOutputStream.write(stringBuilder.toString().getBytes(StandardCharsets.UTF_8));
         for (Grade grade : student.getGrades()) {
             stringBuilder.delete(0, stringBuilder.length());
