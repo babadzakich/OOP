@@ -1,16 +1,16 @@
 package ru.nsu.chuvashov.zachotka;
 
-import lombok.Getter;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import lombok.Getter;
 
 /**
  * Class for record book implementation.
  */
 public class Zachotka {
     private final int examsPasses = 18;
-    @Getter private final Student student;
+    @Getter
+    private final Student student;
 
     Zachotka(Student student) {
         this.student = student;

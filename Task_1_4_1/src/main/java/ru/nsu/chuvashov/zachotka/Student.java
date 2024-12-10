@@ -1,10 +1,9 @@
 package ru.nsu.chuvashov.zachotka;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Class for describing student.
