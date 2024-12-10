@@ -1,18 +1,25 @@
 package ru.nsu.chuvashov.zachotka;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Class for implementing grades.
  */
+@Getter
 public class Grade {
     private final String subject;
-    private String teacherName;
-    private String passedDate;
+    @Setter private String teacherName;
+    @Setter private String passedDate;
     private final String typeOfPass;
     private final int semester;
-    private int grade;
+    @Setter private int grade;
 
     Grade(String subject, String teacherName, String passedDate,
           int semester, int grade, String typeOfPass) {
+        if (grade < 2 || grade > 5) {
+            throw new IllegalArgumentException("Grade must be between 2 and 5");
+        }
         this.subject = subject;
         this.teacherName = teacherName;
         this.passedDate = passedDate;
@@ -21,39 +28,4 @@ public class Grade {
         this.typeOfPass = typeOfPass;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    public String getPassedDate() {
-        return passedDate;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
-    }
-
-    public String getTypeOfPass() {
-        return typeOfPass;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
-    }
-
-    public void setPassedDate(String passedDate) {
-        this.passedDate = passedDate;
-    }
 }

@@ -1,5 +1,7 @@
 package ru.nsu.chuvashov.zachotka;
 
+import lombok.Getter;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -8,14 +10,10 @@ import java.nio.charset.StandardCharsets;
  */
 public class Zachotka {
     private final int examsPasses = 18;
-    private final Student student;
+    @Getter private final Student student;
 
     Zachotka(Student student) {
         this.student = student;
-    }
-
-    public Student getStudent() {
-        return student;
     }
 
     /**
@@ -153,7 +151,7 @@ public class Zachotka {
      */
     public void toFile(String filename) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(student.getStudent()).append("; ");
+        stringBuilder.append(student.getName()).append("; ");
         stringBuilder.append(student.getGroup()).append("; ");
         stringBuilder.append(student.getSemester()).append("; ");
         if (student.isCommercial()) {

@@ -1,17 +1,21 @@
 package ru.nsu.chuvashov.zachotka;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class for describing student.
  */
+@Getter
 public class Student {
     private final String name;
     private final String group;
     private final List<Grade> grades;
-    private int semester;
-    private boolean commercial;
+    @Setter private int semester;
+    @Setter private boolean commercial;
 
     /**
      * Constructor.
@@ -38,10 +42,6 @@ public class Student {
      * @param grade which we want to add.
      */
     void addGrade(Grade grade) {
-        if (grade.getGrade() < 2 || grade.getGrade() > 5) {
-            throw new IllegalArgumentException("Оценка должна быть между 2 и 5");
-        }
-
         if (grade.getSemester() > semester) {
             throw new IllegalArgumentException("Семестр должен быть ниже или равен текущему");
         }
@@ -65,33 +65,5 @@ public class Student {
         } else {
             grades.add(grade);
         }
-    }
-
-    public String getStudent() {
-        return name;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setCurrentSemester(int semester) {
-        this.semester = semester;
-    }
-
-    public void setCommercial(boolean commercial) {
-        this.commercial = commercial;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public List<Grade> getGrades() {
-        return grades;
-    }
-
-    public boolean isCommercial() {
-        return commercial;
     }
 }
