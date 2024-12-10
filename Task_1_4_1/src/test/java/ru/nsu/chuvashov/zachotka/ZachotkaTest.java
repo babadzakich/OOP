@@ -58,11 +58,11 @@ class ZachotkaTest {
 
     @Test
     void earlyTransfer() {
-        student.setCurrentSemester(2);
+        student.setSemester(2);
         student.setCommercial(true);
         Zachotka zachotka = new Zachotka(student);
         assertThrows(Exception.class, zachotka::canTransfer);
-        student.setCurrentSemester(3);
+        student.setSemester(3);
         student.setCommercial(false);
     }
 
@@ -120,7 +120,7 @@ class ZachotkaTest {
 
     @Test
     void redDiploma() {
-        student.setCurrentSemester(8);
+        student.setSemester(8);
         student.addGrade(new Grade("Операционные системы",
                 "Иртегов Д В", "25.12.24",
                 3, 5, "ДиффЗачёт"));
@@ -204,7 +204,7 @@ class ZachotkaTest {
     @Test
     void testFile() throws IOException {
         Zachotka zachotka = new Zachotka("Student1.txt");
-        assertTrue(zachotka.getStudent().getStudent().equals("Артём Чувашов")
+        assertTrue(zachotka.getStudent().getName().equals("Артём Чувашов")
                 && zachotka.getStudent().getGrades().size() == 1
                 && zachotka.getStudent().getGroup().equals("23213"));
     }
