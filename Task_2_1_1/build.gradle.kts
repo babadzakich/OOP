@@ -15,6 +15,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
+    implementation ("org.openjdk.jmh:jmh-core:1.37")
+    annotationProcessor ("org.openjdk.jmh:jmh-generator-annprocess:1.37")
+
 }
 
 tasks.test {
