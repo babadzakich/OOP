@@ -5,6 +5,9 @@ import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
+/**
+ * Class for Benchmark.
+ */
 @State(Scope.Benchmark) // Состояние, общее для всех тестов
 @BenchmarkMode(Mode.AverageTime) // Измеряем среднее время выполнения
 @OutputTimeUnit(TimeUnit.MILLISECONDS) // Результаты в миллисекундах
@@ -17,6 +20,9 @@ public class Benchmarkk {
     ArrayList<Integer> primes;
     Integer[] primesArray;
 
+    /**
+     * Method to create array of primes.
+     */
     @Setup
     public void setup() {
         checker = new PrimeChecker();
@@ -26,7 +32,7 @@ public class Benchmarkk {
         for (int i = 2; i < array.length; i++) {
             if (!array[i]) {
                 primes.add(i);
-                for (int j = i * 2; j < array.length; j+=i) {
+                for (int j = i * 2; j < array.length; j += i) {
                     array[j] = true;
                 }
             }
@@ -34,12 +40,22 @@ public class Benchmarkk {
         primesArray = primes.toArray(new Integer[0]);
     }
 
+    /**
+     * Test for nonParallel method.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testSequential(Blackhole blackhole) {
         boolean result = checker.hasNonPrimeSequential(primesArray);
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with 1 thread.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testThreadsOne(Blackhole blackhole) {
         boolean result = true;
@@ -51,6 +67,11 @@ public class Benchmarkk {
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with 2 threads.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testThreadsTwo(Blackhole blackhole) {
         boolean result = true;
@@ -62,6 +83,11 @@ public class Benchmarkk {
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with 4 threads.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testThreadsFour(Blackhole blackhole) {
         boolean result = true;
@@ -73,6 +99,11 @@ public class Benchmarkk {
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with 8 thread.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testThreadsEight(Blackhole blackhole) {
         boolean result = true;
@@ -84,6 +115,11 @@ public class Benchmarkk {
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with 128 threads.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testThreads128(Blackhole blackhole) {
         boolean result = true;
@@ -95,6 +131,11 @@ public class Benchmarkk {
         blackhole.consume(result);
     }
 
+    /**
+     * Test for parallel program with parallelStream.
+     *
+     * @param blackhole for optimisation.
+     */
     @Benchmark
     public void testParallelstream(Blackhole blackhole) {
         boolean result = checker.hasNonPrimeStreams(primesArray);
