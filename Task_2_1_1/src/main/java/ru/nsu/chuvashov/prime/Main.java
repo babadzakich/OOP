@@ -24,6 +24,11 @@ public class Main {
                 + ((System.nanoTime() - start)) + "ms");
 
         start = System.nanoTime();
+        checker.hasNonPrimeThreads(array, 1);
+        System.out.println("Thread algo with 1 thread completed in - "
+                + ((System.nanoTime() - start)) + "ms");
+
+        start = System.nanoTime();
         checker.hasNonPrimeThreads(array, 2);
         System.out.println("Thread algo with 2 threads completed in - "
                 + ((System.nanoTime() - start)) + "ms");
