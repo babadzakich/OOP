@@ -18,16 +18,15 @@ public class PrimeChecker {
      */
     public boolean hasNonPrimeSequential(Integer[] numbers) {
         for (int number : numbers) {
-            for (int i = 2; i * i <= number; i++) {
-                if (number % i == 0) {
-                    return true;
-                }
+            if (IsNotPrime.isNotPrime(number)) {
+                return true;
             }
         }
         return false;
     }
 
     private boolean flag;
+    private volatile boolean starter;
 
     /**
      * Method that uses threads to search for nonprime.
@@ -39,60 +38,64 @@ public class PrimeChecker {
      */
     public boolean hasNonPrimeThreads(Integer[] numbers, int amount) throws InterruptedException {
         flag = false;
-        List<ThreadBody> threads = new ArrayList<>(amount);
-
-        for (int i = 0; i < numbers.length; i += amount) {
-            ThreadBody thread = new ThreadBody(numbers, i,
-                    Math.min(i + amount, numbers.length));
+        starter = true;
+        List<Thread> threads = new ArrayList<>(amount);
+        int step = Math.floorDiv(numbers.length, amount) + 1;
+        int j = 0;
+        for (int i = 0; i < amount; i++) {
+            Thread thread = new Thread(new ThreadBody(numbers, j, Math.min(j + step, numbers.length)));
             threads.add(thread);
             thread.start();
+            j += step;
         }
+//        starter = true;
+
         for (Thread thread : threads) {
             thread.join();
         }
         return flag;
     }
-
+//do runnable
     @AllArgsConstructor
-    private class ThreadBody extends Thread {
+    private class ThreadBody implements Runnable {
         private final Integer[] array;
         private final int start;
         private final int end;
 
         @Override
         public void run() {
-            for (int i = start; i <= end && !flag; i++) {
-                if (!isPrime(array[i])) {
+            while (!starter) {
+                Thread.onSpinWait();
+            }
+            for (int i = start; i < end && !flag; i++) {
+                if (IsNotPrime.isNotPrime(array[i])) {
                     flag = true;
                     break;
                 }
             }
         }
 
-        private boolean isPrime(int number) {
-            if (number % 2 == 0) {
-                return false;
-            }
-            for (int i = 3; i * i <= number; i += 2) {
-                if (number % i == 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
+
     }
 
     public boolean hasNonPrimeStreams(Integer[] nums) {
         List<Integer> numbers = new ArrayList<>(Arrays.asList(nums));
-        return numbers.parallelStream().anyMatch(this::isNotPrime);
+        return numbers.parallelStream().anyMatch(IsNotPrime::isNotPrime);
     }
 
-    private boolean isNotPrime(int number) {
-        for (int i = 2; i * i <= number; i++) {
-            if (number % i == 0) {
-                return true;
+
+
+    public static class IsNotPrime {
+        public static boolean isNotPrime(int number) {
+            if ((number % 2 == 0 && number != 2) || Math.abs(number) < 2) {
+                return false;
             }
+            for (int i = 3; i * i <= number; i+=2) {
+                if (number % i == 0) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
     }
 }
