@@ -8,11 +8,11 @@ import org.openjdk.jmh.infra.Blackhole;
 /**
  * Class for Benchmark.
  */
-@State(Scope.Benchmark) // Состояние, общее для всех тестов
-@BenchmarkMode(Mode.AverageTime) // Измеряем среднее время выполнения
-@OutputTimeUnit(TimeUnit.MILLISECONDS) // Результаты в миллисекундах
-@Warmup(iterations = 10, time = 3, timeUnit = TimeUnit.SECONDS) // 3 итерации разогрева
-@Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS) // 5 итераций измерения
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Warmup(iterations = 10, time = 3, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 public class Benchmarkk {
     private PrimeChecker checker;
