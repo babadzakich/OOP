@@ -1,13 +1,21 @@
 package ru.nsu.chuvashov.prime;
 
-import lombok.AllArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.AllArgsConstructor;
 
+/**
+ * Class for all algorithms to check for nonprime number.
+ */
 public class PrimeChecker {
 
+    /**
+     * Checking for nonprime number without parallelism.
+     *
+     * @param numbers - initial array
+     * @return true if we have nonprime, false else.
+     */
     public boolean hasNonPrimeSequential(Integer[] numbers) {
         for (int number : numbers) {
             for (int i = 2; i * i <= number; i++) {
@@ -21,6 +29,15 @@ public class PrimeChecker {
 
     private boolean nigger;
     private int threadsAmount;
+
+    /**
+     * Method that uses threads to search for nonprime.
+     *
+     * @param numbers - initial array.
+     * @param amount - amount of threads.
+     * @return true if we have nonprime, false else.
+     * @throws InterruptedException - from join.
+     */
     public boolean hasNonPrimeThreads(Integer[] numbers, int amount) throws InterruptedException {
         nigger = false;
         threadsAmount = amount;
