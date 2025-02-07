@@ -8,8 +8,8 @@ import org.openjdk.jmh.infra.Blackhole;
 @State(Scope.Benchmark) // Состояние, общее для всех тестов
 @BenchmarkMode(Mode.AverageTime) // Измеряем среднее время выполнения
 @OutputTimeUnit(TimeUnit.MILLISECONDS) // Результаты в миллисекундах
-@Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS) // 3 итерации разогрева
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS) // 5 итераций измерения
+@Warmup(iterations = 10, time = 3, timeUnit = TimeUnit.SECONDS) // 3 итерации разогрева
+@Measurement(iterations = 20, time = 3, timeUnit = TimeUnit.SECONDS) // 5 итераций измерения
 @Fork(1)
 public class Benchmarkk {
     private PrimeChecker checker;
@@ -97,7 +97,7 @@ public class Benchmarkk {
 
     @Benchmark
     public void testParallelstream(Blackhole blackhole) {
-        boolean result = checker.hasNonPrimeSequential(primesArray);
+        boolean result = checker.hasNonPrimeStreams(primesArray);
         blackhole.consume(result);
     }
 }
