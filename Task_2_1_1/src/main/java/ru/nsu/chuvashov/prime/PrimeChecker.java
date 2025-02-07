@@ -41,35 +41,42 @@ public class PrimeChecker {
     public boolean hasNonPrimeThreads(Integer[] numbers, int amount) throws InterruptedException {
         nigger = false;
         threadsAmount = amount;
-        ThreadBody[] threads = new ThreadBody[threadsAmount];
-        for (int number : numbers) {
-            for (int i = 0; i < threadsAmount; i++) {
-                threads[i] = new ThreadBody(number, i);
-                threads[i].start();
-            }
-            for (int i = 0; i < threadsAmount; i++) {
-                threads[i].join();
-                if (nigger) return true;
-            }
+        List<ThreadBody> threads = new ArrayList<>(threadsAmount);
 
+        for (int i = 0; i < numbers.length; i+=threadsAmount) {
+            ThreadBody thread = new ThreadBody(numbers, i,
+                    Math.min(i + threadsAmount, numbers.length));
+            threads.add(thread);
+            thread.start();
         }
-        return false;
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        return nigger;
     }
 
     @AllArgsConstructor
     private class ThreadBody extends Thread {
-        private final int number;
-        private final int index;
+        private final Integer[] array;
+        private final int start;
+        private final int end;
 
         @Override
         public void run() {
-            for (int i = 2 + index; i * i <= number; i += threadsAmount) {
-                if (nigger) break;
-                if (number % i == 0) {
+            for (int i = start; i <= end && !nigger; i++) {
+                if (!isPrime(array[i])) {
                     nigger = true;
-                    break;
                 }
             }
+        }
+        private boolean isPrime(int number) {
+            if (number % 2 == 0) return false;
+            for (int i = 3; i * i <= number; i += 2) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
