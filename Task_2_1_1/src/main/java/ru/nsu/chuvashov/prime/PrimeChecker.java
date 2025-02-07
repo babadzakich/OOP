@@ -43,7 +43,7 @@ public class PrimeChecker {
         threadsAmount = amount;
         List<ThreadBody> threads = new ArrayList<>(threadsAmount);
 
-        for (int i = 0; i < numbers.length; i+=threadsAmount) {
+        for (int i = 0; i < numbers.length; i += threadsAmount) {
             ThreadBody thread = new ThreadBody(numbers, i,
                     Math.min(i + threadsAmount, numbers.length));
             threads.add(thread);
@@ -69,8 +69,11 @@ public class PrimeChecker {
                 }
             }
         }
+
         private boolean isPrime(int number) {
-            if (number % 2 == 0) return false;
+            if (number % 2 == 0) {
+                return false;
+            }
             for (int i = 3; i * i <= number; i += 2) {
                 if (number % i == 0) {
                     return false;
