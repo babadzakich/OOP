@@ -43,19 +43,19 @@ public class PrimeChecker {
         int step = Math.floorDiv(numbers.length, amount) + 1;
         int j = 0;
         for (int i = 0; i < amount; i++) {
-            Thread thread = new Thread(new ThreadBody(numbers, j, Math.min(j + step, numbers.length)));
+            Thread thread = new Thread(new ThreadBody(numbers, j,
+                    Math.min(j + step, numbers.length)));
             threads.add(thread);
             thread.start();
             j += step;
         }
-//        starter = true;
 
         for (Thread thread : threads) {
             thread.join();
         }
         return flag;
     }
-//do runnable
+
     @AllArgsConstructor
     private class ThreadBody implements Runnable {
         private final Integer[] array;
@@ -83,14 +83,21 @@ public class PrimeChecker {
         return numbers.parallelStream().anyMatch(IsNotPrime::isNotPrime);
     }
 
-
-
+    /**
+     * Class that stands for checking for primeness of a number.
+     */
     public static class IsNotPrime {
+        /**
+         * Checker for primeness.
+         *
+         * @param number - to check.
+         * @return true if number is not prime.
+         */
         public static boolean isNotPrime(int number) {
             if ((number % 2 == 0 && number != 2) || Math.abs(number) < 2) {
                 return false;
             }
-            for (int i = 3; i * i <= number; i+=2) {
+            for (int i = 3; i * i <= number; i += 2) {
                 if (number % i == 0) {
                     return true;
                 }
