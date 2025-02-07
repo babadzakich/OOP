@@ -27,8 +27,7 @@ public class PrimeChecker {
         return false;
     }
 
-    private boolean nigger;
-    private int threadsAmount;
+    private boolean flag;
 
     /**
      * Method that uses threads to search for nonprime.
@@ -39,20 +38,19 @@ public class PrimeChecker {
      * @throws InterruptedException - from join.
      */
     public boolean hasNonPrimeThreads(Integer[] numbers, int amount) throws InterruptedException {
-        nigger = false;
-        threadsAmount = amount;
-        List<ThreadBody> threads = new ArrayList<>(threadsAmount);
+        flag = false;
+        List<ThreadBody> threads = new ArrayList<>(amount);
 
-        for (int i = 0; i < numbers.length; i += threadsAmount) {
+        for (int i = 0; i < numbers.length; i += amount) {
             ThreadBody thread = new ThreadBody(numbers, i,
-                    Math.min(i + threadsAmount, numbers.length));
+                    Math.min(i + amount, numbers.length));
             threads.add(thread);
             thread.start();
         }
         for (Thread thread : threads) {
             thread.join();
         }
-        return nigger;
+        return flag;
     }
 
     @AllArgsConstructor
@@ -63,9 +61,10 @@ public class PrimeChecker {
 
         @Override
         public void run() {
-            for (int i = start; i <= end && !nigger; i++) {
+            for (int i = start; i <= end && !flag; i++) {
                 if (!isPrime(array[i])) {
-                    nigger = true;
+                    flag = true;
+                    break;
                 }
             }
         }
