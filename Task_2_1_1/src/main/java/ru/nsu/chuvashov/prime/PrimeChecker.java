@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.AllArgsConstructor;
 
+import javax.management.monitor.Monitor;
+
 /**
  * Class for all algorithms to check for nonprime number.
  */
@@ -26,7 +28,8 @@ public class PrimeChecker {
     }
 
     private boolean flag;
-    private volatile boolean starter;
+    private boolean starter = false;
+    private final Object lock = new Object();
 
     /**
      * Method that uses threads to search for nonprime.
@@ -38,16 +41,20 @@ public class PrimeChecker {
      */
     public boolean hasNonPrimeThreads(Integer[] numbers, int amount) throws InterruptedException {
         flag = false;
-        starter = true;
         List<Thread> threads = new ArrayList<>(amount);
-        int step = Math.floorDiv(numbers.length, amount) + 1;
+        int step = Math.floorDiv(numbers.length, amount);
         int j = 0;
         for (int i = 0; i < amount; i++) {
             Thread thread = new Thread(new ThreadBody(numbers, j,
-                    Math.min(j + step, numbers.length)));
+                    i == (amount - 1) ? numbers.length : j + step));
             threads.add(thread);
             thread.start();
             j += step;
+        }
+
+        synchronized (lock) {
+            starter = true;
+            lock.notifyAll();
         }
 
         for (Thread thread : threads) {
@@ -64,8 +71,15 @@ public class PrimeChecker {
 
         @Override
         public void run() {
-            while (!starter) {
-                Thread.onSpinWait();
+            synchronized (lock) {
+                while (!starter) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
+                }
             }
             for (int i = start; i < end && !flag; i++) {
                 if (IsNotPrime.isNotPrime(array[i])) {
@@ -80,7 +94,7 @@ public class PrimeChecker {
 
     public boolean hasNonPrimeStreams(Integer[] nums) {
         List<Integer> numbers = new ArrayList<>(Arrays.asList(nums));
-        return numbers.parallelStream().anyMatch(IsNotPrime::isNotPrime);
+        return numbers.parallelStream().filter(IsNotPrime::isNotPrime).count() > 0;
     }
 
     /**
