@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Bakers {
     private static Bakers instance = null;
-    private final int[] times = new int[] {2, 4, 5, 6, 1, 8, 12, 3, 7, 1};
+    private final int[] times = new int[] {2_000, 4_000, 5_000, 6_000, 1_000, 8_000, 12_000, 3_000, 7_000, 1_000};
     private final Controller controller = Controller.getAlreadyInitInstance();
     private static final List<PizzaMaker> PizzaMakers = new ArrayList<>();
 

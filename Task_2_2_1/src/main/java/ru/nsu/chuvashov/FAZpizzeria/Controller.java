@@ -9,9 +9,8 @@ public class Controller {
     private final Queue<Pizza> queue = new LinkedList<>();
     private final Queue<Pizza> ready = new LinkedList<>();
     private final int readyLimit;
-    @Getter
-    @Setter
-    private boolean closingTime = false;
+    @Getter @Setter
+    private volatile boolean closingTime = false;
 
     private static Controller instance = null;
     public static Controller getInstance(int readyLimit, int bakersLimit, int couriersLimit) {
@@ -32,6 +31,7 @@ public class Controller {
 
     private Controller(int readyLimits) {
         this.readyLimit = readyLimits;
+        new Thread(new Timer()).start();
     }
 
     public synchronized void addOrder(Pizza pizza) {
@@ -65,4 +65,15 @@ public class Controller {
         return pizza;
     }
 
+    private class Timer implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(30_000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            closingTime = true;
+        }
+    }
 }
