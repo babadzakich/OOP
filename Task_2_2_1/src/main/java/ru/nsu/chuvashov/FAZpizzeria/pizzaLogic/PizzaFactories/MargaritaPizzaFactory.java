@@ -24,7 +24,7 @@ public class MargaritaPizzaFactory implements ConcretePizzaFactory {
     @Override
     public Pizza createPizzaOrder(int id) {
         return PizzaBuilder.CreateNewPizzaOrder().withId(id)
-                .withName("Margarita").inQuantity(1).whichCosts(125.12)
+                .withName("Маргарита").inQuantity(1).whichCosts(125.12)
                 .fromNumber("89835514973").makePizza();
     }
 
@@ -39,7 +39,7 @@ public class MargaritaPizzaFactory implements ConcretePizzaFactory {
     @Override
     public Pizza createPizzaOrder(int id, int quantity, String phone) {
         return PizzaBuilder.CreateNewPizzaOrder()
-                .withId(id).withName("Margarita").inQuantity(quantity).whichCosts(125.12)
+                .withId(id).withName("Маргарита").inQuantity(quantity).whichCosts(125.12)
                 .fromNumber(phone).makePizza();
     }
 }

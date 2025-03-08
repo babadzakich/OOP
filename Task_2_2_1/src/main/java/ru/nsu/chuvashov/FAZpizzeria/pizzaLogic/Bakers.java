@@ -7,22 +7,14 @@ import java.util.List;
 import java.util.Random;
 
 public class Bakers {
-    private static Bakers instance = null;
     private final int[] times = new int[] {2_000, 4_000, 5_000, 6_000, 1_000, 8_000, 12_000, 3_000, 7_000, 1_000};
-    private final Controller controller = Controller.getAlreadyInitInstance();
+    private final SyncQueues warehouse;
+    private final Controller controller;
     private static final List<PizzaMaker> PizzaMakers = new ArrayList<>();
 
-
-    public static Bakers getBakerinstance(int N) {
-        if (instance == null) {
-            instance = new Bakers(N);
-        } else {
-            throw new IllegalStateException("Bakers instance has already been created");
-        }
-        return instance;
-    }
-
-    private Bakers(int amountOfPizzaMakers) {
+    protected Bakers(int amountOfPizzaMakers, SyncQueues warehouse, Controller controller) {
+        this.warehouse = warehouse;
+        this.controller = controller;
         Random rand = new Random();
         for (int i = 1; i <= amountOfPizzaMakers; i++) {
             PizzaMaker pizzaMaker = new PizzaMaker(times[rand.nextInt(times.length)], i);
@@ -31,7 +23,7 @@ public class Bakers {
         }
     }
 
-    public class PizzaMaker implements Runnable {
+    private class PizzaMaker implements Runnable {
         private final int timeToMakePizza;
         private final int index;
 
@@ -42,14 +34,18 @@ public class Bakers {
 
         @Override
         public void run() {
-            while (!controller.isClosingTime()) {
+            while (!Controller.isClosingTime()) {
                 Pizza pizza;
 
                 System.out.println("Повар номер " + index + " берёт заказ");
 
                 try {
-                    pizza = controller.takeOrder();
+                    pizza = warehouse.takeOrder();
                 } catch (InterruptedException e) {
+                    if (e.getMessage().equals("Время работы окончено")) {
+                        break;
+                    }
+                    System.err.println("Работу " + index + "-го повара прервали при попытке взять заказ!");
                     return;
                 }
 
@@ -60,11 +56,16 @@ public class Bakers {
                     Thread.sleep(cookingTime);
                     pizza.setCooked(true);
                     System.out.println("Повар номер " + index + " приготовил заказ номер " + pizza.getId() + " и пытается отправить его на склад");
-                    controller.addReady(pizza);
+                    warehouse.addReady(pizza);
                 } catch (InterruptedException e) {
+                    if (e.getMessage().equals("Время работы окончено")) {
+                        break;
+                    }
+                    System.err.println("Работу " + index + "-го повара прервали при попытке отдать готовую пиццу!");
                     return;
                 }
             }
+            System.out.println("Повар номер " + index + " завершает работу, так как наступило время закрытия.");
         }
     }
 }
