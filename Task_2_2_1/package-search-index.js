@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.chuvashov.FAZpizzeria"},{"l":"ru.nsu.chuvashov.FAZpizzeria.pizzaLogic"},{"l":"ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza"},{"l":"ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.PizzaFactories"}];updateSearchResults();
