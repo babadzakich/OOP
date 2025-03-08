@@ -1,15 +1,15 @@
-package ru.nsu.chuvashov.FAZpizzeria;
+package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Builder
 @AllArgsConstructor
 @Getter
+@NonNull
 public class Pizza {
     private int id;
     private String name;
-    private int price;
+    private double price;
     private int quantity;
     private String phone;
     @Setter

@@ -1,4 +1,6 @@
-package ru.nsu.chuvashov.FAZpizzeria;
+package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic;
+
+import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class Bakers {
                 try {
                     pizza = controller.takeOrder();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    return;
                 }
 
                 System.out.println("Повар номер " + index + " получил заказ номер " + pizza.getId() + " и начал его готовить");
@@ -60,7 +62,7 @@ public class Bakers {
                     System.out.println("Повар номер " + index + " приготовил заказ номер " + pizza.getId() + " и пытается отправить его на склад");
                     controller.addReady(pizza);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    return;
                 }
             }
         }

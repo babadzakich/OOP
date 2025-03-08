@@ -1,9 +1,10 @@
-package ru.nsu.chuvashov.FAZpizzeria;
+package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
 
 public class Controller {
     private final Queue<Pizza> queue = new LinkedList<>();
@@ -34,12 +35,12 @@ public class Controller {
         new Thread(new Timer()).start();
     }
 
-    public synchronized void addOrder(Pizza pizza) {
+    protected synchronized void addOrder(Pizza pizza) {
         queue.add(pizza);
         notifyAll();
     }
 
-    public synchronized Pizza takeOrder() throws InterruptedException {
+    protected synchronized Pizza takeOrder() throws InterruptedException {
         while (queue.isEmpty()) {
             wait();
         }
@@ -48,7 +49,7 @@ public class Controller {
         return pizza;
     }
 
-    public synchronized void addReady(Pizza pizza) throws InterruptedException {
+    protected synchronized void addReady(Pizza pizza) throws InterruptedException {
         while (ready.size() == readyLimit) {
             wait();
         }
@@ -56,7 +57,7 @@ public class Controller {
         notifyAll();
     }
 
-    public synchronized Pizza takeReady() throws InterruptedException {
+    protected synchronized Pizza takeReady() throws InterruptedException {
         while (ready.isEmpty()) {
             wait();
         }
@@ -67,11 +68,11 @@ public class Controller {
 
     private class Timer implements Runnable {
         @Override
-        public void run() {
+        public synchronized void run() {
             try {
-                Thread.sleep(30_000);
+                wait(30_000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+              /* comment */
             }
             closingTime = true;
         }
