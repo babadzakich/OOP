@@ -47,7 +47,7 @@ public class AbstractPizzaFactory
                 PizzaType.Margarita, PizzaType.FourCheese, PizzaType.Marshmallow,
                 PizzaType.Vegetarian, PizzaType.Hawaiian};
         Random random = new Random();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100 && !Controller.isClosingTime(); i++) {
             warehouse.addOrder(CreatePizza(input[random.nextInt(input.length)]));
         }
     }

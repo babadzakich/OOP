@@ -21,7 +21,7 @@ public class Controller {
         @Override
         public synchronized void run() {
             try {
-                wait(60_000);
+                wait(20_000);
             } catch (InterruptedException e) {
                 System.err.println("Работу пиццерии невовремя прервали");
             } finally {

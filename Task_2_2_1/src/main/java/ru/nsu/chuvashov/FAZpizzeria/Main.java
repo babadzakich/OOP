@@ -8,5 +8,8 @@ public class Main {
         Controller controller = new Controller(4, 2, 2);
         AbstractPizzaFactory factory = new AbstractPizzaFactory(controller, 2);
         factory.otladkaStart();
+        while (!Controller.isClosingTime()) {
+            Thread.onSpinWait();
+        }
     }
 }
