@@ -4,8 +4,8 @@ import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
 import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaBuilder;
 import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaType;
 
-public class HawaiianPizzaFactory implements ConcretePizzaFactory{
-    private final PizzaType type = PizzaType.Hawaiian;
+public class FourCheesePizzaFactory implements ConcretePizzaFactory{
+    private final PizzaType type = PizzaType.FourCheese;
     /**
      * Method to determine whether it`s suitable type.
      *
@@ -24,7 +24,7 @@ public class HawaiianPizzaFactory implements ConcretePizzaFactory{
     @Override
     public Pizza createPizzaOrder(int id) {
         return PizzaBuilder.CreateNewPizzaOrder().withId(id)
-                .withName("Гавайская").inQuantity(1).whichCosts(134.76)
+                .withName("Четыре сыра").inQuantity(1).whichCosts(122.8)
                 .fromNumber("89835514973").makePizza();
     }
 
@@ -39,7 +39,7 @@ public class HawaiianPizzaFactory implements ConcretePizzaFactory{
     @Override
     public Pizza createPizzaOrder(int id, int quantity, String phone) {
         return PizzaBuilder.CreateNewPizzaOrder().withId(id)
-                .withName("Гавайская").inQuantity(quantity).whichCosts(134.76)
+                .withName("Четыре сыра").inQuantity(quantity).whichCosts(134.76)
                 .fromNumber(phone).makePizza();
     }
 }
