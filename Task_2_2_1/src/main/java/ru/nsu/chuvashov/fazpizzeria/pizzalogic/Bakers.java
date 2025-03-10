@@ -65,7 +65,8 @@ public class Bakers {
                     Thread.sleep(cookingTime);
                     pizza.setCooked(true);
                     System.out.println("Повар номер " + index
-                            + " приготовил заказ номер " + pizza.getId() + " и пытается отправить его на склад");
+                            + " приготовил заказ номер " + pizza.getId()
+                            + " и пытается отправить его на склад");
                     warehouse.addReady(pizza);
                 } catch (InterruptedException e) {
                     if (e.getMessage().equals("Время работы окончено")) {

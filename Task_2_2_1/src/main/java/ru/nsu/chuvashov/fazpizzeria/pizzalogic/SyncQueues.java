@@ -1,10 +1,12 @@
 package ru.nsu.chuvashov.fazpizzeria.pizzalogic;
 
-import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
-
 import java.util.LinkedList;
 import java.util.Queue;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 
+/**
+ * Synchronized queues to prevent race conditions.
+ */
 public class SyncQueues {
     private final Queue<Pizza> orderList = new LinkedList<>();
     private final Queue<Pizza> warehouse = new LinkedList<>();
@@ -14,12 +16,23 @@ public class SyncQueues {
         this.warehouseSize = warehouseSize;
     }
 
+    /**
+     * Add order on pizza.
+     *
+     * @param pizza - order.
+     */
     protected synchronized void addOrder(Pizza pizza) {
         orderList.add(pizza);
         System.out.println("Заказ номер " + pizza.getId() + " добавили в очередь");
         notifyAll();
     }
 
+    /**
+     * Take order to cook pizza.
+     *
+     * @return order.
+     * @throws InterruptedException if time is up.
+     */
     protected synchronized Pizza takeOrder() throws InterruptedException {
         while (orderList.isEmpty()) {
             if (Controller.isClosingTime()) {
@@ -34,6 +47,12 @@ public class SyncQueues {
         return pizza;
     }
 
+    /**
+     * Add ready pizza to warehouse if able.
+     *
+     * @param pizza - to add.
+     * @throws InterruptedException if time is up.
+     */
     protected synchronized void addReady(Pizza pizza) throws InterruptedException {
         while (warehouse.size() == warehouseSize) {
             if (Controller.isClosingTime()) {
@@ -47,6 +66,12 @@ public class SyncQueues {
         notifyAll();
     }
 
+    /**
+     * Couriers take pizza from warehouse to deliver.
+     *
+     * @return pizza to deliver.
+     * @throws InterruptedException if time is up.
+     */
     protected synchronized Pizza takeReady() throws InterruptedException {
         while (warehouse.isEmpty()) {
             if (Controller.isClosingTime()) {
