@@ -18,10 +18,10 @@ public class Couriers {
     private final SyncQueues warehouse;
     private final Controller controller;
 
-    protected Couriers(int M, SyncQueues warehouse, Controller controller) {
+    protected Couriers(int m, SyncQueues warehouse, Controller controller) {
         this.warehouse = warehouse;
         this.controller = controller;
-        amountOfCouriers = M;
+        amountOfCouriers = m;
         Random rand = new Random();
         for (int i = 1; i <= amountOfCouriers; i++) {
             Courier courier = new Courier(times[rand.nextInt(times.length)], i);

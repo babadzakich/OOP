@@ -4,8 +4,12 @@ import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaBuilder;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 
-public class VegetarianPizzaFactory implements ConcretePizzaFactory{
+/**
+ * Factory to create Vegetarian pizza.
+ */
+public class VegetarianPizzaFactory implements ConcretePizzaFactory {
     private final PizzaType type = PizzaType.Vegetarian;
+
     /**
      * Method to determine whether it`s suitable type.
      *

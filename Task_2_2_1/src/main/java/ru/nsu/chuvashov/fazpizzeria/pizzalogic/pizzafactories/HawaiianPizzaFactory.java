@@ -4,8 +4,12 @@ import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaBuilder;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 
-public class HawaiianPizzaFactory implements ConcretePizzaFactory{
+/**
+ * Factory to create Hawaiian pizza.
+ */
+public class HawaiianPizzaFactory implements ConcretePizzaFactory {
     private final PizzaType type = PizzaType.Hawaiian;
+
     /**
      * Method to determine whether it`s suitable type.
      *

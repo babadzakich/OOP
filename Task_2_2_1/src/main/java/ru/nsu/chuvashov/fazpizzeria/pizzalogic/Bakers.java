@@ -1,18 +1,25 @@
 package ru.nsu.chuvashov.fazpizzeria.pizzalogic;
 
-import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 
+/**
+ * Implementation of bakers logic in simulator, they take order,
+ * cook and send it to warehouse.
+ */
 public class Bakers {
-    private final int[] times = new int[] {2_000, 4_000, 5_000, 6_000, 1_000, 8_000, 12_000, 3_000, 7_000, 1_000};
+    private final int[] times = new int[] {
+        2_000, 4_000, 5_000, 6_000, 1_000,
+        8_000, 12_000, 3_000, 7_000, 1_000
+    };
     private final SyncQueues warehouse;
     private final Controller controller;
     private static final List<PizzaMaker> PizzaMakers = new ArrayList<>();
 
-    protected Bakers(int amountOfPizzaMakers, SyncQueues warehouse, Controller controller) {
+    protected Bakers(int amountOfPizzaMakers,
+                     SyncQueues warehouse, Controller controller) {
         this.warehouse = warehouse;
         this.controller = controller;
         Random rand = new Random();
@@ -45,27 +52,32 @@ public class Bakers {
                     if (e.getMessage().equals("Время работы окончено")) {
                         break;
                     }
-                    System.err.println("Работу " + index + "-го повара прервали при попытке взять заказ!");
+                    System.err.println("Работу " + index
+                            + "-го повара прервали при попытке взять заказ!");
                     return;
                 }
 
-                System.out.println("Повар номер " + index + " получил заказ номер " + pizza.getId() + " и начал его готовить");
+                System.out.println("Повар номер " + index
+                        + " получил заказ номер " + pizza.getId() + " и начал его готовить");
 
                 int cookingTime = timeToMakePizza * pizza.getQuantity();
                 try {
                     Thread.sleep(cookingTime);
                     pizza.setCooked(true);
-                    System.out.println("Повар номер " + index + " приготовил заказ номер " + pizza.getId() + " и пытается отправить его на склад");
+                    System.out.println("Повар номер " + index
+                            + " приготовил заказ номер " + pizza.getId() + " и пытается отправить его на склад");
                     warehouse.addReady(pizza);
                 } catch (InterruptedException e) {
                     if (e.getMessage().equals("Время работы окончено")) {
                         break;
                     }
-                    System.err.println("Работу " + index + "-го повара прервали при попытке отдать готовую пиццу!");
+                    System.err.println("Работу " + index
+                            + "-го повара прервали при попытке отдать готовую пиццу!");
                     return;
                 }
             }
-            System.out.println("Повар номер " + index + " завершает работу, так как наступило время закрытия.");
+            System.out.println("Повар номер " + index
+                    + " завершает работу, так как наступило время закрытия.");
         }
     }
 }

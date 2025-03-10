@@ -4,8 +4,12 @@ import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaBuilder;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 
+/**
+ * Factory to create Margarita.
+ */
 public class MargaritaPizzaFactory implements ConcretePizzaFactory {
     private final PizzaType type = PizzaType.Margarita;
+
     /**
      * Method to determine whether it`s suitable type.
      *

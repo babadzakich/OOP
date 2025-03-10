@@ -4,8 +4,12 @@ import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaBuilder;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 
-public class MarshmallowPizzaFactory implements ConcretePizzaFactory{
+/**
+ * Factory to create Marshmallow pizza.
+ */
+public class MarshmallowPizzaFactory implements ConcretePizzaFactory {
     private final PizzaType type = PizzaType.Marshmallow;
+
     /**
      * Method to determine whether it`s suitable type.
      *
