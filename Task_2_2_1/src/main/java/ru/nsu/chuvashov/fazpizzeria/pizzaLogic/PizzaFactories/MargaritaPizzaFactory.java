@@ -1,8 +1,8 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.PizzaFactories;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.PizzaFactories;
 
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaBuilder;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaType;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaBuilder;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaType;
 
 public class MargaritaPizzaFactory implements ConcretePizzaFactory {
     private final PizzaType type = PizzaType.Margarita;
@@ -23,7 +23,7 @@ public class MargaritaPizzaFactory implements ConcretePizzaFactory {
      */
     @Override
     public Pizza createPizzaOrder(int id) {
-        return PizzaBuilder.CreateNewPizzaOrder().withId(id)
+        return PizzaBuilder.createNewPizzaOrder().withId(id)
                 .withName("Маргарита").inQuantity(1).whichCosts(125.12)
                 .fromNumber("89835514973").makePizza();
     }
@@ -38,7 +38,7 @@ public class MargaritaPizzaFactory implements ConcretePizzaFactory {
      */
     @Override
     public Pizza createPizzaOrder(int id, int quantity, String phone) {
-        return PizzaBuilder.CreateNewPizzaOrder()
+        return PizzaBuilder.createNewPizzaOrder()
                 .withId(id).withName("Маргарита").inQuantity(quantity).whichCosts(125.12)
                 .fromNumber(phone).makePizza();
     }

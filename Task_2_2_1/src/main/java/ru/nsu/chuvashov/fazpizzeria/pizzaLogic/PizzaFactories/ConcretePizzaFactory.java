@@ -1,7 +1,7 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.PizzaFactories;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.PizzaFactories;
 
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaType;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaType;
 
 /**
  * Interface for different factories.

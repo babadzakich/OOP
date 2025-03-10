@@ -1,11 +1,11 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.PizzaFactories;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.PizzaFactories;
 
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaBuilder;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaType;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaBuilder;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaType;
 
-public class VegetarianPizzaFactory implements ConcretePizzaFactory{
-    private final PizzaType type = PizzaType.Vegetarian;
+public class HawaiianPizzaFactory implements ConcretePizzaFactory{
+    private final PizzaType type = PizzaType.Hawaiian;
     /**
      * Method to determine whether it`s suitable type.
      *
@@ -23,8 +23,8 @@ public class VegetarianPizzaFactory implements ConcretePizzaFactory{
      */
     @Override
     public Pizza createPizzaOrder(int id) {
-        return PizzaBuilder.CreateNewPizzaOrder().withId(id)
-                .withName("Вегетарианская").inQuantity(1).whichCosts(134.76)
+        return PizzaBuilder.createNewPizzaOrder().withId(id)
+                .withName("Гавайская").inQuantity(1).whichCosts(134.76)
                 .fromNumber("89835514973").makePizza();
     }
 
@@ -38,8 +38,8 @@ public class VegetarianPizzaFactory implements ConcretePizzaFactory{
      */
     @Override
     public Pizza createPizzaOrder(int id, int quantity, String phone) {
-        return PizzaBuilder.CreateNewPizzaOrder().withId(id)
-                .withName("Вегетарианская").inQuantity(quantity).whichCosts(100.76)
+        return PizzaBuilder.createNewPizzaOrder().withId(id)
+                .withName("Гавайская").inQuantity(quantity).whichCosts(134.76)
                 .fromNumber(phone).makePizza();
     }
 }

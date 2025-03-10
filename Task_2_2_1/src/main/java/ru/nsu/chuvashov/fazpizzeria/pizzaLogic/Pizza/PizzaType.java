@@ -1,5 +1,8 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza;
 
+/**
+ * All types of our pizza.
+ */
 public enum PizzaType {
     Hawaiian,
     FourCheese,

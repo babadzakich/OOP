@@ -1,8 +1,8 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic;
 
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.PizzaType;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.PizzaFactories.*;
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaType;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.PizzaFactories.*;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
 
 import java.util.Arrays;
 import java.util.Random;

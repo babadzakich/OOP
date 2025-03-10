@@ -1,6 +1,6 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic;
 
-import ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
 
 import java.util.LinkedList;
 import java.util.Queue;

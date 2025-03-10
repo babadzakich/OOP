@@ -1,13 +1,11 @@
-package ru.nsu.chuvashov.FAZpizzeria;
+package ru.nsu.chuvashov.fazpizzeria;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
     @Test
-    void main() {
+    void mainTest() {
         Main.main(new String[]{""});
         assert(true);
     }

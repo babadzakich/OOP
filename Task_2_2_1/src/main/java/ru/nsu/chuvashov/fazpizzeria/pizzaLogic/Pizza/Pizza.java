@@ -1,7 +1,10 @@
-package ru.nsu.chuvashov.FAZpizzeria.pizzaLogic.Pizza;
+package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza;
 
 import lombok.*;
 
+/**
+ * Pizza class.
+ */
 @Builder
 @AllArgsConstructor
 @Getter
