@@ -105,7 +105,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.chuvashov.fazpizzeria.pizzalogic.Controller,int)" class="member-name-link">AbstractPizzaFactory</a><wbr>(<a href="Controller.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">Controller</a>&nbsp;controller,
  int&nbsp;maxCapacity)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructor.</div>
+</div>
 </div>
 </section>
 </li>
@@ -154,6 +156,12 @@ loadScripts(document, 'script');</script>
 <h3>AbstractPizzaFactory</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AbstractPizzaFactory</span><wbr><span class="parameters">(<a href="Controller.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">Controller</a>&nbsp;controller,
  int&nbsp;maxCapacity)</span></div>
+<div class="block">Constructor.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>controller</code> - - our pizzeria controller.</dd>
+<dd><code>maxCapacity</code> - - how many pizzas can be in one order.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -171,7 +179,8 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;phone,
  int&nbsp;quantity)</span></div>
 <div class="block">Method for client to place an order for pizza in queue.
- If there are more pizzas in order than limit, than order is separated.</div>
+ If there are more pizzas in order than limit,
+ than order is separated.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>pizzaType</code> - - what pizza customer wants.</dd>

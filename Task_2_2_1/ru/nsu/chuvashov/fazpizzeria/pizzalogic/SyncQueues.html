@@ -91,6 +91,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">SyncQueues</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Synchronized queues to prevent race conditions.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -120,16 +121,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addOrder(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza)" class="member-name-link">addOrder</a><wbr>(<a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a>&nbsp;pizza)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Add order on pizza.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addReady(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza)" class="member-name-link">addReady</a><wbr>(<a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a>&nbsp;pizza)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Add ready pizza to warehouse if able.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeOrder()" class="member-name-link">takeOrder</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Take order to cook pizza.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeReady()" class="member-name-link">takeReady</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Couriers take pizza from warehouse to deliver.</div>
+</div>
 </div>
 </div>
 </div>
@@ -165,6 +174,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="addOrder(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza)">
 <h3>addOrder</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addOrder</span><wbr><span class="parameters">(<a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a>&nbsp;pizza)</span></div>
+<div class="block">Add order on pizza.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pizza</code> - - order.</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -172,9 +186,12 @@ loadScripts(document, 'script');</script>
 <h3>takeOrder</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a></span>&nbsp;<span class="element-name">takeOrder</span>()
                    throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Take order to cook pizza.</div>
 <dl class="notes">
+<dt>Returns:</dt>
+<dd>order.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - if time is up.</dd>
 </dl>
 </section>
 </li>
@@ -183,9 +200,12 @@ loadScripts(document, 'script');</script>
 <h3>addReady</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addReady</span><wbr><span class="parameters">(<a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a>&nbsp;pizza)</span>
                  throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Add ready pizza to warehouse if able.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>pizza</code> - - to add.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - if time is up.</dd>
 </dl>
 </section>
 </li>
@@ -194,9 +214,12 @@ loadScripts(document, 'script');</script>
 <h3>takeReady</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="pizza/Pizza.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">Pizza</a></span>&nbsp;<span class="element-name">takeReady</span>()
                    throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Couriers take pizza from warehouse to deliver.</div>
 <dl class="notes">
+<dt>Returns:</dt>
+<dd>pizza to deliver.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - if time is up.</dd>
 </dl>
 </section>
 </li>
