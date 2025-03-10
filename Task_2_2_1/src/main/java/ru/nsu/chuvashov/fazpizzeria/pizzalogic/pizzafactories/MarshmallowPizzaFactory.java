@@ -1,11 +1,11 @@
-package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.PizzaFactories;
+package ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizzafactories;
 
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaBuilder;
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.PizzaType;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaBuilder;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 
-public class FourCheesePizzaFactory implements ConcretePizzaFactory{
-    private final PizzaType type = PizzaType.FourCheese;
+public class MarshmallowPizzaFactory implements ConcretePizzaFactory{
+    private final PizzaType type = PizzaType.Marshmallow;
     /**
      * Method to determine whether it`s suitable type.
      *
@@ -24,7 +24,7 @@ public class FourCheesePizzaFactory implements ConcretePizzaFactory{
     @Override
     public Pizza createPizzaOrder(int id) {
         return PizzaBuilder.createNewPizzaOrder().withId(id)
-                .withName("Четыре сыра").inQuantity(1).whichCosts(122.8)
+                .withName("Зефирная").inQuantity(1).whichCosts(134.76)
                 .fromNumber("89835514973").makePizza();
     }
 
@@ -39,7 +39,7 @@ public class FourCheesePizzaFactory implements ConcretePizzaFactory{
     @Override
     public Pizza createPizzaOrder(int id, int quantity, String phone) {
         return PizzaBuilder.createNewPizzaOrder().withId(id)
-                .withName("Четыре сыра").inQuantity(quantity).whichCosts(134.76)
+                .withName("Зефирная").inQuantity(quantity).whichCosts(288.1)
                 .fromNumber(phone).makePizza();
     }
 }

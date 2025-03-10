@@ -1,8 +1,6 @@
-package ru.nsu.chuvashov.fazpizzeria.pizzaLogic;
+package ru.nsu.chuvashov.fazpizzeria.pizzalogic;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 
 /**
  * Controller which controls the flow of our pizzeria.
@@ -13,7 +11,16 @@ public class Controller {
     @Getter private final Couriers couriers;
     @Getter private final SyncQueues warehouse;
 
-    public Controller(int bakersAmount, int couriersAmount, int warehouseLimit, long pizzeriaWorkingTime) {
+    /**
+     * Constructor.
+     *
+     * @param bakersAmount - how many bakers are in pizzeria.
+     * @param couriersAmount - how many couriers in pizzeria.
+     * @param warehouseLimit - how many pizzas can be stored in warehouse.
+     * @param pizzeriaWorkingTime - how long does pizzeria work.
+     */
+    public Controller(int bakersAmount, int couriersAmount,
+                  int warehouseLimit, long pizzeriaWorkingTime) {
         warehouse = new SyncQueues(warehouseLimit);
         bakers = new Bakers(bakersAmount, warehouse, this);
         couriers = new Couriers(couriersAmount, warehouse, this);
@@ -21,11 +28,9 @@ public class Controller {
     }
 
     /**
-     * Timer, counting how long pizzeria is working
+     * Timer, counting how long pizzeria is working.
      */
-    @AllArgsConstructor
-    private static class Timer implements Runnable {
-        private final long startTime;
+    private record Timer(long startTime) implements Runnable {
         @Override
         public synchronized void run() {
             try {

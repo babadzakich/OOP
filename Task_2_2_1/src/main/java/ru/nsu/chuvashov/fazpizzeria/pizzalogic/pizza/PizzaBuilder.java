@@ -1,4 +1,4 @@
-package ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza;
+package ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza;
 
 /**
  * Builder pattern for better pizza creation.

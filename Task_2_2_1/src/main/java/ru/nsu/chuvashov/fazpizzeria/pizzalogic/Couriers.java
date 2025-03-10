@@ -1,9 +1,9 @@
-package ru.nsu.chuvashov.fazpizzeria.pizzaLogic;
+package ru.nsu.chuvashov.fazpizzeria.pizzalogic;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Pizza.Pizza;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 
 /**
  * Couriers container.
@@ -12,8 +12,8 @@ public class Couriers {
     private final List<Courier> couriers = new ArrayList<>();
     private final int amountOfCouriers;
     private final int[] times = new int[] {
-            2_000, 4_000, 5_000, 6_000, 1_000,
-            8_000, 12_000, 3_000, 7_000, 1_000
+        2_000, 4_000, 5_000, 6_000, 1_000,
+        8_000, 12_000, 3_000, 7_000, 1_000
     };
     private final SyncQueues warehouse;
     private final Controller controller;

@@ -1,7 +1,7 @@
 package ru.nsu.chuvashov.fazpizzeria;
 
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.AbstractPizzaFactory;
-import ru.nsu.chuvashov.fazpizzeria.pizzaLogic.Controller;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.AbstractPizzaFactory;
+import ru.nsu.chuvashov.fazpizzeria.pizzalogic.Controller;
 
 public class Main {
     public static void main(String[] args) {
