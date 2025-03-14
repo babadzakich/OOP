@@ -52,14 +52,6 @@ loadScripts(document, 'script');</script>
 <a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
-<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html" class="type-name-link" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">AbstractPizzaFactory</a> - Class in <a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/package-summary.html">ru.nsu.chuvashov.fazpizzeria.pizzalogic</a></dt>
-<dd>
-<div class="block">Abstract factory pattern for implementing adding orders.</div>
-</dd>
-<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html#%3Cinit%3E(ru.nsu.chuvashov.fazpizzeria.pizzalogic.Controller,int)" class="member-name-link">AbstractPizzaFactory(Controller, int)</a> - Constructor for class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">AbstractPizzaFactory</a></dt>
-<dd>
-<div class="block">Constructor.</div>
-</dd>
 <dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/SyncQueues.html#addOrder(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza)" class="member-name-link">addOrder(Pizza)</a> - Method in class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/SyncQueues.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">SyncQueues</a></dt>
 <dd>
 <div class="block">Add order on pizza.</div>
@@ -247,7 +239,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
-<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html#otladkaStart()" class="member-name-link">otladkaStart()</a> - Method in class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">AbstractPizzaFactory</a></dt>
+<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html#otladkaStart()" class="member-name-link">otladkaStart()</a> - Method in class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">PizzaFactory</a></dt>
 <dd>
 <div class="block">Special method to simulate generation of orders.</div>
 </dd>
@@ -264,11 +256,19 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Builder pattern for better pizza creation.</div>
 </dd>
+<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html" class="type-name-link" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">PizzaFactory</a> - Class in <a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/package-summary.html">ru.nsu.chuvashov.fazpizzeria.pizzalogic</a></dt>
+<dd>
+<div class="block">Abstract factory pattern for implementing adding orders.</div>
+</dd>
+<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html#%3Cinit%3E(ru.nsu.chuvashov.fazpizzeria.pizzalogic.Controller,int)" class="member-name-link">PizzaFactory(Controller, int)</a> - Constructor for class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">PizzaFactory</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
 <dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/pizza/PizzaType.html" class="type-name-link" title="enum class in ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza">PizzaType</a> - Enum Class in <a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/pizza/package-summary.html">ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza</a></dt>
 <dd>
 <div class="block">All types of our pizza.</div>
 </dd>
-<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html#placeOrder(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType,java.lang.String,int)" class="member-name-link">placeOrder(PizzaType, String, int)</a> - Method in class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/AbstractPizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">AbstractPizzaFactory</a></dt>
+<dt><a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html#placeOrder(ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType,java.lang.String,int)" class="member-name-link">placeOrder(PizzaType, String, int)</a> - Method in class ru.nsu.chuvashov.fazpizzeria.pizzalogic.<a href="ru/nsu/chuvashov/fazpizzeria/pizzalogic/PizzaFactory.html" title="class in ru.nsu.chuvashov.fazpizzeria.pizzalogic">PizzaFactory</a></dt>
 <dd>
 <div class="block">Method for client to place an order for pizza in queue.</div>
 </dd>
