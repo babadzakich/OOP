@@ -44,7 +44,7 @@ public class Couriers {
 
         @Override
         public void run() {
-            while (!Controller.isClosingTime()) {
+            while (!Controller.isClosingTime() || warehouse.getCapacity() > 0) {
                 System.out.println("Курьер номер " + index + " пытается взять доставку");
                 Pizza pizza;
                 try {

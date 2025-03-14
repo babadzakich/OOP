@@ -85,4 +85,8 @@ public class SyncQueues {
         notifyAll();
         return pizza;
     }
+
+    protected synchronized int getCapacity() {
+        return warehouse.size();
+    }
 }
