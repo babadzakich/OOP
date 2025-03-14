@@ -1,7 +1,7 @@
 package ru.nsu.chuvashov.fazpizzeria.pizzalogic;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.Pizza;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizza.PizzaType;
 import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizzafactories.*;
@@ -9,12 +9,15 @@ import ru.nsu.chuvashov.fazpizzeria.pizzalogic.pizzafactories.*;
 /**
  * Abstract factory pattern for implementing adding orders.
  */
-public class AbstractPizzaFactory {
+public class PizzaFactory {
     private int id = 0;
-    private final ConcretePizzaFactory[] factories = new ConcretePizzaFactory[] {
-        new MargaritaPizzaFactory(), new HawaiianPizzaFactory(), new MarshmallowPizzaFactory(),
-        new FourCheesePizzaFactory(), new VegetarianPizzaFactory()
-    };
+    private final Map<PizzaType, ConcretePizzaFactory> factories = new HashMap<>(){{
+        put(PizzaType.Margarita, new MargaritaPizzaFactory());
+        put(PizzaType.Hawaiian, new HawaiianPizzaFactory());
+        put(PizzaType.Marshmallow, new MarshmallowPizzaFactory());
+        put(PizzaType.FourCheese, new FourCheesePizzaFactory());
+        put(PizzaType.Vegetarian, new VegetarianPizzaFactory());
+    }};
     private final int maxCapacity;
     private final Controller controller;
     private final SyncQueues warehouse;
@@ -25,7 +28,7 @@ public class AbstractPizzaFactory {
      * @param controller - our pizzeria controller.
      * @param maxCapacity - how many pizzas can be in one order.
      */
-    public AbstractPizzaFactory(Controller controller, int maxCapacity) {
+    public PizzaFactory(Controller controller, int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.controller = controller;
         warehouse = controller.getWarehouse();
@@ -41,9 +44,7 @@ public class AbstractPizzaFactory {
      * @param quantity - amount of pizzas
      */
     public void placeOrder(PizzaType pizzaType, String phone, int quantity) {
-        var pizzaFactory = Arrays.stream(factories)
-                .filter(x -> x.getPizzaType().equals(pizzaType))
-                .findFirst().get();
+        var pizzaFactory = factories.get(pizzaType);
         while (quantity > maxCapacity) {
             warehouse.addOrder(pizzaFactory
                     .createPizzaOrder(id++, quantity, phone));
@@ -61,10 +62,7 @@ public class AbstractPizzaFactory {
      * @return new pizza.
      */
     private Pizza createPizza(PizzaType pizzaType) {
-        var pizzaFactory = Arrays.stream(factories)
-                .filter(x -> x.getPizzaType() == pizzaType)
-                .findFirst().get();
-        return pizzaFactory.createPizzaOrder(id++);
+        return factories.get(pizzaType).createPizzaOrder(id++);
     }
 
     /**

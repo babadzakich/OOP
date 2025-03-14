@@ -39,7 +39,7 @@ public class SyncQueues {
                 throw new InterruptedException("Время работы окончено");
             }
             System.out.println("Заказов нет, брать нечего");
-            wait();
+            wait(1_000);
         }
         Pizza pizza = orderList.poll();
         System.out.println("Заказ номер " + pizza.getId() + " был достан из очереди");
@@ -59,7 +59,7 @@ public class SyncQueues {
                 throw new InterruptedException("Время работы окончено");
             }
             System.out.println("Склад полный, нечего складывать");
-            wait();
+            wait(1_000);
         }
         warehouse.add(pizza);
         System.out.println("Пиццу номер " + pizza.getId() + " доставили на склад");
@@ -78,7 +78,7 @@ public class SyncQueues {
                 throw new InterruptedException("Время работы окончено");
             }
             System.out.println("Склад пуст, нечего брать");
-            wait();
+            wait(1_000);
         }
         Pizza pizza = warehouse.poll();
         System.out.println("Пиццу номер " + pizza.getId() + " благополучно взяли со склада");
