@@ -110,8 +110,20 @@ public class MainKt extends Application {
 
         if (tail.getTranslateX() == food.getTranslateX()
                 && tail.getTranslateY() == food.getTranslateY()) {
-            food.setTranslateX((int) (Math.random() * (BLOCK_WIDTH - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
-            food.setTranslateY((int) (Math.random() * (BLOCK_HEIGHT - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
+            while(true) {
+                food.setTranslateX((int) (Math.random() * (BLOCK_WIDTH - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
+                food.setTranslateY((int) (Math.random() * (BLOCK_HEIGHT - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
+                boolean flag = false;
+                for (Node node : snake) {
+                    if (node.getTranslateX() == food.getTranslateX() && node.getTranslateY() == food.getTranslateY()) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    break;
+                }
+            }
 
             Rectangle rect = new Rectangle(BLOCK_SIZE, BLOCK_SIZE);
             rect.setTranslateX(tailX);
