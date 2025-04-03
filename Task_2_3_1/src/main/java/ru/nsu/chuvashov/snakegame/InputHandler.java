@@ -17,22 +17,33 @@ public class InputHandler {
 
     public InputHandler(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void addQueue(Direction direction) {
+                if (queue.size() <= QUEUE_SIZE) {
+                    queue.add(direction);
+                }
+            }
+
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (!moved) {
-                    return;
-                }
+
+//                if (!moved) {
+//                    return;
+//                }
                 KeyCode code = keyEvent.getCode();
                 if (code == KeyCode.UP && currentDirection != Direction.DOWN) {
                     currentDirection = Direction.UP;
+                    addQueue(currentDirection);
                 } else if (code == KeyCode.DOWN && currentDirection != Direction.UP) {
                     currentDirection = Direction.DOWN;
+                    addQueue(currentDirection);
                 } else if (code == KeyCode.LEFT && currentDirection != Direction.RIGHT) {
                     currentDirection = Direction.LEFT;
+                    addQueue(currentDirection);
                 } else if (code == KeyCode.RIGHT && currentDirection != Direction.LEFT) {
                     currentDirection = Direction.RIGHT;
+                    addQueue(currentDirection);
                 }
-                moved = false;
+//                moved = false;
             }
         });
 //        scene.setOnKeyReleased(e -> keys.remove(e.getCode()));
@@ -60,6 +71,6 @@ public class InputHandler {
 //    if (!queue.isEmpty()) {
 //        currentDirection = queue.poll();
 //    }
-        return currentDirection;
+        return queue.isEmpty() ? currentDirection : queue.poll();
     }
 }

@@ -25,15 +25,12 @@ public class Snake {
         bodyImage = new Image(MainKt.class.getResourceAsStream("/body_horizontal.png"));
         head = new Point(5, ROWS / 2);
         snakeBody.add(head);
-        for (int i = 0; i < 2; i++) {
-            snakeBody.add(new Point(5, ROWS / 2));
-        }
     }
 
     public void move(InputHandler inputHandler) {
 //        inputHandler.update();
         currentDirection = inputHandler.getDirection();
-        Point newHead = snakeBody.removeLast();
+        Point newHead = snakeBody.size() > 1 ? snakeBody.removeLast() : head;
 
         double x = head.getX();
         double y = head.getY();
@@ -47,7 +44,8 @@ public class Snake {
 
         newHead.setLocation(x, y);
         inputHandler.setMoved(true);
-        snakeBody.addFirst(newHead);
+        if (newHead != head)
+            snakeBody.addFirst(newHead);
         head = newHead;
     }
 
@@ -74,11 +72,13 @@ public class Snake {
         return false;
     }
 
-    public void eatFood(Food food) {
-        if (head.getX() == food.getX() && head.getY() == food.getY()) {
-            snakeBody.add(new Point(-1, -1));
-            food.generate(this);
-            score += 10;
+    public void eatFood(List<Food> foods) {
+        for (Food food : foods) {
+            if (head.getX() == food.getX() && head.getY() == food.getY()) {
+                snakeBody.add(new Point(-1, -1));
+                food.generate(this);
+                score += 10;
+            }
         }
     }
 }
