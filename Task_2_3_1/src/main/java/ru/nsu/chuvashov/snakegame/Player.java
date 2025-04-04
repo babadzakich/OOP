@@ -2,7 +2,6 @@ package ru.nsu.chuvashov.snakegame;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import lombok.Getter;
 
 import java.awt.Point;
@@ -11,18 +10,28 @@ import java.util.List;
 
 import static ru.nsu.chuvashov.snakegame.MainKt.*;
 
-public class Snake {
+public class Player {
     @Getter private List<Point> snakeBody  = new ArrayList<>();
     private Point head;
     private Direction currentDirection = Direction.RIGHT;
     @Getter private int score = 0;
 
-    private Image headImage;
+    private Image headUpImage;
+    private Image headDownImage;
+    private Image headLeftImage;
+    private Image headRightImage;
     private Image bodyImage;
 
-    public Snake() {
-        headImage = new Image(MainKt.class.getResourceAsStream("/head_right.png"));
-        bodyImage = new Image(MainKt.class.getResourceAsStream("/body_horizontal.png"));
+    public Player() {
+        try {
+            headUpImage = new Image((MainKt.class.getResourceAsStream("/Player/head_up.png")));
+            headDownImage = new Image((MainKt.class.getResourceAsStream("/Player/head_down.png")));
+            headLeftImage = new Image((MainKt.class.getResourceAsStream("/Player/head_left.png")));
+            headRightImage = new Image((MainKt.class.getResourceAsStream("/Player/head_right.png")));
+            bodyImage = new Image(MainKt.class.getResourceAsStream("/Player/body.png"));
+        } catch (Exception e) {
+            System.out.println("test");
+        }
         head = new Point(5, ROWS / 2);
         snakeBody.add(head);
     }
@@ -49,15 +58,25 @@ public class Snake {
         head = newHead;
     }
 
+//    @Override
     public void draw(GraphicsContext g) {
-        g.setFill(Color.web("4674E9"));
-        g.fillRoundRect(head.getX() * BLOCK_SIZE, head.getY() * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, 35, 35);
-//        g.drawImage(headImage, head.getX() * BLOCK_SIZE, head.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        Image currentHead = null;
+        switch (currentDirection) {
+            case UP -> currentHead = headUpImage;
+            case DOWN -> currentHead = headDownImage;
+            case LEFT -> currentHead = headLeftImage;
+            case RIGHT -> currentHead = headRightImage;
+        }
+        g.drawImage(currentHead, head.getX() * BLOCK_SIZE, head.getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
         for (int i = 1; i < snakeBody.size(); i++) {
-            g.fillRoundRect(snakeBody.get(i).getX() * BLOCK_SIZE, snakeBody.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1, 20, 20);
-//            g.drawImage(bodyImage, snakeBody.get(i).getX() * BLOCK_SIZE, snakeBody.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+            g.drawImage(bodyImage, snakeBody.get(i).getX() * BLOCK_SIZE, snakeBody.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
         }
     }
+
+//    @Override
+//    public boolean update() {
+//        return false;
+//    }
 
     public boolean checkWallCollision() {
         return head.getX() < 0 || head.getY() < 0 || head.getX() >= COLS || head.getY() >= ROWS;
@@ -76,8 +95,7 @@ public class Snake {
         for (Food food : foods) {
             if (head.getX() == food.getX() && head.getY() == food.getY()) {
                 snakeBody.add(new Point(-1, -1));
-                food.generate(this);
-                score += 10;
+                score += food.update(this);
             }
         }
     }

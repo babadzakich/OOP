@@ -2,9 +2,7 @@ package ru.nsu.chuvashov.snakegame;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public interface Food {
+public interface Actor {
     void draw(GraphicsContext gc);
-    int update(Player player);
-    double getX();
-    double getY();
+    boolean update();
 }

@@ -27,9 +27,9 @@ public class MainKt extends Application {
     private static final int FRAMES_PER_SECOND = 30;
 
     private GraphicsContext gc;
-    private Snake snake;
+    private Player player;
     private List<Food> foods = new ArrayList<>();
-    private InputHandler inputHandler;
+    private static InputHandler inputHandler;
     private long lastTime = 0;
 
     AnimationTimer timer;
@@ -38,14 +38,14 @@ public class MainKt extends Application {
 
     @Override
     public void start(Stage stage) {
-        snake = new Snake();
+        player = new Player();
         for (int i = 0; i < FOOD_AMOUNT; i++) {
             Food food = new Apple();
-            food.generate(snake);
+            food.update(player);
             foods.add(food);
         }
 
-        stage.setTitle("Snake Game");
+        stage.setTitle("Player Game");
         Group root = new Group();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
@@ -56,7 +56,7 @@ public class MainKt extends Application {
         gc = canvas.getGraphicsContext2D();
 
         drawScore(gc);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.110), event -> run()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.150), event -> run()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
@@ -71,7 +71,7 @@ public class MainKt extends Application {
 
         drawBackground(gc);
         foods.forEach(food -> food.draw(gc));
-        snake.draw(gc);
+        player.draw(gc);
         drawScore(gc);
 
         if (win) {
@@ -81,15 +81,15 @@ public class MainKt extends Application {
             return;
         }
 
-        snake.move(inputHandler);
+        player.move(inputHandler);
 
-        snake.eatFood(foods);
+        player.eatFood(foods);
 
-        if (snake.checkSnakeCollision() || snake.checkWallCollision()) {
+        if (player.checkSnakeCollision() || player.checkWallCollision()) {
             gameOver = true;
         }
 
-        if (snake.getScore() >= 200)
+        if (player.getScore() >= 200)
             win = true;
     }
 
@@ -109,7 +109,7 @@ public class MainKt extends Application {
     private void drawScore(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("Digital-7", BLOCK_SIZE * 0.875));
-        gc.fillText("Score: " + snake.getScore(), 10, 35);
+        gc.fillText("Score: " + player.getScore(), 10, 35);
     }
 
     public static void main(String[] args) {

@@ -5,18 +5,23 @@ import javafx.scene.image.Image;
 import ru.nsu.chuvashov.snakegame.Food;
 import ru.nsu.chuvashov.snakegame.Player;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.Objects;
 
 import static ru.nsu.chuvashov.snakegame.MainKt.*;
 
-public class Apple implements Food {
+public class Banana implements Food {
     private final Image food;
     private int foodX;
     private int foodY;
 
-    public Apple() {
-        food = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Food/apple.png")));
+    Banana() {
+        food = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("/banana.png")));
+    }
+
+    @Override
+    public void draw(GraphicsContext gc) {
+        gc.drawImage(food, foodX * BLOCK_SIZE, foodY * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     }
 
     @Override
@@ -35,7 +40,7 @@ public class Apple implements Food {
                 break;
             }
         }
-        return 10;
+        return -10;
     }
 
     @Override
@@ -46,10 +51,5 @@ public class Apple implements Food {
     @Override
     public double getY() {
         return foodY;
-    }
-
-    @Override
-    public void draw(GraphicsContext gc) {
-        gc.drawImage(food, foodX * BLOCK_SIZE, foodY * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     }
 }
