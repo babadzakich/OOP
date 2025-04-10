@@ -1,27 +1,34 @@
 package ru.nsu.chuvashov.snakegame.actors.foodtype;
 
+import static ru.nsu.chuvashov.snakegame.Controller.*;
+
+import java.util.Objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import ru.nsu.chuvashov.snakegame.actors.Food;
 
-import java.util.Objects;
-
-import static ru.nsu.chuvashov.snakegame.Controller.*;
-
+/**
+ * Golden apple which gives extra points.
+ */
 public class GoldenApple implements Food {
     private final Image food;
     private int foodX;
     private int foodY;
 
+    /**
+     * Constructor.
+     */
     public GoldenApple() {
-        food = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Food/golden_apple.png")));
+        food = new Image(Objects.requireNonNull(getClass()
+                .getResourceAsStream("/Food/golden_apple.png")));
         setX((int) (Math.random() * COLS));
         setY((int) (Math.random() * ROWS));
     }
 
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(food, foodX * BLOCK_SIZE, foodY * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        gc.drawImage(food, foodX * BLOCK_SIZE,
+                foodY * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     }
 
     @Override

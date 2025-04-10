@@ -3,6 +3,9 @@ package ru.nsu.chuvashov.snakegame;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Our main class.
+ */
 public class MainKt extends Application {
     Controller controller;
 

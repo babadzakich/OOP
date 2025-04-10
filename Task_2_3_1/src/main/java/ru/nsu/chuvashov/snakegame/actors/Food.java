@@ -1,13 +1,15 @@
 package ru.nsu.chuvashov.snakegame.actors;
 
-import ru.nsu.chuvashov.snakegame.Actor;
-import ru.nsu.chuvashov.snakegame.Controller;
-
-import java.awt.*;
-
 import static ru.nsu.chuvashov.snakegame.Controller.COLS;
 import static ru.nsu.chuvashov.snakegame.Controller.ROWS;
 
+import java.awt.*;
+import ru.nsu.chuvashov.snakegame.Actor;
+import ru.nsu.chuvashov.snakegame.Controller;
+
+/**
+ * Food on field class.
+ */
 public interface Food extends Actor {
     @Override
     default boolean update(Controller controller) {
@@ -34,8 +36,12 @@ public interface Food extends Actor {
     }
 
     int calculateScore();
+
     double getX();
+
     void setX(int x);
+
     double getY();
+
     void setY(int y);
 }

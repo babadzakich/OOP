@@ -1,12 +1,15 @@
 package ru.nsu.chuvashov.snakegame.actors;
 
+import static ru.nsu.chuvashov.snakegame.Controller.*;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ru.nsu.chuvashov.snakegame.Actor;
 import ru.nsu.chuvashov.snakegame.Controller;
 
-import static ru.nsu.chuvashov.snakegame.Controller.*;
-
+/**
+ * Background painting class.
+ */
 public class Background implements Actor {
     @Override
     public void draw(GraphicsContext gc) {

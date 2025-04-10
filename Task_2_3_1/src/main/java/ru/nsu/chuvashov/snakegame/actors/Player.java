@@ -1,5 +1,11 @@
 package ru.nsu.chuvashov.snakegame.actors;
 
+import static ru.nsu.chuvashov.snakegame.Controller.*;
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -7,38 +13,42 @@ import javafx.scene.text.Font;
 import lombok.Getter;
 import ru.nsu.chuvashov.snakegame.*;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static ru.nsu.chuvashov.snakegame.Controller.*;
-
+/**
+ * Player class.
+ */
 public class Player implements Actor {
     @Getter private List<Point> snakeBody  = new ArrayList<>();
     private Point head;
     private Point prevHead;
     private Color bodyColor = Color.LIGHTBLUE;
-    private Direction currentDirection = Direction.RIGHT, prevDirection = Direction.RIGHT;
+    private Direction currentDirection = Direction.RIGHT;
+    private Direction prevDirection = Direction.RIGHT;
     public int score = 0;
-//    private Image[][] directions = new Image[][]{}
 
     private Image headImage;      // Спрайт головы (уже есть)
     private Image bodyHorizontal; // Горизонтальный сегмент
-    private Image bodyTurnUL;     // Поворот из Up в Left
+    private Image bodyTurnUl;     // Поворот из Up в Left
     private Image tail;
 
+    /**
+     * Constructor.
+     *
+     * @param x - initial x coord.
+     * @param y - initial y coord.
+     * @param head - head image.
+     * @param body - body image.
+     * @param turn - image for turning part of body.
+     * @param tail - tail image.
+     */
     public Player(int x, int y, String head, String body, String turn, String tail) {
         headImage = new Image((Objects.requireNonNull(getClass().getResourceAsStream(head))));
         bodyHorizontal = new Image(Objects.requireNonNull(getClass().getResourceAsStream(body)));
-        bodyTurnUL = new Image(Objects.requireNonNull(getClass().getResourceAsStream(turn)));
+        bodyTurnUl = new Image(Objects.requireNonNull(getClass().getResourceAsStream(turn)));
         this.tail = new Image((Objects.requireNonNull(getClass().getResourceAsStream(tail))));
-        this.head = new Point(x,y);
+        this.head = new Point(x, y);
         prevHead = this.head;
         snakeBody.add(this.head);
     }
-
-
 
     @Override
     public void draw(GraphicsContext g) {
@@ -47,7 +57,7 @@ public class Player implements Actor {
             case UP -> rotationAngle = 270;
             case DOWN -> rotationAngle = 90;
             case LEFT -> rotationAngle = 180;
-            case RIGHT -> rotationAngle = 0;
+            default -> rotationAngle = 0;
         }
         g.save();
 
@@ -61,21 +71,11 @@ public class Player implements Actor {
 
         g.restore();
 
-//        for (int i = 1; i < snakeBody.size() - 1; i++) {
-//            Point prev = snakeBody.get(i-1);
-//            Point current = snakeBody.get(i);
-//            Point next = snakeBody.get(i+1);
-//
-//            Direction dirFrom = getDirection(prev, current);
-//            Direction dirTo = getDirection(current, next);
-//
-//            Image segmentImage = determineBodySprite(dirFrom, dirTo);
-//            drawBodySegment(g, current, segmentImage);
-//        }
         g.setFill(bodyColor);
         for (int i = 1; i < snakeBody.size(); i++) {
-            g.fillRect(snakeBody.get(i).x * BLOCK_SIZE, snakeBody.get(i).y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-//            g.drawImage(bodyHorizontal, snakeBody.get(i).getX() * BLOCK_SIZE, snakeBody.get(i).getY() * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+            g.fillRect(snakeBody.get(i).x * BLOCK_SIZE,
+                    snakeBody.get(i).y * BLOCK_SIZE,
+                    BLOCK_SIZE, BLOCK_SIZE);
         }
 
 
@@ -101,13 +101,14 @@ public class Player implements Actor {
             case UP -> y--;
             case DOWN -> y++;
             case LEFT -> x--;
-            case RIGHT -> x++;
+            default -> x++;
         }
 
         newHead.setLocation(x, y);
         inputHandler.setMoved(true);
-        if (newHead != head)
+        if (newHead != head) {
             snakeBody.addFirst(newHead);
+        }
         prevHead = head;
         head = newHead;
         return !(checkSnakeCollision() || checkWallCollision());

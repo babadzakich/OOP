@@ -1,23 +1,26 @@
 package ru.nsu.chuvashov.snakegame.actors.foodtype;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import ru.nsu.chuvashov.snakegame.Controller;
-import ru.nsu.chuvashov.snakegame.actors.Food;
-import ru.nsu.chuvashov.snakegame.actors.Player;
-
-import java.awt.Point;
-import java.util.Objects;
-
 import static ru.nsu.chuvashov.snakegame.Controller.*;
 
+import java.util.Objects;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import ru.nsu.chuvashov.snakegame.actors.Food;
+
+/**
+ * Ordinary apple.
+ */
 public class Apple implements Food {
     private final Image food;
     private int foodX;
     private int foodY;
 
+    /**
+     * Constructor.
+     */
     public Apple() {
-        food = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Food/apple.png")));
+        food = new Image(Objects.requireNonNull(getClass()
+                .getResourceAsStream("/Food/apple.png")));
         setX((int) (Math.random() * COLS));
         setY((int) (Math.random() * ROWS));
     }

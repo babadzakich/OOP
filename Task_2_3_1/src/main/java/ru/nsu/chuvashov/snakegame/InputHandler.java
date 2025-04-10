@@ -1,34 +1,37 @@
 package ru.nsu.chuvashov.snakegame;
 
+import java.util.*;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Setter;
 
-import java.util.*;
-
+/**
+ * Handler for snake movement.
+ */
 public class InputHandler {
     private final Set<KeyCode> keys = new HashSet<>();
     private final Queue<Direction> queue = new LinkedList<>();
     private Direction currentDirection = Direction.RIGHT;
-    private final int QUEUE_SIZE = 2;
+    private final int queueSize = 2;
     @Setter private boolean moved = false;
 
+    /**
+     * Constructor.
+     *
+     * @param scene - our scene.
+     */
     public InputHandler(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void addQueue(Direction direction) {
-                if (queue.size() <= QUEUE_SIZE) {
+                if (queue.size() <= queueSize) {
                     queue.add(direction);
                 }
             }
 
             @Override
             public void handle(KeyEvent keyEvent) {
-//
-//                if (!moved) {
-//                    return;
-//                }
                 KeyCode code = keyEvent.getCode();
                 if (code == KeyCode.UP && currentDirection != Direction.DOWN) {
                     currentDirection = Direction.UP;
@@ -43,34 +46,16 @@ public class InputHandler {
                     currentDirection = Direction.RIGHT;
                     addQueue(currentDirection);
                 }
-//                moved = false;
             }
         });
-//        scene.setOnKeyReleased(e -> keys.remove(e.getCode()));
     }
 
-//    public void update() {
-//        if (keys.contains(KeyCode.UP) && currentDirection != Direction.DOWN) {
-//            addQueue(Direction.UP);
-//        } else if (keys.contains(KeyCode.DOWN) && currentDirection != Direction.UP) {
-//            addQueue(Direction.DOWN);
-//        } else if (keys.contains(KeyCode.LEFT) && currentDirection != Direction.RIGHT) {
-//            addQueue(Direction.LEFT);
-//        } else if (keys.contains(KeyCode.RIGHT) && currentDirection != Direction.LEFT) {
-//            addQueue(Direction.RIGHT);
-//        }
-//    }
-//
-//    private void addQueue(Direction direction) {
-//        if (queue.size() < QUEUE_SIZE) {
-//            queue.add(direction);
-//        }
-//    }
-
+    /**
+     * Get direction for snake.
+     *
+     * @return direction for snake.
+     */
     public Direction getDirection() {
-//    if (!queue.isEmpty()) {
-//        currentDirection = queue.poll();
-//    }
         return queue.isEmpty() ? currentDirection : queue.poll();
     }
 }
