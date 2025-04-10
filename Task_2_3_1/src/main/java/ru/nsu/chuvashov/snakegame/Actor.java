@@ -4,5 +4,5 @@ import javafx.scene.canvas.GraphicsContext;
 
 public interface Actor {
     void draw(GraphicsContext gc);
-    boolean update();
+    boolean update(Controller controller);
 }

@@ -1,14 +1,15 @@
-package ru.nsu.chuvashov.snakegame.foodtype;
+package ru.nsu.chuvashov.snakegame.actors.foodtype;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import ru.nsu.chuvashov.snakegame.Food;
-import ru.nsu.chuvashov.snakegame.Player;
+import ru.nsu.chuvashov.snakegame.Controller;
+import ru.nsu.chuvashov.snakegame.actors.Food;
+import ru.nsu.chuvashov.snakegame.actors.Player;
 
 import java.awt.Point;
 import java.util.Objects;
 
-import static ru.nsu.chuvashov.snakegame.MainKt.*;
+import static ru.nsu.chuvashov.snakegame.Controller.*;
 
 public class Apple implements Food {
     private final Image food;
@@ -17,24 +18,13 @@ public class Apple implements Food {
 
     public Apple() {
         food = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Food/apple.png")));
+        setX((int) (Math.random() * COLS));
+        setY((int) (Math.random() * ROWS));
     }
 
+
     @Override
-    public int update(Player player) {
-        while (true) {
-            foodX = (int) (Math.random() * COLS);
-            foodY = (int) (Math.random() * ROWS);
-            boolean flag = false;
-            for (Point point : player.getSnakeBody()) {
-                if (point.getX() == foodX && point.getY() == foodY) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
-                break;
-            }
-        }
+    public int calculateScore() {
         return 10;
     }
 
@@ -44,8 +34,18 @@ public class Apple implements Food {
     }
 
     @Override
+    public void setX(int x) {
+        foodX = x;
+    }
+
+    @Override
     public double getY() {
         return foodY;
+    }
+
+    @Override
+    public void setY(int y) {
+        foodY = y;
     }
 
     @Override
