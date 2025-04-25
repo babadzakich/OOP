@@ -25,7 +25,7 @@ public class InputHandler {
 
             @Override
             public void handle(KeyEvent keyEvent) {
-
+//
 //                if (!moved) {
 //                    return;
 //                }
