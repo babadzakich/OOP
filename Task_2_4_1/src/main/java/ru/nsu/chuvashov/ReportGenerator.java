@@ -74,12 +74,76 @@ public class ReportGenerator {
                 html.append("</table>");
 
             }
+            html.append("<h2>Общая статистика по студентам</h2>")
+                    .append("<table>")
+                    .append("<tr>")
+                    .append("<th>Студент</th>");
+
+            // Столбцы для всех задач (лаб)
+            for (Task task : tasks) {
+                html.append("<th>").append(task.task()).append("</th>");
+            }
+            html.append("<th>Сумма</th>")
+                    .append("<th>Оценка за 1 семестр</th>")
+                    .append("<th>Оценка за 2 семестр</th>")
+                    .append("<th>Итоговая оценка</th>")
+                    .append("</tr>");
+
+            // Строки для каждого студента
+            for (ConfigStudent student : students) {
+                Map<String, TaskResult> results = student.getResults();
+                double totalScore = 0.0;
+
+                // Суммы баллов для 1-го и 2-го семестров
+                double firstSemScore = 0.0;
+                double secondSemScore = 0.0;
+
+                html.append("<tr>")
+                        .append("<td>").append(student.getName()).append("</td>");
+
+                // Баллы за каждую лабу
+                for (Task task : tasks) {
+                    String taskId = task.task();
+                    if (results.containsKey(taskId)) {
+                        TaskResult result = results.get(taskId);
+                        double score = result.getScore();
+                        totalScore += score;
+                        if (taskId.startsWith("1")) {
+                            firstSemScore += score;
+                        } else if (taskId.startsWith("2")) {
+                            secondSemScore += score;
+                        }
+                        html.append("<td>").append(score).append("</td>");
+                    } else {
+                        html.append("<td>-</td>");
+                    }
+                }
+
+                // Вычисление оценки
+                int firstSemGrade = calculateGrade(firstSemScore, config.controlPoints().getFirst().getMarks());
+                int secondSemGrade = calculateGrade(secondSemScore, config.controlPoints().getLast().getMarks());
+                int finalGrade = Math.floorDiv(firstSemGrade + secondSemGrade, 2) - 1;
+
+                html.append("<td>").append(totalScore).append("</td>")
+                        .append("<td>").append(Math.max(firstSemGrade, 2)).append("</td>")
+                        .append("<td>").append(Math.max(secondSemGrade, 2)).append("</td>")
+                        .append("<td>").append(Math.max(finalGrade, 2)).append("</td>")
+                        .append("</tr>");
+            }
             html.append("</div>");
         }
-
-
-
         return html.append("</body></html>").toString();
     }
+        private int calculateGrade(double score, Map<Integer, Integer> gradeCriteria) {
+            int grade = 2; // Минимальная оценка (незачёт)
+            for (Map.Entry<Integer, Integer> entry : gradeCriteria.entrySet()) {
+                int requiredPoints = entry.getValue();
+                int possibleGrade = entry.getKey();
+                if (score >= requiredPoints && possibleGrade > grade) {
+                    grade = possibleGrade;
+                }
+            }
+            return grade;
+        }
 }
 

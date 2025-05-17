@@ -18,6 +18,10 @@ import java.io.InputStreamReader;
 import java.nio.file.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.System.exit;
@@ -132,12 +136,13 @@ public class CriteriaChecker {
         return ProgramUtil.runCommand(labPath, "git", "show", "-s", "--format=%ci", commitHash).trim();
     }
 
-    private boolean isBeforeOrEqual(String commitDate, Date deadline) {
+    private boolean isBeforeOrEqual(String commitDate, LocalDate deadline) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
-            Date commit = dateFormat.parse(commitDate);
-            return commit.compareTo(deadline) <= 0;
-        } catch (ParseException e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
+            LocalDateTime commitDateTime = LocalDateTime.parse(commitDate, formatter);
+            LocalDate commitLocalDate = commitDateTime.toLocalDate();
+            return commitLocalDate.isBefore(deadline) || commitLocalDate.isEqual(deadline);
+        } catch (DateTimeParseException e) {
             System.err.println("Error parsing dates: " + Arrays.toString(e.getStackTrace()));
             return false;
         }

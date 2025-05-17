@@ -7,7 +7,8 @@ import ru.nsu.chuvashov.configholder.*;
 import com.example.parser.configurationBaseVisitor;
 import com.example.parser.configurationParser;
 
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Getter
@@ -108,8 +109,8 @@ public class MyVisitor extends configurationBaseVisitor<Object> {
         String id = ctx.STRING().getText().substring(1, ctx.STRING().getText().length() - 1);
         configurationParser.TaskBodyContext bodyCtx = ctx.taskBody();
         String name = bodyCtx.STRING().getText().substring(1, bodyCtx.STRING().getText().length() - 1);
-        Date firstCommit = visitDate(bodyCtx.date(0));
-        Date lastCommit = visitDate(bodyCtx.date(1));
+        LocalDate firstCommit = visitDate(bodyCtx.date(0));
+        LocalDate lastCommit = visitDate(bodyCtx.date(1));
         int points = Integer.parseInt(bodyCtx.INT().getText());
         return new Task(id, name, firstCommit, lastCommit, points);
     }
@@ -155,7 +156,7 @@ public class MyVisitor extends configurationBaseVisitor<Object> {
     public ControlPoint visitControlpoint(configurationParser.ControlpointContext ctx) {
         String id = ctx.STRING().getText().substring(1, ctx.STRING().getText().length() - 1);
         configurationParser.ControlpointBodyContext bodyCtx = ctx.controlpointBody();
-        Date date = visitDate(bodyCtx.date());
+        LocalDate date = visitDate(bodyCtx.date());
         int mark3 = Integer.parseInt(bodyCtx.INT(0).getText());
         int mark4 = Integer.parseInt(bodyCtx.INT(1).getText());
         int mark5 = Integer.parseInt(bodyCtx.INT(2).getText());
@@ -163,10 +164,10 @@ public class MyVisitor extends configurationBaseVisitor<Object> {
     }
 
     @Override
-    public Date visitDate(configurationParser.DateContext ctx) {
+    public LocalDate visitDate(configurationParser.DateContext ctx) {
         int day = Integer.parseInt(ctx.INT(0).getText());
         int month = Integer.parseInt(ctx.INT(1).getText());
         int year = Integer.parseInt(ctx.INT(2).getText());
-        return new Date(day, month, year);
+        return LocalDate.of(year, month, day);
     }
 }
