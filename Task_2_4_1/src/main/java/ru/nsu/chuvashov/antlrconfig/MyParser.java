@@ -1,19 +1,28 @@
-package ru.nsu.chuvashov;
+package ru.nsu.chuvashov.antlrconfig;
 
 import com.example.parser.configurationLexer;
 import com.example.parser.configurationParser;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import ru.nsu.chuvashov.configholder.Configuration;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Set;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import ru.nsu.chuvashov.Main;
+import ru.nsu.chuvashov.antlrconfig.configholder.Configuration;
 
+/**
+ * Class to parse config files.
+ */
 public class MyParser {
+    /**
+     * Parser.
+     *
+     * @return class with all data from my config.
+     * @throws IOException if no configuration found.
+     */
     public static Configuration parseConfig() throws IOException {
         String configContent = readFile("configurations.dsl");
         configurationLexer lexer = new configurationLexer(CharStreams.fromString(configContent));
@@ -45,6 +54,13 @@ public class MyParser {
         );
     }
 
+    /**
+     * Reads from file.
+     *
+     * @param fileName - where read.
+     * @return data from file.
+     * @throws IOException if no file found.
+     */
     private static String readFile(String fileName) throws IOException {
         try (InputStream is = Main.class.getClassLoader().getResourceAsStream(fileName)) {
             if (is == null) {

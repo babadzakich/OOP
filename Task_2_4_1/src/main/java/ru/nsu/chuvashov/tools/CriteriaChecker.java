@@ -1,39 +1,51 @@
 package ru.nsu.chuvashov.tools;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-import ru.nsu.chuvashov.configholder.Configuration;
-import ru.nsu.chuvashov.configholder.Group;
-import ru.nsu.chuvashov.configholder.Task;
-import ru.nsu.chuvashov.datatransferobject.ConfigStudent;
-import ru.nsu.chuvashov.datatransferobject.TaskResult;
+import static java.lang.System.exit;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import ru.nsu.chuvashov.antlrconfig.configholder.Configuration;
+import ru.nsu.chuvashov.antlrconfig.configholder.Group;
+import ru.nsu.chuvashov.antlrconfig.configholder.Task;
+import ru.nsu.chuvashov.datatransferobject.ConfigStudent;
+import ru.nsu.chuvashov.datatransferobject.TaskResult;
 
-import static java.lang.System.exit;
-
+/**
+ * Class that runs all checks for labs.
+ */
 public class CriteriaChecker {
-    private static final String TESTER_WORKSPACE = "/tmp/tester_workspace";
+    private final String testerWorkspace = "/tmp/tester_workspace";
     private final Configuration config;
+
+    /**
+     * Constructor.
+     *
+     * @param config config.
+     */
     public CriteriaChecker(Configuration config) {
         this.config = config;
     }
 
+    /**
+     * Runs checks for every student for one lab.
+     *
+     * @param groups all groups and students.
+     * @param task - task to process.
+     */
     public void processTask(Map<Integer, List<ConfigStudent>> groups, Task task) {
         for (Group group : config.groups()) {
             List<ConfigStudent> students = groups.get(group.getGroupNumber());
@@ -52,8 +64,19 @@ public class CriteriaChecker {
         }
     }
 
-    private Path findLabDirectory(Integer groupNumber, ConfigStudent student, Task task) throws IOException {
-        Path studentDir = Paths.get(TESTER_WORKSPACE, groupNumber.toString(), student.getNickname());
+    /**
+     * Finds path to directory with lab.
+     *
+     * @param groupNumber group number.
+     * @param student student to find.
+     * @param task to process.
+     * @return path to folder of exact task at exact student.
+     * @throws IOException if nothing found.
+     */
+    private Path findLabDirectory(Integer groupNumber,
+                                  ConfigStudent student, Task task) throws IOException {
+        Path studentDir = Paths.get(testerWorkspace,
+                groupNumber.toString(), student.getNickname());
         if (!Files.exists(studentDir)) {
             return null;
         }
@@ -68,6 +91,13 @@ public class CriteriaChecker {
         return null;
     }
 
+    /**
+     * Run checks for lab.
+     *
+     * @param labPath where lab lies.
+     * @param result where to write results.
+     * @param task - to process.
+     */
     private void checkLab(Path labPath, TaskResult result, Task task) {
         try {
             boolean buildSuccess = runGradleCommand(labPath, "clean", "compileJava");
@@ -93,9 +123,16 @@ public class CriteriaChecker {
         }
     }
 
+    /**
+     * Run checks for suitable style.
+     *
+     * @param labPath - path to lab directory,
+     * @param result - where to write result of check.
+     */
     private void checkStyle(Path labPath, TaskResult result) {
         try {
-            Process p = new ProcessBuilder("java", "-jar", "checkstyle.jar", "-c", "google_checks.xml", labPath.toString()).start();
+            Process p = new ProcessBuilder("java", "-jar",
+                    "checkstyle.jar", "-c", "google_checks.xml", labPath.toString()).start();
             String data;
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(p.getInputStream()))) {
@@ -109,6 +146,13 @@ public class CriteriaChecker {
         }
     }
 
+    /**
+     * Looks at deadlines. If student is late -> minus 0.5 points.
+     *
+     * @param labPath - path to lab directory.
+     * @param result - where to write results.
+     * @param task - information about checked task.
+     */
     private void checkLabScore(Path labPath, TaskResult result, Task task) {
         String branch = "task-" + task.task().replace('_', '-');
         double score = task.points();
@@ -118,11 +162,11 @@ public class CriteriaChecker {
             String firstCommitDate = getCommitDate(labPath, branch, "first");
             String lastCommitDate = getCommitDate(labPath, branch, "last");
 
-            if (isBeforeOrEqual(firstCommitDate, task.first_commit())) {
+            if (isLater(firstCommitDate, task.firstCommit())) {
                 score -= 0.5;
             }
 
-            if (!isBeforeOrEqual(lastCommitDate, task.last_commit())) {
+            if (isLater(lastCommitDate, task.lastCommit())) {
                 score -= 0.5;
             }
 
@@ -140,38 +184,71 @@ public class CriteriaChecker {
         }
     }
 
-    private String getCommitDate(Path labPath, String branch, String type) throws IOException, InterruptedException {
+    /**
+     * Look for commit date.
+     *
+     * @param labPath directory of lab.
+     * @param branch - where to look for commits.
+     * @param type - first or last commit.
+     * @return date of commit.
+     * @throws IOException - if cant get list of commits.
+     * @throws InterruptedException - same.
+     */
+    private String getCommitDate(Path labPath, String branch,
+                                 String type) throws IOException, InterruptedException {
         String commitHash;
         if ("first".equals(type)) {
-            commitHash = ProgramUtil.runCommand(labPath, "git", "rev-list", "--max-parents=0", branch).trim();
+            commitHash = ProgramUtil.runCommand(labPath, "git",
+                    "rev-list", "--max-parents=0", branch).trim();
         } else {
-            commitHash = ProgramUtil.runCommand(labPath, "git", "rev-parse", branch).trim();
+            commitHash = ProgramUtil.runCommand(labPath, "git",
+                    "rev-parse", branch).trim();
         }
 
-        return ProgramUtil.runCommand(labPath, "git", "show", "-s", "--format=%ci", commitHash).trim();
+        return ProgramUtil.runCommand(labPath, "git",
+                "show", "-s", "--format=%ci", commitHash).trim();
     }
 
-    private boolean isBeforeOrEqual(String commitDate, LocalDate deadline) {
+    /**
+     * Compares two dates.
+     *
+     * @param commitDate - date of commit to compare with deadline.
+     * @param deadline - deadline.
+     * @return true if commit is late.
+     */
+    private boolean isLater(String commitDate, LocalDate deadline) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
             LocalDateTime commitDateTime = LocalDateTime.parse(commitDate, formatter);
             LocalDate commitLocalDate = commitDateTime.toLocalDate();
-            return commitLocalDate.isBefore(deadline) || commitLocalDate.isEqual(deadline);
+            return !commitLocalDate.isBefore(deadline) && !commitLocalDate.isEqual(deadline);
         } catch (DateTimeParseException e) {
             System.err.println("Error parsing dates: " + Arrays.toString(e.getStackTrace()));
-            return false;
+            return true;
         }
     }
 
-    private void parseTestResults(Path labPath, TaskResult result) throws ParserConfigurationException, IOException, SAXException {
+    /**
+     * Parses test results from xml.
+     *
+     * @param labPath path to lab directory.
+     * @param result - where to write results.
+     * @throws ParserConfigurationException if cant parse xml.
+     * @throws IOException - if no file found.
+     * @throws SAXException - parse mistake.
+     */
+    private void parseTestResults(Path labPath, TaskResult result)
+            throws ParserConfigurationException, IOException, SAXException {
         int errors = 0;
         int failed = 0;
         int total = 0;
 
-        File dir = new File(labPath.toString() + "/build/test-results/test");
+        File dir = new File(labPath.toString()
+                + "/build/test-results/test");
 
         if (!dir.exists() || !dir.isDirectory()) {
-            System.err.println("Директория с результатами тестов не найдена: " + dir.getAbsolutePath());
+            System.err.println("Директория с результатами тестов не найдена: "
+                    + dir.getAbsolutePath());
             result.setTestsPassed(0);
             result.setTestsFailed(0);
             result.setTestsError(0);
@@ -181,7 +258,8 @@ public class CriteriaChecker {
         // Проверяем наличие файлов в директории
         File[] files = dir.listFiles();
         if (files == null || files.length == 0) {
-            System.err.println("В директории " + dir.getAbsolutePath() + " нет файлов");
+            System.err.println("В директории "
+                    + dir.getAbsolutePath() + " нет файлов");
             result.setTestsPassed(0);
             result.setTestsFailed(0);
             result.setTestsError(0);
@@ -206,13 +284,26 @@ public class CriteriaChecker {
         result.setTestsError(errors);
     }
 
-    private boolean runGradleCommand(Path projectPath, String... commands) throws IOException, InterruptedException {
-        String gradlew = projectPath.resolve(System.getProperty("os.name").toLowerCase().contains("win") ?
+    /**
+     * Runs gradlew with args.
+     *
+     * @param projectPath where to run command.
+     * @param commands - args.
+     * @return true if command was successful.
+     * @throws IOException - process exception.
+     * @throws InterruptedException - same.
+     */
+    private boolean runGradleCommand(Path projectPath, String... commands)
+            throws IOException, InterruptedException {
+        String gradlew = projectPath.resolve(System.getProperty("os.name")
+                .toLowerCase().contains("win") ?
             "gradlew.bat" : "gradlew").toString();
 
         // Make gradlew executable on Unix systems
-        if (!System.getProperty("os.name").toLowerCase().contains("win")) {
-            new ProcessBuilder("chmod", "+x", gradlew).start().waitFor();
+        if (!System.getProperty("os.name")
+                .toLowerCase().contains("win")) {
+            new ProcessBuilder("chmod", "+x", gradlew)
+                    .start().waitFor();
         }
 
         String[] fullCommand = new String[commands.length + 1];

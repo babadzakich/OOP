@@ -1,14 +1,24 @@
-package ru.nsu.chuvashov;
-
-import ru.nsu.chuvashov.configholder.Configuration;
-import ru.nsu.chuvashov.datatransferobject.ConfigStudent;
-import ru.nsu.chuvashov.datatransferobject.TaskResult;
-import ru.nsu.chuvashov.configholder.Task;
+package ru.nsu.chuvashov.tools;
 
 import java.util.*;
+import ru.nsu.chuvashov.antlrconfig.configholder.Configuration;
+import ru.nsu.chuvashov.antlrconfig.configholder.Task;
+import ru.nsu.chuvashov.datatransferobject.ConfigStudent;
+import ru.nsu.chuvashov.datatransferobject.TaskResult;
 
+/**
+ * HTML report generator.
+ */
 public class ReportGenerator {
-    public String generateHtmlReport(Configuration config, Map<Integer, List<ConfigStudent>> groups, List<Task> tasks) {
+    /**
+     * HTML page generator.
+     *
+     * @param config where all data from configuration lies.
+     * @param groups - check results for every group.
+     * @return html page.
+     */
+    public String generateHtmlReport(Configuration config, Map<Integer,
+            List<ConfigStudent>> groups) {
         StringBuilder html = new StringBuilder();
         html.append("""
             <html>
@@ -26,8 +36,7 @@ public class ReportGenerator {
 
         for (Map.Entry<Integer, List<ConfigStudent>> groupEntry : groups.entrySet()) {
             int groupNumber = groupEntry.getKey();
-            List<ConfigStudent> students = groupEntry.getValue();
-
+            List<Task> tasks = config.tasks();
             html.append("<div class='group-section'>")
                 .append("<h1>Группа ").append(groupNumber).append("</h1>");
 
@@ -39,7 +48,6 @@ public class ReportGenerator {
                     .filter(student -> student.getResults().containsKey(taskId))
                     .toList();
 
-
                 html.append("<h2>Задача ").append(taskName).append("</h2>")
                     .append("<table>")
                     .append("<tr>")
@@ -48,7 +56,6 @@ public class ReportGenerator {
                     .append("<th>Документация</th>")
                     .append("<th>Style guide</th>")
                     .append("<th>Тесты (Passed/Failed/Error)</th>")
-//                        .append("<th>Доп. балл</th>")
                     .append("<th>Итого</th>")
                     .append("</tr>");
                 if (studentsWithTask.isEmpty()) {
@@ -59,20 +66,26 @@ public class ReportGenerator {
                     for (ConfigStudent student : studentsWithTask) {
                         TaskResult result = student.getResults().get(taskId);
                         html.append("<tr>")
-                                .append("<td>").append(student.getName()).append("</td>")
-                                .append("<td>").append(result.isCompilationSuccess() ? "+" : "-").append("</td>")
-                                .append("<td>").append(result.isDocumentationSuccess() ? "+" : "-").append("</td>")
-                                .append("<td>").append(result.isStyleCheckPassed() ? "+" : "-").append("</td>")
-                                .append("<td>").append(result.getTestsPassed()).append("/")
-                                .append(result.getTestsFailed()).append("/")
-                                .append(result.getTestsError()).append("</td>")
-                                //                            .append("<td>").append(result.getExtraPoints()).append("</td>")
-                                .append("<td>").append(result.getScore()).append("</td>")
+                                .append("<td>").append(student.getName())
+                                .append("</td>")
+                                .append("<td>").append(result.isCompilationSuccess() ? "+" : "-")
+                                .append("</td>")
+                                .append("<td>").append(result.isDocumentationSuccess() ? "+" : "-")
+                                .append("</td>")
+                                .append("<td>").append(result.isStyleCheckPassed() ? "+" : "-")
+                                .append("</td>")
+                                .append("<td>").append(result.getTestsPassed())
+                                .append("/")
+                                .append(result.getTestsFailed())
+                                .append("/")
+                                .append(result.getTestsError())
+                                .append("</td>")
+                                .append("<td>").append(result.getScore())
+                                .append("</td>")
                                 .append("</tr>");
                     }
                 }
                 html.append("</table>");
-
             }
             html.append("<h2>Общая статистика по студентам</h2>")
                     .append("<table>")
@@ -88,6 +101,8 @@ public class ReportGenerator {
                     .append("<th>Оценка за 2 семестр</th>")
                     .append("<th>Итоговая оценка</th>")
                     .append("</tr>");
+
+            List<ConfigStudent> students = groupEntry.getValue();
 
             // Строки для каждого студента
             for (ConfigStudent student : students) {
@@ -120,9 +135,12 @@ public class ReportGenerator {
                 }
 
                 // Вычисление оценки
-                int firstSemGrade = calculateGrade(firstSemScore, config.controlPoints().getFirst().getMarks());
-                int secondSemGrade = calculateGrade(secondSemScore, config.controlPoints().getLast().getMarks());
-                int finalGrade = Math.floorDiv(firstSemGrade + secondSemGrade, 2) - 1;
+                int firstSemGrade = calculateGrade(firstSemScore,
+                        config.controlPoints().getFirst().getMarks());
+                int secondSemGrade = calculateGrade(secondSemScore,
+                        config.controlPoints().getLast().getMarks());
+                int finalGrade = Math.floorDiv(firstSemGrade
+                        + secondSemGrade, 2) - 1;
 
                 html.append("<td>").append(totalScore).append("</td>")
                         .append("<td>").append(Math.max(firstSemGrade, 2)).append("</td>")
@@ -135,16 +153,18 @@ public class ReportGenerator {
         }
         return html.append("</body></html>").toString();
     }
-        private int calculateGrade(double score, Map<Integer, Integer> gradeCriteria) {
-            int grade = 2; // Минимальная оценка (незачёт)
-            for (Map.Entry<Integer, Integer> entry : gradeCriteria.entrySet()) {
-                int requiredPoints = entry.getValue();
-                int possibleGrade = entry.getKey();
-                if (score >= requiredPoints && possibleGrade > grade) {
-                    grade = possibleGrade;
-                }
+
+    private int calculateGrade(double score, Map<Integer,
+                Integer> gradeCriteria) {
+        int grade = 2; // Минимальная оценка (незачёт)
+        for (Map.Entry<Integer, Integer> entry : gradeCriteria.entrySet()) {
+            int requiredPoints = entry.getValue();
+            int possibleGrade = entry.getKey();
+            if (score >= requiredPoints && possibleGrade > grade) {
+                grade = possibleGrade;
             }
-            return grade;
         }
+        return grade;
+    }
 }
 

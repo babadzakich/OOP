@@ -7,7 +7,19 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 
+/**
+ * Some utility.
+ */
 public class ProgramUtil {
+    /**
+     * Runs bash command.
+     *
+     * @param workingDir where to run.
+     * @param command what to run.
+     * @return result of command as string.
+     * @throws IOException if command failed.
+     * @throws InterruptedException - process exception.
+     */
     public static String runCommand(Path workingDir, String... command)
             throws IOException, InterruptedException {
 
@@ -28,6 +40,13 @@ public class ProgramUtil {
         return output;
     }
 
+    /**
+     * Read from stream.
+     *
+     * @param is stream.
+     * @return data from stream.
+     * @throws IOException if cant read.
+     */
     private static String readOutput(InputStream is) throws IOException {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is))) {

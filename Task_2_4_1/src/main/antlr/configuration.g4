@@ -4,7 +4,7 @@ program: (groupEntry | tasksEntry | toolsEntry | checkerEntry | controlpointsEnt
 
 imports: ('import' STRING)+ ;
 
-groupEntry: 'groups' '{' group '}';
+groupEntry: 'groups' '{' group* '}';
 group: 'group' INT '{' student* '}';
 student:  STRING '{' studentBody '}';
 studentBody: 'Name' STRING
