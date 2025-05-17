@@ -130,6 +130,7 @@ public class ReportGenerator {
                         .append("<td>").append(Math.max(finalGrade, 2)).append("</td>")
                         .append("</tr>");
             }
+            html.append("</table>");
             html.append("</div>");
         }
         return html.append("</body></html>").toString();

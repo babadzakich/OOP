@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
 
@@ -81,6 +82,8 @@ public class CriteriaChecker {
                 parseTestResults(labPath, result);
             }
 
+            checkStyle(labPath, result);
+
             boolean documentation = runGradleCommand(labPath, "javadoc");
             result.setDocumentationSuccess(documentation);
             checkLabScore(labPath, result, task);
@@ -90,8 +93,20 @@ public class CriteriaChecker {
         }
     }
 
-    private void checkStyle(Path labPath, TaskResult result, Task task) {
-
+    private void checkStyle(Path labPath, TaskResult result) {
+        try {
+            Process p = new ProcessBuilder("java", "-jar", "checkstyle.jar", "-c", "google_checks.xml", labPath.toString()).start();
+            String data;
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()))) {
+                 data = reader.lines().collect(Collectors.joining("\n"));
+            }
+            System.out.println(data);
+            result.setStyleCheckPassed(p.waitFor() == 0);
+        } catch (Exception e) {
+            System.err.println("Error: " + Arrays.toString(e.getStackTrace()));
+            result.setStyleCheckPassed(false);
+        }
     }
 
     private void checkLabScore(Path labPath, TaskResult result, Task task) {
