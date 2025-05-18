@@ -1,5 +1,6 @@
 com.example.parser
 ru.nsu.chuvashov
-ru.nsu.chuvashov.configholder
+ru.nsu.chuvashov.antlrconfig
+ru.nsu.chuvashov.antlrconfig.configholder
 ru.nsu.chuvashov.datatransferobject
 ru.nsu.chuvashov.tools

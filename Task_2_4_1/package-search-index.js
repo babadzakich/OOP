@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.parser"},{"l":"ru.nsu.chuvashov"},{"l":"ru.nsu.chuvashov.configholder"},{"l":"ru.nsu.chuvashov.datatransferobject"},{"l":"ru.nsu.chuvashov.tools"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.parser"},{"l":"ru.nsu.chuvashov"},{"l":"ru.nsu.chuvashov.antlrconfig"},{"l":"ru.nsu.chuvashov.antlrconfig.configholder"},{"l":"ru.nsu.chuvashov.datatransferobject"},{"l":"ru.nsu.chuvashov.tools"}];updateSearchResults();
