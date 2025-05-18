@@ -91,9 +91,19 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Record Components:</dt>
+<dd><code><span id="param-tools">tools</span></code> - tools need for checking.</dd>
+<dd><code><span id="param-groups">groups</span></code> - to be checked.</dd>
+<dd><code><span id="param-tasks">tasks</span></code> - to be checked.</dd>
+<dd><code><span id="param-studentCheckers">studentCheckers</span></code> - - additional info.</dd>
+<dd><code><span id="param-controlPoints">controlPoints</span></code> - - control points.</dd>
+<dd><code><span id="param-imports">imports</span></code> - - imports.</dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Configuration</span>(<a href="Tools.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Tools</a>&nbsp;tools, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Group.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Group</a>&gt;&nbsp;groups, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Task.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Task</a>&gt;&nbsp;tasks, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;studentCheckers, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ControlPoint.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">ControlPoint</a>&gt;&nbsp;controlPoints, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;imports)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
+<div class="block">Configuration data.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -131,7 +141,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="ControlPoint.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">ControlPoint</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#controlPoints()" class="member-name-link">controlPoints</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>controlPoints</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-controlPoints"><code>controlPoints</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
@@ -141,7 +151,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="Group.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Group</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#groups()" class="member-name-link">groups</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>groups</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-groups"><code>groups</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
@@ -151,22 +161,22 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#imports()" class="member-name-link">imports</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>imports</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-imports"><code>imports</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#studentCheckers()" class="member-name-link">studentCheckers</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>studentCheckers</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-studentCheckers"><code>studentCheckers</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="Task.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Task</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tasks()" class="member-name-link">tasks</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>tasks</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-tasks"><code>tasks</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Tools.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Tools</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#tools()" class="member-name-link">tools</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>tools</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-tools"><code>tools</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -202,12 +212,12 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates an instance of a <code>Configuration</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>tools</code> - the value for the <code>tools</code> record component</dd>
-<dd><code>groups</code> - the value for the <code>groups</code> record component</dd>
-<dd><code>tasks</code> - the value for the <code>tasks</code> record component</dd>
-<dd><code>studentCheckers</code> - the value for the <code>studentCheckers</code> record component</dd>
-<dd><code>controlPoints</code> - the value for the <code>controlPoints</code> record component</dd>
-<dd><code>imports</code> - the value for the <code>imports</code> record component</dd>
+<dd><code>tools</code> - the value for the <a href="#param-tools"><code>tools</code></a> record component</dd>
+<dd><code>groups</code> - the value for the <a href="#param-groups"><code>groups</code></a> record component</dd>
+<dd><code>tasks</code> - the value for the <a href="#param-tasks"><code>tasks</code></a> record component</dd>
+<dd><code>studentCheckers</code> - the value for the <a href="#param-studentCheckers"><code>studentCheckers</code></a> record component</dd>
+<dd><code>controlPoints</code> - the value for the <a href="#param-controlPoints"><code>controlPoints</code></a> record component</dd>
+<dd><code>imports</code> - the value for the <a href="#param-imports"><code>imports</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -264,10 +274,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="tools()">
 <h3>tools</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Tools.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Tools</a></span>&nbsp;<span class="element-name">tools</span>()</div>
-<div class="block">Returns the value of the <code>tools</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-tools"><code>tools</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>tools</code> record component</dd>
+<dd>the value of the <a href="#param-tools"><code>tools</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -275,10 +285,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="groups()">
 <h3>groups</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Group.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Group</a>&gt;</span>&nbsp;<span class="element-name">groups</span>()</div>
-<div class="block">Returns the value of the <code>groups</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-groups"><code>groups</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>groups</code> record component</dd>
+<dd>the value of the <a href="#param-groups"><code>groups</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -286,10 +296,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="tasks()">
 <h3>tasks</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="Task.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Task</a>&gt;</span>&nbsp;<span class="element-name">tasks</span>()</div>
-<div class="block">Returns the value of the <code>tasks</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-tasks"><code>tasks</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>tasks</code> record component</dd>
+<dd>the value of the <a href="#param-tasks"><code>tasks</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -297,10 +307,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="studentCheckers()">
 <h3>studentCheckers</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">studentCheckers</span>()</div>
-<div class="block">Returns the value of the <code>studentCheckers</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-studentCheckers"><code>studentCheckers</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>studentCheckers</code> record component</dd>
+<dd>the value of the <a href="#param-studentCheckers"><code>studentCheckers</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -308,10 +318,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="controlPoints()">
 <h3>controlPoints</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ControlPoint.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">ControlPoint</a>&gt;</span>&nbsp;<span class="element-name">controlPoints</span>()</div>
-<div class="block">Returns the value of the <code>controlPoints</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-controlPoints"><code>controlPoints</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>controlPoints</code> record component</dd>
+<dd>the value of the <a href="#param-controlPoints"><code>controlPoints</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -319,10 +329,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="imports()">
 <h3>imports</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">imports</span>()</div>
-<div class="block">Returns the value of the <code>imports</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-imports"><code>imports</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>imports</code> record component</dd>
+<dd>the value of the <a href="#param-imports"><code>imports</code></a> record component</dd>
 </dl>
 </section>
 </li>

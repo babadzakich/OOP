@@ -92,6 +92,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">CriteriaChecker</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Class that runs all checks for labs.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -104,7 +105,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.chuvashov.antlrconfig.configholder.Configuration)" class="member-name-link">CriteriaChecker</a><wbr>(<a href="../antlrconfig/configholder/Configuration.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Configuration</a>&nbsp;config)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructor.</div>
+</div>
 </div>
 </section>
 </li>
@@ -122,7 +125,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#processTask(java.util.Map,ru.nsu.chuvashov.antlrconfig.configholder.Task)" class="member-name-link">processTask</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../datatransferobject/ConfigStudent.html" title="class in ru.nsu.chuvashov.datatransferobject">ConfigStudent</a>&gt;&gt;&nbsp;groups,
  <a href="../antlrconfig/configholder/Task.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Task</a>&nbsp;task)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Runs checks for every student for one lab.</div>
+</div>
 </div>
 </div>
 </div>
@@ -144,6 +149,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(ru.nsu.chuvashov.antlrconfig.configholder.Configuration)">
 <h3>CriteriaChecker</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CriteriaChecker</span><wbr><span class="parameters">(<a href="../antlrconfig/configholder/Configuration.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Configuration</a>&nbsp;config)</span></div>
+<div class="block">Constructor.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>config</code> - config.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -159,6 +169,12 @@ loadScripts(document, 'script');</script>
 <h3>processTask</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">processTask</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../datatransferobject/ConfigStudent.html" title="class in ru.nsu.chuvashov.datatransferobject">ConfigStudent</a>&gt;&gt;&nbsp;groups,
  <a href="../antlrconfig/configholder/Task.html" title="class in ru.nsu.chuvashov.antlrconfig.configholder">Task</a>&nbsp;task)</span></div>
+<div class="block">Runs checks for every student for one lab.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>groups</code> - all groups and students.</dd>
+<dd><code>task</code> - - task to process.</dd>
+</dl>
 </section>
 </li>
 </ul>
