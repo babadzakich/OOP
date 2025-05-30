@@ -2,8 +2,8 @@ package ru.nsu.chuvashov;
 
 import java.io.*;
 import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;

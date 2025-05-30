@@ -3,10 +3,10 @@ package ru.nsu.chuvashov;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +23,8 @@ public class Manager {
 
     private ServerSocket serverSocket;
     private final ExecutorService workerHandlerExecutor = Executors.newCachedThreadPool();
-    private final ScheduledExecutorService maintenanceExecutor = Executors.newScheduledThreadPool(2);
+    private final ScheduledExecutorService maintenanceExecutor
+            = Executors.newScheduledThreadPool(2);
 
     /**
      * Constructor.
@@ -45,13 +46,17 @@ public class Manager {
             while (isRunning.get()) {
                 try {
                     Socket workerSocket = serverSocket.accept();
-                    System.out.println("New worker connection from: " + workerSocket.getInetAddress());
+                    System.out.println("New worker connection from: "
+                            + workerSocket.getInetAddress());
 
-                    workerHandlerExecutor.submit(() -> handleWorkerConnection(workerSocket));
+                    workerHandlerExecutor.submit(
+                            () -> handleWorkerConnection(workerSocket)
+                    );
 
                 } catch (IOException e) {
                     if (isRunning.get()) {
-                        System.err.println("Error accepting worker connection: " + e.getMessage());
+                        System.err.println("Error accepting worker connection: "
+                                + e.getMessage());
                     }
                 }
             }
@@ -85,10 +90,14 @@ public class Manager {
 
             while (isRunning.get() && !workerSocket.isClosed()) {
                 String message = receiveMessage(input);
-                if (message == null) break;
+                if (message == null) {
+                    break;
+                }
 
                 JSONObject json = new JSONObject(message);
-                TaskType messageType = TaskType.valueOf(json.optString("type", "unknown"));
+                TaskType messageType = TaskType.valueOf(
+                        json.optString("type", "unknown")
+                );
 
                 switch (messageType) {
                     case HEARTBEAT:
@@ -114,7 +123,7 @@ public class Manager {
                         break;
 
                     default:
-                        System.out.println("Unknown message type from worker: " + messageType)  ;
+                        System.out.println("Unknown message type from worker: " + messageType);
                 }
             }
 
@@ -193,7 +202,7 @@ public class Manager {
             task.put("method", "calculate");
 
             JSONArray dataArray = new JSONArray();
-            for (int j = i; j < data.length; j+=workers.size()) {
+            for (int j = i; j < data.length; j += workers.size()) {
                 dataArray.put(data[j]);
             }
             task.put("data", dataArray);
@@ -206,11 +215,13 @@ public class Manager {
             try {
                 sendMessage(selectedWorker.output, task.toString());
 
-                TaskInfo taskInfo = new TaskInfo(taskId, selectedWorker.workerId, System.currentTimeMillis());
+                TaskInfo taskInfo = new TaskInfo(taskId,
+                        selectedWorker.workerId, System.currentTimeMillis());
                 pendingTasks.put(taskId, taskInfo);
                 selectedWorker.incrementActiveTasks();
 
-                System.out.println("Task " + taskId + " sent to worker " + selectedWorker.workerId);
+                System.out.println("Task " + taskId
+                        + " sent to worker " + selectedWorker.workerId);
 
             } catch (IOException e) {
                 System.err.println("Failed to send task to worker: " + e.getMessage());
@@ -252,7 +263,10 @@ public class Manager {
 
             if (status.equals("success")) {
                 boolean hasNonPrime = result.optBoolean("result", false);
-                System.out.println("Task result: " + (hasNonPrime ? "Contains non-prime numbers" : "All numbers are prime"));
+                System.out.println("Task result: "
+                        + (hasNonPrime
+                        ? "Contains non-prime numbers"
+                        : "All numbers are prime"));
             } else {
                 String message = result.optString("message", "No message");
                 System.out.println("Task error: " + message);
@@ -271,7 +285,7 @@ public class Manager {
 
         for (Map.Entry<String, WorkerConnection> entry : workers.entrySet()) {
             WorkerConnection worker = entry.getValue();
-            if (currentTime - worker.lastHeartbeat > 60000) { // 60 seconds timeout
+            if (currentTime - worker.lastHeartbeat > 60000) {
                 unhealthyWorkers.add(entry.getKey());
                 System.out.println("Worker " + entry.getKey() + " appears to be unhealthy");
 
@@ -281,7 +295,7 @@ public class Manager {
 
         for (String workerId : unhealthyWorkers) {
             WorkerConnection worker = workers.get(workerId);
-            if (worker != null && currentTime - worker.lastHeartbeat > 120000) { // 2 minutes
+            if (worker != null && currentTime - worker.lastHeartbeat > 120000) {
                 workers.remove(workerId);
                 redistributeWorkerTasks(workerId);
                 System.out.println("Removed dead worker: " + workerId);
@@ -304,7 +318,8 @@ public class Manager {
             sendMessage(worker.output, ping.toString());
             System.out.println("Ping sent to worker: " + worker.workerId);
         } catch (IOException e) {
-            System.err.println("Failed to ping worker " + worker.workerId + ": " + e.getMessage());
+            System.err.println("Failed to ping worker "
+                    + worker.workerId + ": " + e.getMessage());
         }
     }
 
@@ -329,7 +344,8 @@ public class Manager {
                 if (worker != null) {
                     worker.decrementActiveTasks();
                 }
-                System.out.println("Task " + taskId + " expired and removed from pending tasks");
+                System.out.println("Task " + taskId
+                        + " expired and removed from pending tasks");
             }
         }
     }
@@ -348,11 +364,13 @@ public class Manager {
             }
         }
 
-        System.out.println("Redistributing " + tasksToRedistribute.size() + " tasks from worker " + workerId);
+        System.out.println("Redistributing "
+                + tasksToRedistribute.size() + " tasks from worker " + workerId);
 
         for (String taskId : tasksToRedistribute) {
             pendingTasks.remove(taskId);
-            System.out.println("Task " + taskId + " lost due to worker failure");
+            System.out.println("Task "
+                    + taskId + " lost due to worker failure");
         }
     }
 
@@ -369,9 +387,11 @@ public class Manager {
         for (WorkerConnection worker : workers.values()) {
             try {
                 sendMessage(worker.output, shutdownMessage.toString());
-                System.out.println("Shutdown command sent to worker: " + worker.workerId);
+                System.out.println("Shutdown command sent to worker: "
+                        + worker.workerId);
             } catch (IOException e) {
-                System.err.println("Failed to send shutdown to worker " + worker.workerId + ": " + e.getMessage());
+                System.err.println("Failed to send shutdown to worker "
+                        + worker.workerId + ": " + e.getMessage());
             }
         }
 
@@ -390,7 +410,7 @@ public class Manager {
     }
 
     /**
-     * Class to store workers data.
+     * Class to store worker`s data.
      */
     private static class WorkerConnection {
         final String workerId;
@@ -408,7 +428,8 @@ public class Manager {
          * @param input - input stream of worker.
          * @param output - output stream of worker.
          */
-        WorkerConnection(String workerId, Socket socket, DataInputStream input, DataOutputStream output) {
+        WorkerConnection(String workerId, Socket socket,
+                         DataInputStream input, DataOutputStream output) {
             this.workerId = workerId;
             this.socket = socket;
             this.input = input;
@@ -455,7 +476,8 @@ public class Manager {
      * @param workerId - id of worker who took it.
      * @param submittedTime - when it was submitted.
      */
-    private record TaskInfo(String taskId, String workerId, long submittedTime) {
+    private record TaskInfo(String taskId,
+                            String workerId, long submittedTime) {
     }
 
 
@@ -474,7 +496,9 @@ public class Manager {
 
         ServerSocket httpServerSocket;
         try {
-            httpServerSocket = new ServerSocket(Integer.parseInt(System.getenv().getOrDefault("OUTSIDE_HOST", "8081")));
+            httpServerSocket = new ServerSocket(Integer.parseInt(
+                    System.getenv().getOrDefault("OUTSIDE_HOST", "8081")
+            ));
             System.out.println("HTTP server started on port " + httpServerSocket.getLocalPort());
         } catch (IOException e) {
             System.err.println("Failed to create HTTP server socket: " + e.getMessage());
@@ -495,7 +519,8 @@ public class Manager {
         httpServerThread.start();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Manager started. Available commands: 'task <numbers>', 'status', 'quit'");
+        System.out.println("Manager started. "
+                + "Available commands: 'task <numbers>', 'status', 'quit'");
 
         while (true) {
             System.out.print("> ");
@@ -505,7 +530,8 @@ public class Manager {
                 try {
                     httpServerSocket.close();
                 } catch (IOException e) {
-                    System.err.println("Error closing HTTP server socket: " + e.getMessage());
+                    System.err.println("Error closing HTTP server socket: "
+                            + e.getMessage());
                 }
                 manager.shutdown();
                 break;
@@ -525,7 +551,8 @@ public class Manager {
                     System.err.println("Error submitting task: " + e.getMessage());
                 }
             } else {
-                System.out.println("Unknown command. Use: 'task <numbers>', 'status', 'quit'");
+                System.out.println("Unknown command. "
+                        + "Use: 'task <numbers>', 'status', 'quit'");
             }
         }
 
@@ -540,7 +567,9 @@ public class Manager {
      */
     private static void handleHttpRequest(Socket connection, Manager manager) {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream())
+            );
             PrintWriter writer = new PrintWriter(connection.getOutputStream(), true);
 
             String requestLine = reader.readLine();
@@ -556,7 +585,8 @@ public class Manager {
 
             String[] requestParts = requestLine.split(" ");
             if (requestParts.length < 2) {
-                sendHttpResponse(writer, 400, "Bad Request", "Invalid request format");
+                sendHttpResponse(writer, 400,
+                        "Bad Request", "Invalid request format");
                 return;
             }
 
@@ -571,7 +601,8 @@ public class Manager {
                     handlePostRequest(path, reader, writer, manager, contentLength);
                     break;
                 default:
-                    sendHttpResponse(writer, 405, "Method Not Allowed", "Method not supported");
+                    sendHttpResponse(writer, 405,
+                            "Method Not Allowed", "Method not supported");
             }
 
         } catch (Exception e) {
@@ -591,14 +622,17 @@ public class Manager {
         switch (path) {
             case "/status":
                 JSONObject status = getManagerStatus(manager);
-                sendHttpResponse(writer, 200, "OK", status.toString(), "application/json");
+                sendHttpResponse(writer, 200,
+                        "OK", status.toString(), "application/json");
                 break;
             case "/quit":
-                sendHttpResponse(writer, 200, "OK", "{\"message\":\"Shutdown initiated\"}");
+                sendHttpResponse(writer, 200,
+                        "OK", "{\"message\":\"Shutdown initiated\"}");
                 new Thread(manager::shutdown).start();
                 break;
             default:
-                sendHttpResponse(writer, 404, "Not Found", "Endpoint not found");
+                sendHttpResponse(writer, 404,
+                        "Not Found", "Endpoint not found");
         }
     }
 
@@ -612,15 +646,18 @@ public class Manager {
      * @param contentLength - length of body.
      * @throws IOException - if cant read from socket.
      */
-    private static void handlePostRequest(String path, BufferedReader reader, PrintWriter writer,
+    private static void handlePostRequest(String path,
+                                          BufferedReader reader, PrintWriter writer,
                                           Manager manager, int contentLength) throws IOException {
         if (!path.equals("/task")) {
-            sendHttpResponse(writer, 404, "Not Found", "Endpoint not found");
+            sendHttpResponse(writer, 404,
+                    "Not Found", "Endpoint not found");
             return;
         }
 
         if (contentLength <= 0) {
-            sendHttpResponse(writer, 400, "Bad Request", "Content-Length required");
+            sendHttpResponse(writer, 400,
+                    "Bad Request", "Content-Length required");
             return;
         }
 
@@ -649,14 +686,17 @@ public class Manager {
             response.put("task_id", taskId);
             response.put("status", "submitted");
 
-            sendHttpResponse(writer, 200, "OK", response.toString(), "application/json");
+            sendHttpResponse(writer, 200,
+                    "OK", response.toString(), "application/json");
 
         } catch (JSONException e) {
-            sendHttpResponse(writer, 400, "Bad Request", "Invalid JSON format");
+            sendHttpResponse(writer, 400,
+                    "Bad Request", "Invalid JSON format");
         } catch (Exception e) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("error", e.getMessage());
-            sendHttpResponse(writer, 500, "Internal Server Error", errorResponse.toString(), "application/json");
+            sendHttpResponse(writer, 500,
+                    "Internal Server Error", errorResponse.toString(), "application/json");
         }
     }
 
@@ -668,7 +708,8 @@ public class Manager {
      * @param statusText - text of message.
      * @param body - body.
      */
-    private static void sendHttpResponse(PrintWriter writer, int statusCode, String statusText, String body) {
+    private static void sendHttpResponse(PrintWriter writer,
+                                         int statusCode, String statusText, String body) {
         sendHttpResponse(writer, statusCode, statusText, body, "text/plain");
     }
 
@@ -681,7 +722,8 @@ public class Manager {
      * @param body - body.
      * @param contentType - type of content.
      */
-    private static void sendHttpResponse(PrintWriter writer, int statusCode, String statusText,
+    private static void sendHttpResponse(PrintWriter writer,
+                                         int statusCode, String statusText,
                                          String body, String contentType) {
         writer.println("HTTP/1.1 " + statusCode + " " + statusText);
         writer.println("Content-Type: " + contentType);
@@ -708,7 +750,8 @@ public class Manager {
             JSONObject workerInfo = new JSONObject();
             workerInfo.put("worker_id", worker.workerId);
             workerInfo.put("active_tasks", worker.activeTasks);
-            workerInfo.put("last_heartbeat_ms_ago", System.currentTimeMillis() - worker.lastHeartbeat);
+            workerInfo.put("last_heartbeat_ms_ago",
+                    System.currentTimeMillis() - worker.lastHeartbeat);
             workerInfo.put("is_healthy", worker.isHealthy());
             workersArray.put(workerInfo);
         }
@@ -729,9 +772,10 @@ public class Manager {
 
         for (WorkerConnection worker : manager.workers.values()) {
             long timeSinceLastHeartbeat = System.currentTimeMillis() - worker.lastHeartbeat;
-            System.out.println("Worker " + worker.workerId +
-                    ": " + worker.activeTasks + " active tasks, " +
-                    "last heartbeat " + (timeSinceLastHeartbeat / 1000) + "s ago");
+            System.out.println("Worker " + worker.workerId
+                    + ": " + worker.activeTasks + " active tasks, "
+                    + "last heartbeat " + (timeSinceLastHeartbeat / 1000)
+                    + "s ago");
         }
         System.out.println("======================");
     }
