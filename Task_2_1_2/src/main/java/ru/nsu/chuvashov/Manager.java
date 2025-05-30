@@ -11,6 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Manager class.
+ */
 public class Manager {
     private final int port;
     private final Map<String, WorkerConnection> workers = new ConcurrentHashMap<>();
@@ -22,10 +25,16 @@ public class Manager {
     private final ExecutorService workerHandlerExecutor = Executors.newCachedThreadPool();
     private final ScheduledExecutorService maintenanceExecutor = Executors.newScheduledThreadPool(2);
 
+    /**
+     * Constructor.
+     */
     public Manager() {
         this.port = Integer.parseInt(System.getenv().getOrDefault("MANAGER_PORT", "8080"));
     }
 
+    /**
+     * Initializing work and get new workers.
+     */
     public void start() {
         try {
             serverSocket = new ServerSocket(port);
@@ -52,12 +61,20 @@ public class Manager {
         }
     }
 
+    /**
+     * Initializes executors to check for some stuff.
+     */
     private void startMaintenanceTasks() {
         maintenanceExecutor.scheduleAtFixedRate(this::checkWorkerHealth, 30, 30, TimeUnit.SECONDS);
 
         maintenanceExecutor.scheduleAtFixedRate(this::checkPendingTasks, 60, 60, TimeUnit.SECONDS);
     }
 
+    /**
+     * Handles new worker connection.
+     *
+     * @param workerSocket - new worker socket
+     */
     private void handleWorkerConnection(Socket workerSocket) {
         String workerId = null;
         WorkerConnection workerConn = null;
@@ -119,6 +136,13 @@ public class Manager {
         }
     }
 
+    /**
+     * Receives message from worker.
+     *
+     * @param input - from where to receive.
+     * @return message.
+     * @throws IOException if can`t read from socket.
+     */
     private String receiveMessage(DataInputStream input) throws IOException {
         try {
             int messageLength = input.readInt();
@@ -136,6 +160,13 @@ public class Manager {
         }
     }
 
+    /**
+     * First sends length of message and then message.
+     *
+     * @param output - where to send.
+     * @param message - what to end.
+     * @throws IOException if can`t send.
+     */
     private void sendMessage(DataOutputStream output, String message) throws IOException {
         byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
         output.writeInt(messageBytes.length);
@@ -143,6 +174,12 @@ public class Manager {
         output.flush();
     }
 
+    /**
+     * Creates new task and distributes it.
+     *
+     * @param data - what to send.
+     * @return task id.
+     */
     public String submitTask(int[] data) {
         if (workers.isEmpty()) {
             throw new RuntimeException("No workers available");
@@ -183,6 +220,11 @@ public class Manager {
         return taskId;
     }
 
+    /**
+     * Chooses a worker with minimal payload.
+     *
+     * @return worker.
+     */
     private WorkerConnection selectWorker() {
         return workers.values().stream()
                 .filter(w -> w.isHealthy())
@@ -190,6 +232,11 @@ public class Manager {
                 .orElse(null);
     }
 
+    /**
+     * Parses result of calculation.
+     *
+     * @param result what to parse.
+     */
     private void handleTaskResult(JSONObject result) {
         String taskId = result.optString("task_id", "unknown");
         TaskInfo taskInfo = pendingTasks.remove(taskId);
@@ -215,6 +262,9 @@ public class Manager {
         }
     }
 
+    /**
+     * Pings worker if lacks of heartbeat.
+     */
     private void checkWorkerHealth() {
         long currentTime = System.currentTimeMillis();
         List<String> unhealthyWorkers = new ArrayList<>();
@@ -239,6 +289,11 @@ public class Manager {
         }
     }
 
+    /**
+     * Creates ping json.
+     *
+     * @param worker for who to send.
+     */
     private void pingWorker(WorkerConnection worker) {
         try {
             JSONObject ping = new JSONObject();
@@ -253,6 +308,9 @@ public class Manager {
         }
     }
 
+    /**
+     * Checks tasks and removes expired.
+     */
     private void checkPendingTasks() {
         long currentTime = System.currentTimeMillis();
         List<String> expiredTasks = new ArrayList<>();
@@ -276,6 +334,11 @@ public class Manager {
         }
     }
 
+    /**
+     * If we lose worker we need to redistribute tasks.
+     *
+     * @param workerId from who to redistribute.
+     */
     private void redistributeWorkerTasks(String workerId) {
         List<String> tasksToRedistribute = new ArrayList<>();
 
@@ -293,6 +356,9 @@ public class Manager {
         }
     }
 
+    /**
+     * Shutdown logic.
+     */
     public void shutdown() {
         System.out.println("Shutting down manager...");
         isRunning.set(false);
@@ -323,6 +389,9 @@ public class Manager {
         System.out.println("Manager shutdown complete");
     }
 
+    /**
+     * Class to store workers data.
+     */
     private static class WorkerConnection {
         final String workerId;
         final Socket socket;
@@ -331,6 +400,14 @@ public class Manager {
         volatile long lastHeartbeat;
         volatile int activeTasks;
 
+        /**
+         * Constructor.
+         *
+         * @param workerId id of worker.
+         * @param socket - worker socket.
+         * @param input - input stream of worker.
+         * @param output - output stream of worker.
+         */
         WorkerConnection(String workerId, Socket socket, DataInputStream input, DataOutputStream output) {
             this.workerId = workerId;
             this.socket = socket;
@@ -340,27 +417,53 @@ public class Manager {
             this.activeTasks = 0;
         }
 
+        /**
+         * Updates last heartbeat.
+         */
         void updateLastHeartbeat() {
             this.lastHeartbeat = System.currentTimeMillis();
         }
 
+        /**
+         * Adds one to active tasks.
+         */
         void incrementActiveTasks() {
             this.activeTasks++;
         }
 
+        /**
+         * Removes one from active tasks.
+         */
         void decrementActiveTasks() {
             this.activeTasks = Math.max(0, this.activeTasks - 1);
         }
 
+        /**
+         * Check healthiness.
+         *
+         * @return true if healthy.
+         */
         boolean isHealthy() {
             return System.currentTimeMillis() - lastHeartbeat < 60000;
         }
     }
 
+    /**
+     * Information about task.
+     *
+     * @param taskId - id of task.
+     * @param workerId - id of worker who took it.
+     * @param submittedTime - when it was submitted.
+     */
     private record TaskInfo(String taskId, String workerId, long submittedTime) {
     }
 
 
+    /**
+     * Starter of manager.
+     *
+     * @param args - nothing interesting.
+     */
     public static void main(String[] args) {
         Manager manager = new Manager();
 
@@ -429,6 +532,12 @@ public class Manager {
         scanner.close();
     }
 
+    /**
+     * Handles data input using http.
+     *
+     * @param connection - http input socket.
+     * @param manager - where to send data.
+     */
     private static void handleHttpRequest(Socket connection, Manager manager) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -470,6 +579,14 @@ public class Manager {
         }
     }
 
+    /**
+     * Handles GET requests.
+     * If we have status or quit, do smth else 404.
+     *
+     * @param path case of request.
+     * @param writer http creator.
+     * @param manager where to send request.
+     */
     private static void handleGetRequest(String path, PrintWriter writer, Manager manager) {
         switch (path) {
             case "/status":
@@ -485,6 +602,16 @@ public class Manager {
         }
     }
 
+    /**
+     * Handles POST requests.
+     *
+     * @param path case of post.
+     * @param reader - reader of body.
+     * @param writer - creator of http.
+     * @param manager - where to send data.
+     * @param contentLength - length of body.
+     * @throws IOException - if cant read from socket.
+     */
     private static void handlePostRequest(String path, BufferedReader reader, PrintWriter writer,
                                           Manager manager, int contentLength) throws IOException {
         if (!path.equals("/task")) {
@@ -533,10 +660,27 @@ public class Manager {
         }
     }
 
+    /**
+     * Overload of creator of http.
+     *
+     * @param writer thingy to create http.
+     * @param statusCode - status code.
+     * @param statusText - text of message.
+     * @param body - body.
+     */
     private static void sendHttpResponse(PrintWriter writer, int statusCode, String statusText, String body) {
         sendHttpResponse(writer, statusCode, statusText, body, "text/plain");
     }
 
+    /**
+     * Creates and sends http.
+     *
+     * @param writer - creates http.
+     * @param statusCode - status code.
+     * @param statusText - status text.
+     * @param body - body.
+     * @param contentType - type of content.
+     */
     private static void sendHttpResponse(PrintWriter writer, int statusCode, String statusText,
                                          String body, String contentType) {
         writer.println("HTTP/1.1 " + statusCode + " " + statusText);
@@ -548,6 +692,12 @@ public class Manager {
         writer.flush();
     }
 
+    /**
+     * Get manager status.
+     *
+     * @param manager which status to find.
+     * @return status json.
+     */
     private static JSONObject getManagerStatus(Manager manager) {
         JSONObject status = new JSONObject();
         status.put("active_workers", manager.workers.size());
@@ -567,6 +717,11 @@ public class Manager {
         return status;
     }
 
+    /**
+     * Prints manager status in console.
+     *
+     * @param manager which status to print.
+     */
     private static void printConsoleStatus(Manager manager) {
         System.out.println("=== Manager Status ===");
         System.out.println("Active workers: " + manager.workers.size());

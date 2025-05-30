@@ -1,15 +1,15 @@
 package ru.nsu.chuvashov;
 
 import java.io.*;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Calculation node class.
@@ -342,9 +342,15 @@ public class Worker implements Runnable {
      */
     private void closeConnection() {
         try {
-            if (managerOutput != null) managerOutput.close();
-            if (managerInput != null) managerInput.close();
-            if (managerSocket != null && !managerSocket.isClosed()) managerSocket.close();
+            if (managerOutput != null) {
+                managerOutput.close();
+            }
+            if (managerInput != null) {
+                managerInput.close();
+            }
+            if (managerSocket != null && !managerSocket.isClosed()) {
+                managerSocket.close();
+            }
         } catch (IOException e) {
             System.err.println("Error closing connection: " + e.getMessage());
         }
