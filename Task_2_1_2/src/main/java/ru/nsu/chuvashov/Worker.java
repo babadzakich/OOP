@@ -1,7 +1,9 @@
 package ru.nsu.chuvashov;
 
 import java.io.*;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.concurrent.*;
 import java.net.Inet4Address;
 import java.net.Socket;
@@ -23,9 +25,9 @@ public class Worker implements Runnable {
     private final ScheduledExecutorService heartbeatExecutor;
     private final ExecutorService taskExecutor;
 
-    public Worker(Inet4Address managerIp) {
-        this.managerIp = managerIp;
-        this.managerPort = Integer.parseInt(System.getenv("MANAGER_PORT"));
+    public Worker() throws UnknownHostException {
+        this.managerIp = (Inet4Address) Inet4Address.getByName(System.getenv().getOrDefault("MANAGER_HOST", "localhost"));
+        this.managerPort = Integer.parseInt(System.getenv().getOrDefault("MANAGER_PORT", "8080"));
         this.heartbeatExecutor = Executors.newSingleThreadScheduledExecutor();
         this.taskExecutor = Executors.newSingleThreadExecutor();
     }
@@ -58,12 +60,12 @@ public class Worker implements Runnable {
                     handleConnectionError();
                 }
             }
-        }, 10, 10, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     private void sendHeartBeat() throws IOException {
         JSONObject heartbeat = new JSONObject();
-        heartbeat.put("type", "heartbeat");
+        heartbeat.put("type", TaskType.HEARTBEAT.toString());
         heartbeat.put("timestamp", System.currentTimeMillis());
         heartbeat.put("worker_id", System.getenv("WORKER_ID"));
 
@@ -72,10 +74,12 @@ public class Worker implements Runnable {
     }
 
     private void sendMessageToManager(String message) throws IOException {
-        byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
-        managerOutput.writeInt(messageBytes.length);
-        managerOutput.write(messageBytes);
-        managerOutput.flush();
+        synchronized (managerOutput) {
+            byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
+            managerOutput.writeInt(messageBytes.length);
+            managerOutput.write(messageBytes);
+            managerOutput.flush();
+        }
     }
 
     private void startTaskProcessor() {
@@ -103,6 +107,8 @@ public class Worker implements Runnable {
                 String receivedData = receiveMessageFromManager();
                 if (receivedData != null) {
                     handleReceivedData(receivedData);
+                } else {
+                    break;
                 }
             } catch (IOException e) {
                 if (isRunning.get()) {
@@ -118,7 +124,7 @@ public class Worker implements Runnable {
         try {
             int messageLength = managerInput.readInt();
 
-            if (messageLength <= 0 || messageLength > 10 * 1024 * 1024) { // Max 10MB
+            if (messageLength <= 0 || messageLength > 10 * 1024 * 1024) {
                 throw new IOException("Invalid message length: " + messageLength);
             }
 
@@ -135,20 +141,19 @@ public class Worker implements Runnable {
     private void handleReceivedData(String data) {
         try {
             JSONObject json = new JSONObject(data);
-            String type = json.optString("type", "unknown");
+            TaskType type = TaskType.valueOf(json.optString("type", "unknown"));
 
             System.out.println("Received data from manager: " + type);
 
             switch (type) {
-                case "task":
-                    // Add task to queue for processing
+                case TASK:
                     taskQueue.offer(json);
                     break;
-                case "shutdown":
+                case SHUTDOWN:
                     System.out.println("Received shutdown command from manager");
                     shutdown();
                     break;
-                case "ping":
+                case PING:
                     handlePing(json);
                     break;
                 default:
@@ -169,7 +174,7 @@ public class Worker implements Runnable {
             System.out.println("Processing task: " + taskId + " with method: " + method);
 
             JSONObject result = new JSONObject();
-            result.put("type", "task_result");
+            result.put("type", TaskType.TASKRESULT.toString());
             result.put("task_id", taskId);
 
             if (method.equals("calculate")) {
@@ -179,7 +184,6 @@ public class Worker implements Runnable {
                 result.put("message", "unknown method: " + method);
             }
 
-            // Send result back to manager
             sendMessageToManager(result.toString());
 
         } catch (Exception e) {
@@ -193,6 +197,7 @@ public class Worker implements Runnable {
                 sendMessageToManager(errorResult.toString());
             } catch (IOException ioException) {
                 System.err.println("Failed to send error result: " + ioException.getMessage());
+                connectToManager();
             }
         }
     }
@@ -205,6 +210,7 @@ public class Worker implements Runnable {
             for (int i = 0; i < dataArray.length(); i++) {
                 data[i] = dataArray.getInt(i);
             }
+//            System.out.println(Arrays.toString(data));
 
             boolean hasNonPrime = performCalculation(data);
 
@@ -243,7 +249,6 @@ public class Worker implements Runnable {
 
         closeConnection();
 
-        // Try to reconnect
         int attempts = 0;
         while (isRunning.get() && attempts < 5) {
             try {
@@ -299,7 +304,7 @@ public class Worker implements Runnable {
          */
         public static boolean isNotPrime(int number) {
             if ((number % 2 == 0 && number != 2) || Math.abs(number) < 2) {
-                return false;
+                return true;
             }
             for (int i = 3; i * i <= number; i += 2) {
                 if (number % i == 0) {
@@ -307,6 +312,30 @@ public class Worker implements Runnable {
                 }
             }
             return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Worker worker = new Worker();
+
+            if (worker.connectToManager()) {
+                Thread workerThread = new Thread(worker);
+                workerThread.start();
+
+                Runtime.getRuntime().addShutdownHook(new Thread(worker::shutdown));
+
+                try {
+                    workerThread.join();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            } else {
+                System.err.println("Failed to connect to manager. Exiting...");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Failed to start worker: " + e.getMessage());
         }
     }
 }

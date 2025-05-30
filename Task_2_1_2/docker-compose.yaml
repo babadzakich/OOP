@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  manager:
+    build: .
+    container_name: prime-manager
+    environment:
+      - MANAGER_PORT=8080
+      - JAVA_OPTS=-cp /app/libs/*:/app/classes ru.nsu.chuvashov.Manager
+    volumes:
+      - /tmp/manager_input:/app/input
+    ports:
+      - "8080:8080"
+    networks:
+      - prime-network
+    command: ["java", "-cp", "/app/app.jar", "ru.nsu.chuvashov.Manager"]
+#    healthcheck:
+#      test: ["CMD-SHELL", "netstat -an | grep 8080 || exit 1"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+
+  worker1:
+    build: .
+    container_name: prime-worker1
+    environment:
+      - MANAGER_HOST=manager
+      - MANAGER_PORT=8080
+      - WORKER_ID=worker-1
+    networks:
+      - prime-network
+    depends_on:
+      - manager
+#        condition: service_healthy
+    command: ["java", "-cp", "/app/app.jar", "ru.nsu.chuvashov.Worker"]
+    restart: unless-stopped
+
+  worker2:
+    build: .
+    container_name: prime-worker2
+    environment:
+      - MANAGER_HOST=manager
+      - MANAGER_PORT=8080
+      - WORKER_ID=worker-2
+    networks:
+      - prime-network
+    depends_on:
+      - manager
+#        condition: service_healthy
+    command: ["java", "-cp", "/app/app.jar", "ru.nsu.chuvashov.Worker"]
+    restart: unless-stopped
+
+  worker3:
+    build: .
+    container_name: prime-worker3
+    environment:
+      - MANAGER_HOST=manager
+      - MANAGER_PORT=8080
+      - WORKER_ID=worker-3
+    networks:
+      - prime-network
+    depends_on:
+      - manager
+#        condition: service_healthy
+    command: ["java", "-cp", "/app/app.jar", "ru.nsu.chuvashov.Worker"]
+    restart: unless-stopped
+
+  worker4:
+    build: .
+    container_name: prime-worker4
+    environment:
+      - MANAGER_HOST=manager
+      - MANAGER_PORT=8080
+      - WORKER_ID=worker-4
+    networks:
+      - prime-network
+    depends_on:
+      - manager
+#        condition: service_healthy
+    command: ["java", "-cp", "/app/app.jar", "ru.nsu.chuvashov.Worker"]
+    restart: unless-stopped
+
+networks:
+  prime-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("jacoco")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "ru.nsu.chuvashov"
@@ -15,7 +16,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
-    testImplementation("org.json:json:20240303")
+    implementation("org.json:json:20240303")
+    implementation("io.javalin:javalin:5.6.1")
 }
 
 tasks.test {
