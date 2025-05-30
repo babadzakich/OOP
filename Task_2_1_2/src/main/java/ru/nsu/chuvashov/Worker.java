@@ -1,17 +1,19 @@
 package ru.nsu.chuvashov;
 
 import java.io.*;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.concurrent.*;
-import java.net.Inet4Address;
-import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Calculation node class.
+ */
 public class Worker implements Runnable {
     private final Inet4Address managerIp;
     private final int managerPort;
@@ -25,13 +27,27 @@ public class Worker implements Runnable {
     private final ScheduledExecutorService heartbeatExecutor;
     private final ExecutorService taskExecutor;
 
+    /**
+     * Constructor.
+     *
+     * @throws UnknownHostException if cant find host.
+     */
     public Worker() throws UnknownHostException {
-        this.managerIp = (Inet4Address) Inet4Address.getByName(System.getenv().getOrDefault("MANAGER_HOST", "localhost"));
-        this.managerPort = Integer.parseInt(System.getenv().getOrDefault("MANAGER_PORT", "8080"));
+        this.managerIp = (Inet4Address) Inet4Address.getByName(
+                System.getenv().getOrDefault("MANAGER_HOST", "localhost")
+        );
+        this.managerPort = Integer.parseInt(
+                System.getenv().getOrDefault("MANAGER_PORT", "8080")
+        );
         this.heartbeatExecutor = Executors.newSingleThreadScheduledExecutor();
         this.taskExecutor = Executors.newSingleThreadExecutor();
     }
 
+    /**
+     * Logic to connect to manager.
+     *
+     * @return true if connected.
+     */
     public boolean connectToManager() {
         try {
             managerSocket = new Socket(managerIp, managerPort);
@@ -50,6 +66,9 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Start heartbeat once in a 10 seconds.
+     */
     private void startHeartbeat() {
         heartbeatExecutor.scheduleAtFixedRate(() -> {
             if (isRunning.get()) {
@@ -63,6 +82,11 @@ public class Worker implements Runnable {
         }, 0, 10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Creates json and sends heartbeat to manager.
+     *
+     * @throws IOException if can`t send heartbeat.
+     */
     private void sendHeartBeat() throws IOException {
         JSONObject heartbeat = new JSONObject();
         heartbeat.put("type", TaskType.HEARTBEAT.toString());
@@ -73,6 +97,13 @@ public class Worker implements Runnable {
         System.out.println("Heartbeat sent to manager");
     }
 
+    /**
+     * Sends message to manager.
+     * First it sends length of message and secondly the message.
+     *
+     * @param message - what to send.
+     * @throws IOException - if can`t send.
+     */
     private void sendMessageToManager(String message) throws IOException {
         synchronized (managerOutput) {
             byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
@@ -82,19 +113,22 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Takes task from queue and starts processing it.
+     */
     private void startTaskProcessor() {
         taskExecutor.submit(() -> {
-           while (isRunning.get()) {
-               try {
-                   JSONObject task = taskQueue.take();
-                   processTask(task);
-               } catch (InterruptedException e) {
-                   Thread.currentThread().interrupt();
-                   break;
-               } catch (Exception e) {
-                   System.err.println("Error processing task: " + e.getMessage());
-               }
-           }
+            while (isRunning.get()) {
+                try {
+                    JSONObject task = taskQueue.take();
+                    processTask(task);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                } catch (Exception e) {
+                    System.err.println("Error processing task: " + e.getMessage());
+                }
+            }
         });
     }
 
@@ -120,6 +154,12 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Gets message from manager.
+     *
+     * @return message itself.
+     * @throws IOException if can`t read from socket.
+     */
     private String receiveMessageFromManager() throws IOException {
         try {
             int messageLength = managerInput.readInt();
@@ -138,6 +178,11 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Parses string to json and handles it.
+     *
+     * @param data - string to parse.
+     */
     private void handleReceivedData(String data) {
         try {
             JSONObject json = new JSONObject(data);
@@ -166,6 +211,11 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Processes task.
+     *
+     * @param task - task json.
+     */
     private void processTask(JSONObject task) {
         try {
             String method = task.optString("method", "unknown");
@@ -202,6 +252,12 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Finds nonprime for given data.
+     *
+     * @param task - task to process.
+     * @param result - where to store result.
+     */
     private void handleCalculateTask(JSONObject task, JSONObject result) {
         try {
             JSONArray dataArray = task.getJSONArray("data");
@@ -210,7 +266,6 @@ public class Worker implements Runnable {
             for (int i = 0; i < dataArray.length(); i++) {
                 data[i] = dataArray.getInt(i);
             }
-//            System.out.println(Arrays.toString(data));
 
             boolean hasNonPrime = performCalculation(data);
 
@@ -223,6 +278,11 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Sends pong responce.
+     *
+     * @param ping - ping json.
+     */
     private void handlePing(JSONObject ping) {
         try {
             JSONObject pong = new JSONObject();
@@ -235,6 +295,12 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Finds nonprime.
+     *
+     * @param data - where to find.
+     * @return true if found nonprime.
+     */
     private boolean performCalculation(int[] data) {
         for (int number : data) {
             if (IsNotPrime.isNotPrime(number)) {
@@ -244,6 +310,9 @@ public class Worker implements Runnable {
         return false;
     }
 
+    /**
+     * Tries to reconnect if connection lost.
+     */
     private void handleConnectionError() {
         System.err.println("Connection to manager lost. Attempting to reconnect...");
 
@@ -268,6 +337,9 @@ public class Worker implements Runnable {
         shutdown();
     }
 
+    /**
+     * Closes connection.
+     */
     private void closeConnection() {
         try {
             if (managerOutput != null) managerOutput.close();
@@ -278,6 +350,9 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Shutdown logic to turn off worker.
+     */
     public void shutdown() {
         System.out.println("Shutting down worker...");
         isRunning.set(false);
@@ -295,6 +370,9 @@ public class Worker implements Runnable {
         System.out.println("Worker shutdown complete");
     }
 
+    /**
+     * Class for prime calculation.
+     */
     public static class IsNotPrime {
         /**
          * Checker for primeness.
@@ -315,6 +393,11 @@ public class Worker implements Runnable {
         }
     }
 
+    /**
+     * Starter of worker.
+     *
+     * @param args - nothing here.
+     */
     public static void main(String[] args) {
         try {
             Worker worker = new Worker();
